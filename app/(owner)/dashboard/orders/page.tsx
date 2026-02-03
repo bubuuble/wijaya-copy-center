@@ -29,15 +29,34 @@ export default async function AdminOrders() {
   console.log("Data Orders:", orders); // Lihat di terminal VS Code kamu
     
   const getStatusBadge = (status: string) => {
-    
+    // 1. Definisikan gaya warna berdasarkan data asli di Database
     const styles: Record<string, string> = {
-      'pending': 'bg-slate-100 text-slate-700',
-      'Diterima': 'bg-blue-100 text-blue-700',
-      'Dibuat': 'bg-amber-100 text-amber-700',
-      'Selesai': 'bg-emerald-100 text-emerald-700',
-      'Dikirim': 'bg-purple-100 text-purple-700',
+      'pending': 'bg-slate-100 text-slate-600 border-slate-200',
+      'Diterima': 'bg-blue-100 text-blue-700 border-blue-200',
+      'Dibuat': 'bg-amber-100 text-amber-800 border-amber-200',
+      'Selesai': 'bg-emerald-100 text-emerald-700 border-emerald-200',
+      'Dikirim': 'bg-purple-100 text-purple-700 border-purple-200',
+      'Dibatalkan': 'bg-red-100 text-red-700 border-red-200',
     };
-    return <Badge className={styles[status] || 'bg-slate-100'}>{status}</Badge>;
+
+    // 2. Logika untuk mengubah label tampilan (Display Name)
+    const displayLabels: Record<string, string> = {
+      'pending': 'Pesanan Pending',
+      'Diterima': 'Pesanan Diterima',
+      'Dibuat': 'Pesanan Dibuat',
+      'Selesai': 'Pesanan Selesai',
+      'Dikirim': 'Proses Pengiriman',
+      'Dibatalkan': 'Pesanan Dibatalkan',
+    };
+
+    return (
+      <Badge 
+        variant="outline" 
+        className={`${styles[status] || 'bg-slate-50 text-slate-400'} font-bold border shrink-0 px-3 py-1 rounded-lg`}
+      >
+        {displayLabels[status] || status}
+      </Badge>
+    );
   };
 
   return (

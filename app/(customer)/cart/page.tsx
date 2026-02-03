@@ -11,12 +11,13 @@ import {
   ShoppingBag, 
   Loader2, 
   ArrowRight,
-  ChevronLeft
+  ChevronLeft,
+  AlertCircle
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-// 1. Definisikan Interface
+// 1. Definisikan Interface dengan properti 'pages'
 interface CartItem {
   id: string;
   user_id: string;
@@ -24,40 +25,49 @@ interface CartItem {
   product_name: string;
   price: number;
   quantity: number;
+  pages: number; // Tambahkan ini !
   created_at: string;
 }
 
 export default function CartPage() {
   const [items, setItems] = useState<CartItem[]>([]);
-  // 2. Set default loading ke true untuk menghindari pemanggilan setLoading(true) di Effect
   const [loading, setLoading] = useState(true); 
-  const { pendingFiles } = useCart();
+  const { pendingFiles, removeFileFromQueue } = useCart();
   const supabase = useMemo(() => createClient(), []);
   const router = useRouter();
 
+  // Logika validasi: Keranjang tidak kosong DAN semua item punya file di memori browser
   const isAllDesignReady = items.length > 0 && items.every(item => pendingFiles[item.id]);
 
-  // 3. Logika fetch di dalam useEffect (Standard Modern React)
+  // 2. Logika fetch yang sudah dioptimasi
   useEffect(() => {
-  let isMounted = true;
+    let isMounted = true;
 
-  async function loadCartData() {
-    // Tambahkan ini untuk memastikan data paling fresh
-    const { data, error } = await supabase
-      .from("cart_items")
-      .select("*")
-      .eq("user_id", (await supabase.auth.getUser()).data.user?.id)
-      .order("created_at", { ascending: false });
+    async function loadCartData() {
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        router.push("/login");
+        return;
+      }
 
-    if (isMounted && !error) {
-      setItems(data || []);
-      setLoading(false);
+      const { data, error } = await supabase
+        .from("cart_items")
+        .select("*")
+        .eq("user_id", user.id)
+        .order("created_at", { ascending: false });
+
+      if (isMounted) {
+        if (!error && data) {
+          setItems(data as CartItem[]);
+        }
+        setLoading(false);
+      }
     }
-  }
 
-  loadCartData();
-  return () => { isMounted = false; };
-}, [supabase]);
+    loadCartData();
+    return () => { isMounted = false; };
+  }, [supabase, router]);
 
   const removeItem = async (id: string) => {
     const { error } = await supabase
@@ -67,13 +77,17 @@ export default function CartPage() {
 
     if (!error) {
       setItems((prevItems) => prevItems.filter((item) => item.id !== id));
+      removeFileFromQueue(id); // Bersihkan file dari context juga 
       router.refresh();
     } else {
       alert("Gagal menghapus item!");
     }
   };
 
-  const subtotal = items.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+  // 3. Hitung Subtotal (Harga x Halaman x Jumlah Cetak)
+  const subtotal = items.reduce((acc, item) => 
+    acc + (item.price * (item.pages || 1) * item.quantity), 0
+  );
 
   if (loading) {
     return (
@@ -85,20 +99,20 @@ export default function CartPage() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-12">
+    <div className="max-w-4xl mx-auto py-12 px-4">
       <div className="flex items-center gap-4 mb-8">
-        <Button variant="ghost" size="icon" asChild>
+        <Button variant="ghost" size="icon" asChild className="rounded-full">
           <Link href="/products"><ChevronLeft /></Link>
         </Button>
-        <h1 className="text-3xl font-black text-slate-900">Keranjang Belanja</h1>
+        <h1 className="text-3xl font-black text-slate-900 uppercase">Keranjang<span className="text-emerald-600 italic">Belanja</span></h1>
       </div>
 
       {items.length === 0 ? (
-        <div className="text-center py-20 bg-emerald-50/50 rounded-3xl border-2 border-dashed border-emerald-100">
+        <div className="text-center py-24 bg-emerald-50/30 rounded-3xl border-2 border-dashed border-emerald-100">
           <ShoppingBag className="mx-auto h-16 w-16 text-emerald-200 mb-4" />
           <h2 className="text-xl font-bold text-slate-700">Keranjang masih kosong</h2>
-          <p className="text-slate-500 mb-8">Ayo cari layanan percetakan yang kamu butuhkan!</p>
-          <Button asChild className="bg-emerald-600 px-8 rounded-full">
+          <p className="text-slate-500 mb-8 max-w-xs mx-auto">Ayo cari layanan percetakan yang kamu butuhkan sekarang!</p>
+          <Button asChild className="bg-emerald-600 px-10 h-12 rounded-full font-bold shadow-lg shadow-emerald-100">
             <Link href="/products">Lihat Produk</Link>
           </Button>
         </div>
@@ -106,41 +120,43 @@ export default function CartPage() {
         <div className="grid gap-8">
           <div className="space-y-4">
             {items.map((item) => (
-              <Card key={item.id} className="overflow-hidden border-emerald-100 shadow-sm hover:shadow-md transition-shadow">
+              <Card key={item.id} className={`overflow-hidden border-emerald-100 shadow-sm transition-all ${!pendingFiles[item.id] ? 'bg-slate-50 opacity-80' : 'hover:shadow-md'}`}>
                 <CardContent className="p-6">
                   <div className="flex flex-col sm:flex-row items-center gap-6">
-                    <div className="w-20 h-20 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-600 font-bold shrink-0 border border-emerald-100 uppercase text-xs">
-                      {item.product_name.substring(0, 6)}
+                    {/* Icon Box */}
+                    <div className="w-20 h-20 bg-emerald-600 rounded-2xl flex flex-col items-center justify-center text-white font-black shrink-0 shadow-inner">
+                      <p className="text-[10px] uppercase">Cetak</p>
+                      <p className="text-lg leading-none">{item.pages || 1}P</p>
                     </div>
 
-                    <div className="flex-1 text-center sm:text-left">
-                      <h3 className="text-xl font-bold text-slate-900">{item.product_name}</h3>
-                      <p className="text-slate-500 font-medium italic">
-                        Rp {item.price.toLocaleString()} x {item.quantity} lembar
+                    <div className="flex-1 text-center sm:text-left space-y-1">
+                      <h3 className="text-xl font-black text-slate-900">{item.product_name}</h3>
+                      <p className="text-slate-500 font-bold text-sm italic">
+                        Rp {item.price.toLocaleString()} x {item.pages || 1} Hal x {item.quantity} Rangkap
                       </p>
                       
                       {pendingFiles[item.id] ? (
-                        <div className="mt-2 inline-flex items-center gap-1.5 bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-xs font-bold">
-                          <FileCheck size={14} /> Desain Siap: {pendingFiles[item.id].name}
+                        <div className="mt-2 inline-flex items-center gap-1.5 bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-tighter shadow-sm border border-emerald-200">
+                          <FileCheck size={12} /> Desain Siap: {pendingFiles[item.id].name}
                         </div>
                       ) : (
-                        <div className="mt-2 inline-flex items-center gap-1.5 bg-amber-100 text-amber-700 px-3 py-1 rounded-full text-xs font-bold">
-                           ⚠️ Desain belum diupload
+                        <div className="mt-2 inline-flex items-center gap-1.5 bg-red-100 text-red-600 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-tighter border border-red-200 shadow-sm">
+                           <AlertCircle size={12} /> Desain Hilang (Upload Ulang!)
                         </div>
                       )}
                     </div>
 
                     <div className="text-right flex flex-col items-center sm:items-end gap-2 shrink-0">
-                      <p className="text-xl font-black text-emerald-600">
-                        Rp {(item.price * item.quantity).toLocaleString()}
+                      <p className="text-2xl font-black text-emerald-600 font-mono">
+                        Rp {(item.price * (item.pages || 1) * item.quantity).toLocaleString()}
                       </p>
                       <Button 
                         variant="ghost" 
                         size="sm" 
-                        className="text-red-500 hover:text-red-600 hover:bg-red-50 gap-2 h-auto p-1"
+                        className="text-red-400 hover:text-red-600 hover:bg-red-50 gap-2 h-auto p-1 font-bold"
                         onClick={() => removeItem(item.id)}
                       >
-                        <Trash2 size={16} /> <span className="text-xs font-bold">Hapus</span>
+                        <Trash2 size={16} /> <span className="text-xs uppercase">Hapus</span>
                       </Button>
                     </div>
                   </div>
@@ -149,33 +165,31 @@ export default function CartPage() {
             ))}
           </div>
 
-          <Card className="bg-slate-900 text-white border-none rounded-3xl overflow-hidden shadow-xl shadow-emerald-100">
+          {/* Subtotal Card */}
+          <Card className="bg-slate-900 text-white border-none rounded-3xl overflow-hidden shadow-2xl shadow-emerald-100">
             <CardContent className="p-8">
-              <div className="flex justify-between items-center mb-6">
-                <span className="text-slate-400 font-medium text-lg">Subtotal Belanja</span>
-                <span className="text-3xl font-black text-emerald-400">
+              <div className="flex justify-between items-center mb-6 border-b border-slate-800 pb-6">
+                <span className="text-slate-400 font-bold text-lg uppercase tracking-widest">Subtotal Belanja</span>
+                <span className="text-4xl font-black text-emerald-400 font-mono">
                   Rp {subtotal.toLocaleString()}
                 </span>
               </div>
 
-              {/* Tampilkan pesan peringatan jika ada file yang hilang */}
-              {!isAllDesignReady && items.length > 0 && (
-                <div className="mb-4 p-3 bg-amber-500/20 border border-amber-500/50 rounded-xl text-amber-200 text-sm text-center italic">
-                  Ada produk yang filenya belum diupload (mungkin karena refresh halaman). 
-                  Mohon lengkapi desain sebelum lanjut.
+              {!isAllDesignReady && (
+                <div className="mb-6 p-4 bg-amber-500/10 border border-amber-500/30 rounded-2xl text-amber-300 text-sm text-center italic flex items-center justify-center gap-2">
+                  <AlertCircle size={18} /> Beberapa desain belum siap. Harap tambahkan ulang dari katalog!
                 </div>
               )}
 
-              {/* Tombol akan ter-disable jika desain tidak lengkap */}
               <Button 
                 disabled={!isAllDesignReady}
                 asChild={isAllDesignReady}
-                className={`w-full h-14 text-white text-lg font-bold rounded-2xl gap-2 transition-all ${
-                  isAllDesignReady ? 'bg-emerald-500 hover:bg-emerald-600' : 'bg-slate-700 cursor-not-allowed opacity-50'
+                className={`w-full h-16 text-white text-xl font-black rounded-2xl gap-3 transition-all ${
+                  isAllDesignReady ? 'bg-emerald-500 hover:bg-emerald-600 shadow-lg shadow-emerald-500/20' : 'bg-slate-800'
                 }`}
               >
                 {isAllDesignReady ? (
-                  <Link href="/checkout">Lanjut ke Pembayaran <ArrowRight size={20} /></Link>
+                  <Link href="/checkout">Lanjut ke Pembayaran <ArrowRight size={24} /></Link>
                 ) : (
                   <span>Lengkapi Desain Dulu</span>
                 )}

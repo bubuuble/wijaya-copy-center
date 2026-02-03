@@ -75,7 +75,7 @@ export default function ProfilePage() {
       .eq('id', user.id);
     
     if (error) {
-      alert("Gagal update euy: " + error.message);
+      alert("Gagal update: " + error.message);
     } else {
       alert("Profil dan alamat berhasil diperbarui!");
     }

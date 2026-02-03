@@ -1,11 +1,12 @@
 "use client";
-import React, { useState, useEffect, use } from "react"; // Tambahkan 'use' dari react
+import React, { useState, useEffect, use } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { client as sanityClient } from "@/sanity/lib/client";
 import { useCart } from "@/context/CartContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ShoppingCart, Loader2, Plus, Minus, ArrowLeft } from "lucide-react";
+import { Label } from "@/components/ui/label";
+import { ShoppingCart, Loader2, Plus, Minus, ArrowLeft, FileText, Printer } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -19,14 +20,12 @@ interface Product {
   imageUrl: string;
 }
 
-// Perhatikan tipe data params sekarang adalah Promise
 export default function ProductDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  // 1. Unwrap params menggunakan hook 'use'
-  const { id } = use(params); 
-
-  const [product, setProduct] = useState<Product | null>(null); 
+  const { id } = use(params);
+  const [product, setProduct] = useState<Product | null>(null);
   const [fetching, setFetching] = useState(true);
   const [qty, setQty] = useState(1);
+  const [pages, setPages] = useState(1); // State baru untuk halaman
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   
@@ -36,36 +35,20 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
 
   useEffect(() => {
     async function getProductData() {
-      // Pastikan id sudah ada sebelum fetch
       if (!id) return;
-
       try {
         const query = `*[_type == "product" && _id == $id][0] {
-  _id, 
-  name, 
-  price, 
-  description, 
-  // Penjelasan: "category" adalah nama alias, 
-  // category->name artinya: ikuti referensi field category lalu ambil field 'name' dari dokumen tujuannya.
-  "category": category->name, 
-  "imageUrl": image.asset->url
-}`;
-        // Gunakan variabel 'id' yang sudah di-unwrap
-        const data = await sanityClient.fetch(query, { id: id });
+          _id, name, price, description, "category": category->name, "imageUrl": image.asset->url
+        }`;
+        const data = await sanityClient.fetch(query, { id });
         setProduct(data);
-      } catch (error) {
-        console.error("Gagal ambil produk:", error);
-      } finally {
-        setFetching(false);
-      }
+      } catch (error) { console.error(error); } finally { setFetching(false); }
     }
     getProductData();
-  }, [id]); // Dependensi ganti ke 'id'
+  }, [id]);
 
   const handleAddToCart = async () => {
     if (!product || !id) return;
-    if (!file) return alert("Upload desain dulu!");
-    
     setLoading(true);
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return router.push("/login");
@@ -77,98 +60,96 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
         product_id: id,
         product_name: product.name,
         price: product.price,
-        quantity: qty
+        quantity: qty,
+        pages: pages // Simpan jumlah halaman
       }])
       .select().single();
 
-    if (error) {
-  alert("Gagal simpan: " + error.message);
-  console.log("Detail Error:", error);
-  }
- else {
+    if (!error && cartItem) {
       if (file) addFileToQueue(cartItem.id, file);
       router.push("/cart");
+    } else {
+      alert("Gagal simpan !");
     }
     setLoading(false);
   };
 
-  // ... (Tampilan Loading & Not Found tetap sama)
-  if (fetching) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
-        <Loader2 className="animate-spin text-emerald-600 w-10 h-10" />
-        <p className="text-slate-500">Memuat detail produk...</p>
-      </div>
-    );
-  }
+  const isPrint = product?.category?.toLowerCase().includes("print");
+  const totalPrice = product ? (product.price * pages * qty) : 0;
 
-  if (!product) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
-        <p className="text-slate-500">Produk tidak ditemukan</p>
-        <Button asChild variant="outline">
-            <Link href="/products">Kembali ke Katalog</Link>
-        </Button>
-      </div>
-    );
-  }
+  if (fetching) return <div className="min-h-[60vh] flex items-center justify-center"><Loader2 className="animate-spin text-emerald-600" /></div>;
+  if (!product) return <div className="p-20 text-center">Produk tidak ada.</div>;
 
   return (
-    <div className="max-w-6xl mx-auto py-12 px-4">
-      <Link href="/products" className="flex items-center text-emerald-600 mb-8 hover:underline gap-2 font-medium">
-        <ArrowLeft size={18} /> Kembali ke Katalog
-      </Link>
-
+    <div className="max-w-6xl mx-auto py-12 px-4 space-y-8">
+      <Link href="/products" className="flex items-center text-emerald-600 gap-2 font-bold hover:underline"><ArrowLeft size={18}/> Kembali</Link>
+      
       <div className="grid md:grid-cols-2 gap-12">
         <div className="aspect-square bg-slate-50 rounded-3xl border overflow-hidden relative">
-          {product.imageUrl ? (
-             <Image src={product.imageUrl} alt={product.name} fill className="object-cover" />
-          ) : (
-            <div className="flex items-center justify-center h-full text-slate-300 italic">No Image</div>
-          )}
+          {product.imageUrl ? <Image src={product.imageUrl} alt={product.name} fill className="object-cover" /> : <div className="flex items-center justify-center h-full text-slate-300">No Image</div>}
         </div>
 
         <div className="space-y-6">
-          <div className="space-y-2">
-            <span className="text-emerald-600 font-bold text-sm tracking-widest uppercase">{product.category}</span>
-            <h1 className="text-4xl font-black text-slate-900">{product.name}</h1>
-            <p className="text-3xl font-bold text-slate-900">Rp {product.price.toLocaleString()}</p>
-          </div>
-
-          <p className="text-slate-600 leading-relaxed italic border-l-4 border-emerald-500 pl-4 bg-emerald-50/50 py-2">
-            &quot;{product.description}&quot;
-          </p>
+          <Badge className="bg-emerald-100 text-emerald-700">{product.category}</Badge>
+          <h1 className="text-4xl font-black text-slate-900">{product.name}</h1>
+          <p className="text-2xl font-bold text-emerald-600">Rp {product.price.toLocaleString()} <span className="text-sm text-slate-400 font-normal">/ halaman</span></p>
+          <p className="text-slate-600 italic border-l-4 border-emerald-500 pl-4">&quot;{product.description}&quot;</p>
           
-          <div className="space-y-6 pt-6 border-t">
-            <div className="flex items-center gap-6">
-              <span className="font-bold text-slate-700">Jumlah Cetak:</span>
-              <div className="flex items-center border-2 rounded-xl p-1 bg-white">
-                <Button variant="ghost" size="icon" onClick={() => setQty(Math.max(1, qty - 1))}><Minus size={18}/></Button>
-                <span className="w-12 text-center font-black text-xl">{qty}</span>
-                <Button variant="ghost" size="icon" onClick={() => setQty(qty + 1)}><Plus size={18}/></Button>
+          <div className="pt-6 border-t grid gap-6">
+            <div className="grid grid-cols-2 gap-4">
+              {isPrint && (
+                <div className="space-y-2">
+                  <Label className="font-bold flex items-center gap-2"><FileText size={16}/> Jumlah Halaman:</Label>
+                  <div className="flex items-center border-2 rounded-xl p-1 bg-white">
+                    <Button variant="ghost" size="icon" onClick={() => setPages(Math.max(1, pages-1))}><Minus size={16}/></Button>
+                    <Input 
+                      type="number" 
+                      min="1" 
+                      value={pages} 
+                      onChange={(e) => setPages(Math.max(1, parseInt(e.target.value) || 1))}
+                      className="w-16 text-center font-bold text-lg border-0 focus-visible:ring-0 h-auto p-0"
+                    />
+                    <Button variant="ghost" size="icon" onClick={() => setPages(pages+1)}><Plus size={16}/></Button>
+                  </div>
+                </div>
+              )}
+              <div className="space-y-2">
+                <Label className="font-bold flex items-center gap-2"><Printer size={16}/> Jumlah Cetak (Rangkap):</Label>
+                <div className="flex items-center border-2 rounded-xl p-1 bg-white">
+                  <Button variant="ghost" size="icon" onClick={() => setQty(Math.max(1, qty-1))}><Minus size={16}/></Button>
+                  <Input 
+                    type="number" 
+                    min="1" 
+                    value={qty} 
+                    onChange={(e) => setQty(Math.max(1, parseInt(e.target.value) || 1))}
+                    className="w-16 text-center font-bold text-lg border-0 focus-visible:ring-0 h-auto p-0"
+                  />
+                  <Button variant="ghost" size="icon" onClick={() => setQty(qty+1)}><Plus size={16}/></Button>
+                </div>
               </div>
             </div>
 
-            <div className="space-y-3">
-              <span className="font-bold text-slate-700 block">Upload Desain (PDF/JPG/PNG):</span>
-              <Input 
-                type="file" 
-                className="bg-white h-12 pt-3 cursor-pointer border-2 focus-visible:ring-emerald-500" 
-                onChange={(e) => setFile(e.target.files?.[0] || null)} 
-              />
+            <div className="p-4 bg-emerald-50 rounded-2xl border-2 border-emerald-100 flex justify-between items-center">
+              <span className="text-emerald-700 font-bold">Total Harga:</span>
+              <span className="text-2xl font-black text-emerald-600 font-mono text-right">Rp {totalPrice.toLocaleString()}</span>
             </div>
 
-            <Button 
-              className="w-full bg-emerald-600 hover:bg-emerald-700 h-14 rounded-2xl font-bold text-lg shadow-xl shadow-emerald-100 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed" 
-              onClick={handleAddToCart} 
-              disabled={loading || !file}
-            >
-              {loading ? <Loader2 className="animate-spin mr-2" /> : <ShoppingCart className="mr-2" />}
-              {loading ? "Memproses..." : !file ? "Upload Desain Dulu" : "Masukkan ke Keranjang"}
+            <div className="space-y-2">
+              <Label className="font-bold">Upload Desain:</Label>
+              <Input type="file" className="h-12 border-2" onChange={(e) => setFile(e.target.files?.[0] || null)} />
+            </div>
+
+            <Button className="w-full h-14 bg-emerald-600 hover:bg-emerald-700 text-lg font-bold rounded-2xl" onClick={handleAddToCart} disabled={loading}>
+              {loading ? <Loader2 className="animate-spin mr-2"/> : <ShoppingCart className="mr-2"/>} 
+              {file ? "Masukkan Keranjang" : "Upload Desain Dulu"}
             </Button>
           </div>
         </div>
       </div>
     </div>
   );
+}
+
+function Badge({children, className}: {children: React.ReactNode, className?: string}) {
+  return <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${className}`}>{children}</span>;
 }

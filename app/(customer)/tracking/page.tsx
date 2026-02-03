@@ -12,6 +12,7 @@ interface Order {
   user_id: string;
   total_amount: number;
   payment_status: string;
+  order_status: string;
   created_at: string;
 }
 
@@ -37,14 +38,30 @@ export default function TrackingPage() {
     fetchMyOrders();
   }, [supabase]);
 
-  const getStatusBadge = (status: string) => {
-    switch (status) {
-      case 'waiting_confirmation': return <Badge className="bg-yellow-100 text-yellow-700 hover:bg-yellow-100">Verifikasi Admin</Badge>;
-      case 'confirmed': return <Badge className="bg-blue-100 text-blue-700 hover:bg-blue-100">Dikonfirmasi</Badge>;
-      case 'rejected': return <Badge className="bg-red-100 text-red-700 hover:bg-red-100">Ditolak</Badge>;
-      case 'Selesai': return <Badge className="bg-emerald-100 text-emerald-700 hover:bg-emerald-100">Selesai</Badge>;
-      default: return <Badge className="bg-slate-100 text-slate-700 hover:bg-slate-100">Pending</Badge>;
+  const getStatusBadge = (order: Order) => {
+    // 1. Jika masih menunggu konfirmasi bayar
+    if (order.payment_status === 'waiting_confirmation') {
+      return <Badge className="bg-amber-100 text-amber-700">Verifikasi Pembayaran</Badge>;
     }
+    
+    // 2. Jika pembayaran ditolak
+    if (order.payment_status === 'rejected') {
+      return <Badge className="bg-red-100 text-red-700">Ditolak</Badge>;
+    }
+
+    // 3. Jika sudah bayar, tampilkan progres produksi (Diterima, Dibuat, Selesai, Dikirim)
+    const styles: Record<string, string> = {
+      'Pesanan Diterima': 'bg-blue-100 text-blue-700',
+      'Pesanan Dibuat': 'bg-orange-100 text-orange-700',
+      'Pesanan Selesai': 'bg-emerald-100 text-emerald-700',
+      'Proses Pengiriman': 'bg-purple-100 text-purple-700',
+    };
+
+    return (
+      <Badge className={`${styles[order.order_status] || 'bg-slate-100 text-slate-700'} font-bold`}>
+        {order.order_status || 'Diproses'}
+      </Badge>
+    );
   };
 
   if (loading) return <div className="min-h-[60vh] flex items-center justify-center"><Loader2 className="animate-spin text-emerald-600" /></div>;
@@ -56,7 +73,7 @@ export default function TrackingPage() {
       {orders.length === 0 ? (
         <Card className="p-12 text-center border-dashed">
           <ShoppingBag className="mx-auto h-12 w-12 text-slate-200 mb-4" />
-          <p className="text-slate-500">Belum ada pesanan euy.</p>
+          <p className="text-slate-500">Belum ada pesanan.</p>
           <Button asChild className="mt-4 bg-emerald-600 rounded-full"><Link href="/products">Mulai Belanja</Link></Button>
         </Card>
       ) : (
@@ -76,7 +93,7 @@ export default function TrackingPage() {
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
-                    {getStatusBadge(order.payment_status)}
+                    {getStatusBadge(order)}
                     <ChevronRight className="text-slate-300 group-hover:text-emerald-500" />
                   </div>
                 </CardContent>
