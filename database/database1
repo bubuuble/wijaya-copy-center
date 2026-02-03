@@ -1,0 +1,46 @@
+-- 1. Tabel Profil (Hubungan ke Auth Supabase)
+create table profiles (
+  id uuid references auth.users on delete cascade primary key,
+  full_name text,
+  role text check (role in ('owner', 'customer')) default 'customer',
+  address text,
+  phone_number text,
+  created_at timestamp with time zone default timezone('utc'::text, now())
+  -- Tambahkan kolom username ke tabel profiles jika belum ada
+  alter table profiles add column if not exists username text unique;
+
+-- Pastikan username diisi saat user mendaftar (via trigger atau manual)
+-- Untuk keperluan prototipe ini, kita akan input manual lewat kode.
+);
+
+-- 2. Tabel Produk
+create table products (
+  id uuid default gen_random_uuid() primary key,
+  name text not null,
+  category text, -- Brosur, Stamp, Print, dll
+  price bigint not null,
+  stock int default 0,
+  description text,
+  image_url text,
+  created_at timestamp with time zone default timezone('utc'::text, now())
+);
+
+-- 3. Tabel Pesanan (Orders)
+create table orders (
+  id uuid default gen_random_uuid() primary key,
+  customer_id uuid references profiles(id),
+  total_price bigint not null,
+  status text check (status in ('pending', 'processing', 'done', 'cancelled')) default 'pending',
+  order_number serial, -- Untuk nomor unik yang disebut di PDF
+  created_at timestamp with time zone default timezone('utc'::text, now())
+);
+
+-- 4. Tabel Detail Pesanan (Order Items)
+create table order_items (
+  id uuid default gen_random_uuid() primary key,
+  order_id uuid references orders(id) on delete cascade,
+  product_id uuid references products(id),
+  quantity int not null,
+  subtotal bigint not null,
+  file_url text -- Untuk menyimpan link file cetakan yang diupload customer
+);
