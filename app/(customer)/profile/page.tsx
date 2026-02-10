@@ -83,27 +83,27 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto py-12 px-4 space-y-8">
-      <h1 className="text-4xl font-bold text-slate-900">
+    <div className="max-w-4xl mx-auto py-8 sm:py-12 px-4 sm:px-6 space-y-6 sm:space-y-8">
+      <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900">
         Profil <span className="text-emerald-600">Saya</span>
       </h1>
 
-      <div className="grid md:grid-cols-3 gap-8">
+      <div className="grid md:grid-cols-3 gap-6 sm:gap-8">
         {/* INFO AKUN */}
         <Card className="md:col-span-1 h-fit shadow-lg border-emerald-100">
-          <CardHeader className="bg-emerald-50/50 border-b">
-            <CardTitle className="text-lg flex items-center gap-2">
-              <User size={18} className="text-emerald-600" /> Info Akun
+          <CardHeader className="bg-emerald-50/50 border-b p-4 sm:p-6">
+            <CardTitle className="text-base sm:text-lg flex items-center gap-2">
+              <User size={16} className="sm:w-[18px] sm:h-[18px] text-emerald-600" /> Info Akun
             </CardTitle>
           </CardHeader>
-          <CardContent className="p-6 space-y-6">
+          <CardContent className="p-4 sm:p-6 space-y-4 sm:space-y-6">
             <div className="space-y-1">
               <Label className="text-xs text-slate-500 font-semibold">Username</Label>
-              <p className="font-bold text-slate-700">{profile.username}</p>
+              <p className="font-bold text-slate-700 text-sm sm:text-base">{profile.username}</p>
             </div>
             <div className="space-y-1">
               <Label className="text-xs text-slate-500 font-semibold">Email Terdaftar</Label>
-              <p className="font-bold text-slate-700 text-sm truncate">{profile.email}</p>
+              <p className="font-bold text-slate-700 text-xs sm:text-sm truncate">{profile.email}</p>
             </div>
             <Separator className="my-4" />
             <Button variant="outline" className="w-full gap-2 text-emerald-600 border-emerald-100 hover:bg-emerald-50 font-bold">
@@ -114,12 +114,12 @@ export default function ProfilePage() {
 
         {/* ALAMAT & KONTAK */}
         <Card className="md:col-span-2 shadow-2xl shadow-emerald-50 border-emerald-100 overflow-hidden">
-          <CardHeader className="border-b bg-slate-900 text-white">
-            <CardTitle className="text-lg flex items-center gap-2 font-bold">
-              <MapPin size={22} className="text-emerald-400" /> Alamat & Kontak Pengiriman
+          <CardHeader className="border-b bg-slate-900 text-white p-4 sm:p-6">
+            <CardTitle className="text-base sm:text-lg flex items-center gap-2 font-bold">
+              <MapPin size={18} className="sm:w-[22px] sm:h-[22px] text-emerald-400" /> Alamat & Kontak Pengiriman
             </CardTitle>
           </CardHeader>
-          <CardContent className="p-8 space-y-8 bg-white">
+          <CardContent className="p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8 bg-white">
             
             <div className="grid gap-6">
               {/* FIELD NOMOR TELEPON */}
@@ -145,20 +145,20 @@ export default function ProfilePage() {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label className="font-bold text-slate-700">Kelurahan</Label>
+                  <Label className="font-bold text-slate-700 text-sm">Kelurahan</Label>
                   <Input value={profile.village} onChange={(e) => setProfile({...profile, village: e.target.value})} placeholder="Kelurahan" className="h-11 border-2" />
                 </div>
                 <div className="space-y-2">
-                  <Label className="font-bold text-slate-700">Kecamatan</Label>
+                  <Label className="font-bold text-slate-700 text-sm">Kecamatan</Label>
                   <Input value={profile.district} onChange={(e) => setProfile({...profile, district: e.target.value})} placeholder="Kecamatan" className="h-11 border-2" />
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label className="font-bold text-slate-700">Kota / Kabupaten</Label>
+                  <Label className="font-bold text-slate-700 text-sm">Kota / Kabupaten</Label>
                   <div className="relative">
                     <Building2 className="absolute left-3 top-3 h-5 w-5 text-slate-300" />
                     <Input 
@@ -179,9 +179,9 @@ export default function ProfilePage() {
             <Button 
               onClick={handleUpdate} 
               disabled={loading} 
-              className="w-full bg-emerald-600 hover:bg-emerald-700 h-16 gap-2 text-xl font-black shadow-lg shadow-emerald-200 transition-all rounded-2xl"
+              className="w-full bg-emerald-600 hover:bg-emerald-700 h-12 sm:h-14 lg:h-16 gap-2 text-base sm:text-lg lg:text-xl font-black shadow-lg shadow-emerald-200 transition-all rounded-2xl"
             >
-              {loading ? <Loader2 className="animate-spin" size={24}/> : <Save size={24}/>}
+              {loading ? <Loader2 className="animate-spin" size={20}/> : <Save size={20}/>}
               {loading ? "Menyimpan Data..." : "Simpan Perubahan"}
             </Button>
           </CardContent>

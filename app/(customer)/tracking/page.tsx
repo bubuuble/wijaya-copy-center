@@ -64,16 +64,16 @@ export default function TrackingPage() {
     );
   };
 
-  if (loading) return <div className="min-h-[60vh] flex items-center justify-center"><Loader2 className="animate-spin text-emerald-600" /></div>;
+  if (loading) return <div className="min-h-[60vh] flex items-center justify-center"><Loader2 className="animate-spin text-emerald-600 w-10 h-10 sm:w-12 sm:h-12" /></div>;
 
   return (
-    <div className="max-w-4xl mx-auto py-12 px-4">
-      <h1 className="text-3xl font-bold text-slate-900 mb-8">Riwayat <span className="text-emerald-600">Pesanan</span></h1>
+    <div className="max-w-4xl mx-auto py-8 sm:py-12 px-4 sm:px-6">
+      <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-6 sm:mb-8">Riwayat <span className="text-emerald-600">Pesanan</span></h1>
 
       {orders.length === 0 ? (
-        <Card className="p-12 text-center border-dashed">
-          <ShoppingBag className="mx-auto h-12 w-12 text-slate-200 mb-4" />
-          <p className="text-slate-500">Belum ada pesanan.</p>
+        <Card className="p-8 sm:p-12 text-center border-dashed">
+          <ShoppingBag className="mx-auto h-10 w-10 sm:h-12 sm:w-12 text-slate-200 mb-4" />
+          <p className="text-slate-500 text-sm sm:text-base">Belum ada pesanan.</p>
           <Button asChild className="mt-4 bg-emerald-600 rounded-full"><Link href="/products">Mulai Belanja</Link></Button>
         </Card>
       ) : (
@@ -81,20 +81,20 @@ export default function TrackingPage() {
           {orders.map((order) => (
             <Link key={order.id} href={`/tracking/${order.id}`}>
               <Card className="hover:border-emerald-500 transition-all cursor-pointer group mb-4">
-                <CardContent className="p-6 flex items-center justify-between">
-                  <div className="flex items-center gap-4">
-                    <div className="bg-emerald-50 p-3 rounded-2xl group-hover:bg-emerald-600 group-hover:text-white transition-colors">
-                      <Clock size={24} />
+                <CardContent className="p-4 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-0">
+                  <div className="flex items-center gap-3 sm:gap-4 w-full sm:w-auto">
+                    <div className="bg-emerald-50 p-2 sm:p-3 rounded-2xl group-hover:bg-emerald-600 group-hover:text-white transition-colors shrink-0">
+                      <Clock size={20} className="sm:w-6 sm:h-6" />
                     </div>
-                    <div>
-                      <p className="text-sm text-slate-400 font-bold">#{order.id.substring(0, 8)}</p>
-                      <h3 className="font-bold text-lg text-slate-800">Total: Rp {order.total_amount.toLocaleString()}</h3>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs sm:text-sm text-slate-400 font-bold truncate">#{order.id.substring(0, 8)}</p>
+                      <h3 className="font-bold text-base sm:text-lg text-slate-800 truncate">Total: Rp {order.total_amount.toLocaleString()}</h3>
                       <p className="text-xs text-slate-400">{new Date(order.created_at).toLocaleDateString()}</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-3 sm:gap-4 w-full sm:w-auto justify-between sm:justify-end">
                     {getStatusBadge(order)}
-                    <ChevronRight className="text-slate-300 group-hover:text-emerald-500" />
+                    <ChevronRight className="text-slate-300 group-hover:text-emerald-500 shrink-0" />
                   </div>
                 </CardContent>
               </Card>

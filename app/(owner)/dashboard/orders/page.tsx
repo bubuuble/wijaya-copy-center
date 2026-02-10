@@ -60,15 +60,15 @@ export default async function AdminOrders() {
   };
 
   return (
-    <div className="p-8 space-y-6">
+    <div className="p-4 md:p-6 lg:p-8 space-y-6">
       <div className="flex items-center gap-3">
         <div className="bg-emerald-600 p-2 rounded-lg text-white">
-          <ShoppingCart size={24} />
+          <ShoppingCart size={20} className="sm:w-6 sm:h-6" />
         </div>
-        <h1 className="text-3xl font-bold text-slate-900">Kelola <span className="text-emerald-600">Pesanan</span></h1>
+        <h1 className="text-2xl sm:text-3xl font-bold text-slate-900">Kelola <span className="text-emerald-600">Pesanan</span></h1>
       </div>
 
-      <div className="border rounded-3xl bg-white overflow-hidden shadow-sm">
+      <div className="border rounded-3xl bg-white overflow-x-auto shadow-sm">
         <Table>
           <TableHeader className="bg-slate-50">
             <TableRow>

@@ -121,17 +121,17 @@ export default async function AdminDashboard() {
   ];
 
   return (
-    <div className="p-8 space-y-10 animate-fade-in">
-      <div className="flex justify-between items-center animate-slide-up">
+    <div className="p-4 md:p-6 lg:p-8 space-y-6 md:space-y-8 lg:space-y-10 animate-fade-in">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 animate-slide-up">
         <div>
-          <h1 className="text-5xl font-bold text-slate-900">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900">
             Dashboard <span className="text-gradient">Admin</span>
           </h1>
-          <p className="text-sm text-slate-500 mt-2">Kelola bisnis percetakan Anda dengan mudah</p>
+          <p className="text-xs sm:text-sm text-slate-500 mt-2">Kelola bisnis percetakan Anda dengan mudah</p>
         </div>
-        <div className="glass px-5 py-3 rounded-2xl border border-emerald-200/50">
+        <div className="glass px-4 py-2 sm:px-5 sm:py-3 rounded-2xl border border-emerald-200/50">
           <p className="text-xs text-slate-500 font-semibold">Live Update</p>
-          <p className="text-sm text-emerald-600 font-sans font-bold">{new Date().toLocaleTimeString('id-ID')} WIB</p>
+          <p className="text-xs sm:text-sm text-emerald-600 font-sans font-bold">{new Date().toLocaleTimeString('id-ID')} WIB</p>
         </div>
       </div>
       
@@ -159,21 +159,21 @@ export default async function AdminDashboard() {
         ))}
       </div>
 
-      <div className="grid md:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
         {/* GRAFIK PENJUALAN */}
-        <Card className="md:col-span-2 glass border-emerald-200/30 rounded-3xl p-8 hover-lift">
-          <div className="flex justify-between items-start mb-6">
+        <Card className="lg:col-span-2 glass border-emerald-200/30 rounded-3xl p-4 sm:p-6 lg:p-8 hover-lift">
+          <div className="flex flex-col sm:flex-row justify-between items-start gap-4 sm:gap-6 mb-6">
             <div>
-              <CardTitle className="text-2xl font-display font-bold text-slate-900 flex items-center gap-3">
+              <CardTitle className="text-xl sm:text-2xl font-display font-bold text-slate-900 flex items-center gap-2 sm:gap-3">
                 <div className="p-2 bg-gradient-to-br from-emerald-500 to-teal-400 rounded-xl">
-                  <TrendingUp className="text-white" size={20} strokeWidth={2.5} />
+                  <TrendingUp className="text-white" size={18} strokeWidth={2.5} />
                 </div>
                 Statistik Pendapatan
               </CardTitle>
-              <p className="text-sm text-slate-500 font-sans mt-2">Analisis performa penjualan</p>
+              <p className="text-xs sm:text-sm text-slate-500 font-sans mt-2">Analisis performa penjualan</p>
             </div>
-            <div className="text-right">
-              <p className="text-3xl font-bold text-gradient">
+            <div className="text-left sm:text-right">
+              <p className="text-2xl sm:text-3xl font-bold text-gradient">
                 Rp {totalRevenue.toLocaleString('id-ID')}
               </p>
               <p className="text-xs text-slate-500 font-semibold mt-1">Total Gross</p>
@@ -183,13 +183,13 @@ export default async function AdminDashboard() {
         </Card>
 
         {/* Tips Card */}
-        <Card className="rounded-3xl border-none bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-500 p-8 text-white flex flex-col justify-between shadow-2xl shadow-emerald-500/30 hover-lift overflow-hidden relative">
+        <Card className="rounded-3xl border-none bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-500 p-6 sm:p-8 text-white flex flex-col justify-between shadow-2xl shadow-emerald-500/30 hover-lift overflow-hidden relative">
           {/* Decorative Elements */}
           <div className="absolute -top-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-2xl" />
           <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-amber-400/20 rounded-full blur-2xl" />
           
           <div className="relative space-y-4">
-            <h3 className="text-2xl font-display font-bold">Tips Admin</h3>
+            <h3 className="text-xl sm:text-2xl font-display font-bold">Tips Admin</h3>
             <p className="text-emerald-50 font-sans text-sm leading-relaxed">
               Pastikan selalu cek bukti transfer di menu <b className="text-white">Pesanan</b> sebelum memproses cetakan. 
               Klik &quot;Terima&quot; agar status pengerjaan otomatis berubah jadi <b className="text-white">Diterima</b>.

@@ -51,23 +51,23 @@ export default async function ProductsPage() {
           <div className="absolute top-10 -left-20 w-48 h-48 bg-gradient-to-br from-amber-400/20 to-orange-400/20 rounded-full blur-3xl" />
         </div>
         
-        <div className="max-w-7xl mx-auto px-4 py-16 relative z-10">
-          <div className="inline-flex items-center space-x-2 glass rounded-full px-4 py-2 mb-6 border border-emerald-500/20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 relative z-10">
+          <div className="inline-flex items-center space-x-2 glass rounded-full px-4 py-2 mb-4 sm:mb-6 border border-emerald-500/20">
             <Sparkles size={16} className="text-amber-500 animate-pulse" />
-            <span className="text-sm font-semibold text-slate-700">Koleksi Lengkap</span>
+            <span className="text-xs sm:text-sm font-semibold text-slate-700">Koleksi Lengkap</span>
           </div>
-          <h1 className="text-5xl font-bold text-slate-900 mb-4">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-3 sm:mb-4">
             <span className="text-gradient">Katalog Produk</span>
           </h1>
-          <p className="text-lg text-slate-600 max-w-2xl font-medium leading-relaxed">
+          <p className="text-sm sm:text-base lg:text-lg text-slate-600 max-w-2xl font-medium leading-relaxed">
             Jelajahi berbagai solusi percetakan kami. Dari dokumen harian hingga kebutuhan promosi bisnis berskala besar.
           </p>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 mt-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 sm:mt-10">
         {/* Filter & Search Bar */}
-        <div className="flex flex-col md:flex-row gap-4 mb-12 animate-slide-up">
+        <div className="flex flex-col gap-3 sm:gap-4 mb-8 sm:mb-12 animate-slide-up">
           <div className="relative flex-1">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
             <Input 

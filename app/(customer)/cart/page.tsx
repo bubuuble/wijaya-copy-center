@@ -104,25 +104,25 @@ export default function CartPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50/20 to-amber-50/20 pb-20">
-      <div className="max-w-4xl mx-auto py-12 px-4">
-        <div className="flex items-center gap-4 mb-10 animate-slide-up">
-          <Button variant="ghost" size="icon" asChild className="rounded-full hover:bg-emerald-50">
+      <div className="max-w-4xl mx-auto py-8 sm:py-12 px-4 sm:px-6">
+        <div className="flex items-center gap-3 sm:gap-4 mb-8 sm:mb-10 animate-slide-up">
+          <Button variant="ghost" size="icon" asChild className="rounded-full hover:bg-emerald-50 shrink-0">
             <Link href="/products"><ChevronLeft className="h-5 w-5" /></Link>
           </Button>
-          <h1 className="text-4xl font-bold">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold">
             <span className="text-slate-900">Keranjang </span>
             <span className="text-gradient">Belanja</span>
           </h1>
         </div>
 
         {items.length === 0 ? (
-          <div className="text-center py-24 glass rounded-3xl border-2 border-dashed border-emerald-200 animate-fade-in">
-            <div className="bg-gradient-to-br from-emerald-500 to-teal-600 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-emerald-200">
-              <ShoppingBag className="h-10 w-10 text-white" />
+          <div className="text-center py-16 sm:py-24 glass rounded-3xl border-2 border-dashed border-emerald-200 animate-fade-in">
+            <div className="bg-gradient-to-br from-emerald-500 to-teal-600 w-16 h-16 sm:w-20 sm:h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6 shadow-lg shadow-emerald-200">
+              <ShoppingBag className="h-8 w-8 sm:h-10 sm:w-10 text-white" />
             </div>
-            <h2 className="text-2xl font-bold text-slate-900 mb-2">Keranjang masih kosong</h2>
-            <p className="text-slate-600 mb-8 max-w-xs mx-auto font-medium">Ayo cari layanan percetakan yang kamu butuhkan sekarang!</p>
-            <Button asChild size="lg" className="px-10 h-12 rounded-full group">
+            <h2 className="text-xl sm:text-2xl font-bold text-slate-900 mb-2">Keranjang masih kosong</h2>
+            <p className="text-sm sm:text-base text-slate-600 mb-6 sm:mb-8 max-w-xs mx-auto font-medium px-4">Ayo cari layanan percetakan yang kamu butuhkan sekarang!</p>
+            <Button asChild size="lg" className="px-8 sm:px-10 h-11 sm:h-12 rounded-full group">
               <Link href="/products">
                 <Sparkles className="mr-2 h-5 w-5" />
                 Lihat Produk
@@ -150,26 +150,28 @@ export default function CartPage() {
                       </div>
 
                       <div className="flex-1 text-center sm:text-left space-y-2">
-                        <h3 className="text-xl font-bold text-slate-900">{item.product_name}</h3>
-                        <p className="text-slate-600 font-semibold text-sm">
+                        <h3 className="text-lg sm:text-xl font-bold text-slate-900">{item.product_name}</h3>
+                        <p className="text-slate-600 font-semibold text-xs sm:text-sm">
                           Rp {item.price.toLocaleString()} × {item.pages || 1} Hal × {item.quantity} Rangkap
                         </p>
                         
                         {pendingFiles[item.id] ? (
-                          <div className="mt-2 inline-flex items-center gap-2 glass border border-emerald-500/30 text-emerald-700 px-4 py-2 rounded-full text-xs font-bold">
+                          <div className="mt-2 inline-flex items-center gap-2 glass border border-emerald-500/30 text-emerald-700 px-3 sm:px-4 py-2 rounded-full text-xs font-bold">
                             <FileCheck size={14} /> 
-                            <span>Desain Siap: {pendingFiles[item.id].name}</span>
+                            <span className="hidden sm:inline">Desain Siap: {pendingFiles[item.id].name}</span>
+                            <span className="sm:hidden">Desain Siap</span>
                           </div>
                         ) : (
-                          <div className="mt-2 inline-flex items-center gap-2 bg-red-50 border border-red-200 text-red-600 px-4 py-2 rounded-full text-xs font-bold shadow-sm">
+                          <div className="mt-2 inline-flex items-center gap-2 bg-red-50 border border-red-200 text-red-600 px-3 sm:px-4 py-2 rounded-full text-xs font-bold shadow-sm">
                             <AlertCircle size={14} /> 
-                            <span>Desain Hilang (Upload Ulang!)</span>
+                            <span className="hidden sm:inline">Desain Hilang (Upload Ulang!)</span>
+                            <span className="sm:hidden">Desain Hilang</span>
                           </div>
                         )}
                       </div>
 
-                      <div className="text-right flex flex-col items-center sm:items-end gap-3 shrink-0">
-                        <p className="text-2xl font-bold text-emerald-600">
+                      <div className="text-center sm:text-right flex flex-col items-center sm:items-end gap-2 sm:gap-3 shrink-0">
+                        <p className="text-xl sm:text-2xl font-bold text-emerald-600">
                           Rp {(item.price * (item.pages || 1) * item.quantity).toLocaleString()}
                         </p>
                         <Button 
@@ -192,16 +194,16 @@ export default function CartPage() {
           <Card className="glass border-2 border-emerald-500/20 rounded-3xl overflow-hidden shadow-2xl animate-slide-up">
             <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-500" />
             
-            <CardContent className="p-8">
-              <div className="flex justify-between items-center mb-6 pb-6 border-b border-slate-200">
-                <span className="text-lg font-bold text-slate-700">Subtotal Belanja</span>
-                <span className="text-4xl font-bold text-gradient">
+            <CardContent className="p-4 sm:p-6 lg:p-8">
+              <div className="flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-0 mb-4 sm:mb-6 pb-4 sm:pb-6 border-b border-slate-200">
+                <span className="text-base sm:text-lg font-bold text-slate-700">Subtotal Belanja</span>
+                <span className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gradient">
                   Rp {subtotal.toLocaleString()}
                 </span>
               </div>
 
               {!isAllDesignReady && (
-                <div className="mb-6 p-4 bg-amber-50 border-2 border-amber-200 rounded-xl text-amber-700 text-sm text-center font-semibold flex items-center justify-center gap-2 animate-pulse">
+                <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-amber-50 border-2 border-amber-200 rounded-xl text-amber-700 text-xs sm:text-sm text-center font-semibold flex items-center justify-center gap-2 animate-pulse">
                   <AlertCircle size={18} /> 
                   <span>Beberapa desain belum siap. Harap tambahkan ulang dari katalog!</span>
                 </div>
@@ -211,7 +213,7 @@ export default function CartPage() {
                 disabled={!isAllDesignReady}
                 asChild={isAllDesignReady}
                 size="lg"
-                className={`w-full h-14 text-lg font-bold rounded-2xl gap-3 transition-all group ${
+                className={`w-full h-12 sm:h-14 text-base sm:text-lg font-bold rounded-2xl gap-2 sm:gap-3 transition-all group ${
                   isAllDesignReady ? '' : 'bg-slate-300 text-slate-500 cursor-not-allowed'
                 }`}
               >

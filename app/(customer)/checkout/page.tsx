@@ -136,60 +136,60 @@ export default function CheckoutPage() {
 
   // --- RENDER UI (LOGIC STATUS SAMA SEPERTI SEBELUMNYA) ---
   if (status === "processing") return (
-    <div className="flex flex-col items-center justify-center min-h-[70vh] gap-6 p-6 text-center font-sans">
-      <Loader2 className="animate-spin w-16 h-16 text-emerald-600" />
+    <div className="flex flex-col items-center justify-center min-h-[70vh] gap-4 sm:gap-6 p-4 sm:p-6 text-center font-sans">
+      <Loader2 className="animate-spin w-12 h-12 sm:w-16 sm:h-16 text-emerald-600" />
       <div className="space-y-2">
-        <h2 className="text-2xl font-black">{uploadText}</h2>
-        <p className="text-slate-500 italic">Mohon tidak menutup halaman...</p>
+        <h2 className="text-xl sm:text-2xl font-black px-4">{uploadText}</h2>
+        <p className="text-sm sm:text-base text-slate-500 italic">Mohon tidak menutup halaman...</p>
       </div>
-      <Progress value={progress} className="w-full max-w-md h-3" />
+      <Progress value={progress} className="w-full max-w-md h-2 sm:h-3" />
     </div>
   );
 
   if (status === "success") return (
-    <div className="flex flex-col items-center justify-center min-h-[70vh] text-center p-6 gap-6">
-      <div className="bg-emerald-100 p-6 rounded-full animate-bounce">
-        <CheckCircle2 className="w-20 h-20 text-emerald-600" />
+    <div className="flex flex-col items-center justify-center min-h-[70vh] text-center p-4 sm:p-6 gap-4 sm:gap-6">
+      <div className="bg-emerald-100 p-4 sm:p-6 rounded-full animate-bounce">
+        <CheckCircle2 className="w-16 h-16 sm:w-20 sm:h-20 text-emerald-600" />
       </div>
-      <h2 className="text-3xl font-bold text-slate-900">Pesanan Terkirim!</h2>
+      <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">Pesanan Terkirim!</h2>
       <p className="text-slate-500 font-bold text-xs">Order ID: {orderId.substring(0,8)}</p>
-      <Button onClick={() => router.push("/tracking")} className="bg-emerald-600 px-10 h-14 rounded-2xl text-lg font-bold shadow-lg shadow-emerald-200">Lacak Pesanan</Button>
+      <Button onClick={() => router.push("/tracking")} className="bg-emerald-600 px-8 sm:px-10 h-12 sm:h-14 rounded-2xl text-base sm:text-lg font-bold shadow-lg shadow-emerald-200">Lacak Pesanan</Button>
     </div>
   );
 
   return (
-    <div className="max-w-6xl mx-auto py-12 px-4">
-      <h1 className="text-4xl font-bold text-slate-900 mb-10 flex items-center gap-3">
-        <Receipt className="text-emerald-600" /> Checkout & <span className="text-emerald-600">Pembayaran</span>
+    <div className="max-w-6xl mx-auto py-8 sm:py-12 px-4 sm:px-6">
+      <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-6 sm:mb-10 flex items-center gap-2 sm:gap-3">
+        <Receipt className="text-emerald-600 w-6 h-6 sm:w-8 sm:h-8" /> Checkout & <span className="text-emerald-600">Pembayaran</span>
       </h1>
 
-      <div className="grid lg:grid-cols-3 gap-10">
+      <div className="grid lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
         <div className="lg:col-span-2 space-y-6">
           <Card className="border-emerald-100 shadow-sm rounded-3xl overflow-hidden">
-            <CardHeader className="bg-emerald-50 border-b border-emerald-100">
-              <CardTitle className="text-lg flex items-center gap-2 font-bold text-emerald-800">
-                <FileText size={20} /> Rincian Belanja
+            <CardHeader className="bg-emerald-50 border-b border-emerald-100 p-4 sm:p-6">
+              <CardTitle className="text-base sm:text-lg flex items-center gap-2 font-bold text-emerald-800">
+                <FileText size={18} className="sm:w-5 sm:h-5" /> Rincian Belanja
               </CardTitle>
             </CardHeader>
             <CardContent className="p-0">
               <div className="divide-y divide-emerald-50">
                 {cartItems.map((item) => (
-                  <div key={item.id} className="p-6 flex justify-between items-center">
+                  <div key={item.id} className="p-4 sm:p-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0">
                     <div>
-                      <p className="font-bold text-slate-900 text-lg">{item.product_name}</p>
-                      <p className="text-sm text-slate-500 font-medium">
+                      <p className="font-bold text-slate-900 text-base sm:text-lg">{item.product_name}</p>
+                      <p className="text-xs sm:text-sm text-slate-500 font-medium">
                         {item.pages} Hal x {item.quantity} Rangkap (Rp {item.price.toLocaleString()}/hal)
                       </p>
                     </div>
-                    <p className="font-bold text-slate-900 text-xl">
+                    <p className="font-bold text-slate-900 text-lg sm:text-xl">
                       Rp {(item.price * item.pages * item.quantity).toLocaleString()}
                     </p>
                   </div>
                 ))}
               </div>
-              <div className="p-8 bg-slate-900 text-white flex justify-between items-center">
-                <span className="text-slate-400 font-bold">Total Bayar:</span>
-                <span className="text-4xl font-bold text-emerald-400">
+              <div className="p-4 sm:p-6 lg:p-8 bg-slate-900 text-white flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-0">
+                <span className="text-slate-400 font-bold text-sm sm:text-base">Total Bayar:</span>
+                <span className="text-2xl sm:text-3xl lg:text-4xl font-bold text-emerald-400">
                   Rp {subtotal.toLocaleString()}
                 </span>
               </div>
@@ -197,12 +197,12 @@ export default function CheckoutPage() {
           </Card>
         </div>
 
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
           <Card className="border-2 border-emerald-500 shadow-2xl rounded-[40px] overflow-hidden">
-            <CardContent className="flex flex-col items-center gap-6 p-8">
-              <p className="text-emerald-600 font-bold text-sm">Scan QRIS untuk Bayar</p>
-              <div className="p-6 bg-white border-2 border-slate-100 rounded-3xl shadow-inner">
-                <QrCode size={180} className="text-slate-900" />
+            <CardContent className="flex flex-col items-center gap-4 sm:gap-6 p-6 sm:p-8">
+              <p className="text-emerald-600 font-bold text-xs sm:text-sm">Scan QRIS untuk Bayar</p>
+              <div className="p-4 sm:p-6 bg-white border-2 border-slate-100 rounded-3xl shadow-inner">
+                <QrCode size={150} className="sm:w-[180px] sm:h-[180px] text-slate-900" />
               </div>
               <p className="text-[10px] text-center text-slate-400 font-bold">
                 A/N Percetakan Wijaya Utama<br />Gunakan E-Wallet atau M-Banking
@@ -217,12 +217,12 @@ export default function CheckoutPage() {
               </label>
               <Input 
                 type="file" 
-                className="bg-white h-14 pt-4 border-2 rounded-2xl cursor-pointer hover:border-emerald-300 transition-all font-bold" 
+                className="bg-white h-12 sm:h-14 pt-3 sm:pt-4 border-2 rounded-2xl cursor-pointer hover:border-emerald-300 transition-all font-bold text-sm" 
                 onChange={(e) => setProofFile(e.target.files?.[0] || null)} 
               />
             </div>
             <Button 
-              className="w-full h-16 bg-emerald-600 hover:bg-emerald-700 text-xl font-black rounded-2xl shadow-xl shadow-emerald-100 transition-all active:scale-95" 
+              className="w-full h-12 sm:h-14 lg:h-16 bg-emerald-600 hover:bg-emerald-700 text-base sm:text-lg lg:text-xl font-black rounded-2xl shadow-xl shadow-emerald-100 transition-all active:scale-95" 
               onClick={handleFinalProcess}
             >
               KONFIRMASI BAYAR
