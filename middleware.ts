@@ -29,7 +29,31 @@ export async function middleware(request: NextRequest) {
                      request.nextUrl.pathname.startsWith('/register');
   
   if (user && isAuthPage) {
+    // Cek role user
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', user.id)
+      .single();
+
+    // Redirect owner ke dashboard, customer ke homepage
+    if (profile?.role === 'owner') {
+      return NextResponse.redirect(new URL('/dashboard', request.url))
+    }
     return NextResponse.redirect(new URL('/', request.url))
+  }
+
+  // Redirect owner dari homepage ke dashboard
+  if (user && request.nextUrl.pathname === '/') {
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', user.id)
+      .single();
+
+    if (profile?.role === 'owner') {
+      return NextResponse.redirect(new URL('/dashboard', request.url))
+    }
   }
 
   // 2. PROTEKSI: Jika BELUM login, dilarang ke Dashboard Owner atau Profile
