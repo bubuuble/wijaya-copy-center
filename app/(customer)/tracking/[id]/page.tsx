@@ -63,8 +63,8 @@ export default function OrderTrackingDetail({ params }: { params: Promise<{ id: 
 
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
         <div>
-          <h1 className="text-3xl font-black text-slate-900 uppercase tracking-tighter">Status Pesanan</h1>
-          <p className="text-slate-500 font-mono text-sm uppercase">ID: {order?.id.substring(0,13)}...</p>
+          <h1 className="text-3xl font-bold text-slate-900">Status Pesanan</h1>
+          <p className="text-slate-500 font-mono text-sm">ID: {order?.id.substring(0,13)}...</p>
         </div>
         <Badge className="bg-emerald-600 text-white h-10 px-6 text-lg rounded-xl shadow-lg shadow-emerald-100 animate-pulse">
           {getDisplayStatus()}
@@ -80,21 +80,21 @@ export default function OrderTrackingDetail({ params }: { params: Promise<{ id: 
             {items.map((item, idx) => (
               <div key={idx} className="p-6 flex justify-between items-center hover:bg-slate-50 transition-colors">
                 <div>
-                  <p className="font-black text-slate-900 text-xl">{item.product_name}</p>
+                  <p className="font-bold text-slate-900 text-xl">{item.product_name}</p>
                   {/* PERBAIKAN: Menampilkan Halaman x Rangkap! */}
-                  <p className="text-sm text-slate-500 font-bold italic">
+                  <p className="text-sm text-slate-500 font-medium">
                     {item.pages || 1} Halaman x {item.quantity} Rangkap
                   </p>
                 </div>
-                <p className="font-black text-emerald-600 text-xl font-mono">
+                <p className="font-bold text-emerald-600 text-xl">
                   Rp {(item.price * (item.pages || 1) * item.quantity).toLocaleString()}
                 </p>
               </div>
             ))}
           </div>
           <div className="p-8 bg-emerald-50 flex justify-between items-center border-t-2 border-emerald-100">
-            <span className="font-black text-emerald-800 flex items-center gap-2 text-lg">TOTAL BAYAR</span>
-            <span className="text-3xl font-black text-emerald-900 italic font-mono">Rp {order?.total_amount.toLocaleString()}</span>
+            <span className="font-bold text-emerald-800 flex items-center gap-2 text-lg">Total Bayar</span>
+            <span className="text-3xl font-bold text-emerald-900">Rp {order?.total_amount.toLocaleString()}</span>
           </div>
         </CardContent>
       </Card>

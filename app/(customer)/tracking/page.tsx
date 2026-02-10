@@ -68,7 +68,7 @@ export default function TrackingPage() {
 
   return (
     <div className="max-w-4xl mx-auto py-12 px-4">
-      <h1 className="text-3xl font-black text-slate-900 mb-8 italic">RIWAYAT<span className="text-emerald-600">PESANAN</span></h1>
+      <h1 className="text-3xl font-bold text-slate-900 mb-8">Riwayat <span className="text-emerald-600">Pesanan</span></h1>
 
       {orders.length === 0 ? (
         <Card className="p-12 text-center border-dashed">
@@ -87,7 +87,7 @@ export default function TrackingPage() {
                       <Clock size={24} />
                     </div>
                     <div>
-                      <p className="text-sm text-slate-400 font-bold">#{order.id.substring(0, 8).toUpperCase()}</p>
+                      <p className="text-sm text-slate-400 font-bold">#{order.id.substring(0, 8)}</p>
                       <h3 className="font-bold text-lg text-slate-800">Total: Rp {order.total_amount.toLocaleString()}</h3>
                       <p className="text-xs text-slate-400">{new Date(order.created_at).toLocaleDateString()}</p>
                     </div>

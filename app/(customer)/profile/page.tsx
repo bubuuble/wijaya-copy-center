@@ -84,8 +84,8 @@ export default function ProfilePage() {
 
   return (
     <div className="max-w-4xl mx-auto py-12 px-4 space-y-8">
-      <h1 className="text-4xl font-black text-slate-900 tracking-tight italic">
-        PROFIL<span className="text-emerald-600 underline decoration-slate-200">SAYA</span>
+      <h1 className="text-4xl font-bold text-slate-900">
+        Profil <span className="text-emerald-600">Saya</span>
       </h1>
 
       <div className="grid md:grid-cols-3 gap-8">
@@ -98,11 +98,11 @@ export default function ProfilePage() {
           </CardHeader>
           <CardContent className="p-6 space-y-6">
             <div className="space-y-1">
-              <Label className="text-[10px] text-slate-400 font-black uppercase tracking-widest">Username</Label>
+              <Label className="text-xs text-slate-500 font-semibold">Username</Label>
               <p className="font-bold text-slate-700">{profile.username}</p>
             </div>
             <div className="space-y-1">
-              <Label className="text-[10px] text-slate-400 font-black uppercase tracking-widest">Email Terdaftar</Label>
+              <Label className="text-xs text-slate-500 font-semibold">Email Terdaftar</Label>
               <p className="font-bold text-slate-700 text-sm truncate">{profile.email}</p>
             </div>
             <Separator className="my-4" />

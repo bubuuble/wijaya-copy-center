@@ -110,8 +110,8 @@ const handleUpdateProgress = async (newStatus: string) => {
     <div className="p-8 max-w-6xl mx-auto space-y-8 pb-20">
       <div className="flex justify-between items-end border-b pb-6">
         <div>
-          <h1 className="text-3xl font-black text-slate-900 uppercase">Pesanan #{order.id.substring(0, 8).toUpperCase()}</h1>
-          <p className="text-slate-500 font-medium tracking-tight">Dikelola oleh Wijaya Admin</p>
+          <h1 className="text-3xl font-bold text-slate-900">Pesanan #{order.id.substring(0, 8)}</h1>
+          <p className="text-slate-500 font-medium">Dikelola oleh Wijaya Admin</p>
         </div>
         <div className="text-right space-y-2">
           <Badge className="bg-slate-900 text-emerald-400 px-4 py-1">Payment: {order.payment_status}</Badge>
@@ -149,7 +149,7 @@ const handleUpdateProgress = async (newStatus: string) => {
           </Card>
 
           <Card className="shadow-lg rounded-3xl border-slate-200">
-            <CardHeader><CardTitle className="text-slate-700 flex items-center gap-2 font-black italic uppercase text-sm tracking-widest"><MapPin size={20}/> Data Pemesan & Alamat</CardTitle></CardHeader>
+            <CardHeader><CardTitle className="text-slate-700 flex items-center gap-2 font-bold text-sm"><MapPin size={20}/> Data Pemesan & Alamat</CardTitle></CardHeader>
             <CardContent className="grid md:grid-cols-2 gap-6 text-sm">
               <div className="space-y-3">
                 <p><b>Email:</b> {order.profiles?.email}</p>
@@ -172,7 +172,7 @@ const handleUpdateProgress = async (newStatus: string) => {
         <div className="space-y-6">
             <Card className="border-amber-200 bg-amber-50/30 rounded-3xl overflow-hidden shadow-sm">
                 <CardHeader className="bg-amber-100/50 border-b border-amber-200">
-                    <CardTitle className="text-sm uppercase font-black tracking-widest text-amber-700 flex items-center gap-2">
+                    <CardTitle className="text-sm font-bold text-amber-700 flex items-center gap-2">
                     <FileImage size={18}/> Verifikasi Bukti Bayar
                     </CardTitle>
                 </CardHeader>
@@ -219,7 +219,7 @@ const handleUpdateProgress = async (newStatus: string) => {
           {order.payment_status === 'confirmed' && (
             <Card className="border-emerald-500 bg-emerald-50/20 rounded-3xl overflow-hidden shadow-xl">
               <CardHeader className="bg-emerald-600 text-white">
-                <CardTitle className="text-sm uppercase font-black flex items-center gap-2">
+                <CardTitle className="text-sm font-bold flex items-center gap-2">
                    <PackageCheck size={18}/> Update Progres Kerja
                 </CardTitle>
               </CardHeader>

@@ -12,7 +12,8 @@ import {
   Loader2, 
   ArrowRight,
   ChevronLeft,
-  AlertCircle
+  AlertCircle,
+  Sparkles
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -92,104 +93,134 @@ export default function CartPage() {
   if (loading) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
-        <Loader2 className="animate-spin text-emerald-600 w-10 h-10" />
-        <p className="text-slate-500 font-medium">Memuat keranjang...</p>
+        <div className="relative">
+          <Loader2 className="animate-spin text-emerald-600 w-12 h-12" />
+          <div className="absolute inset-0 bg-emerald-400/20 rounded-full blur-xl animate-pulse" />
+        </div>
+        <p className="text-slate-600 font-semibold">Memuat keranjang...</p>
       </div>
     );
   }
 
   return (
-    <div className="max-w-4xl mx-auto py-12 px-4">
-      <div className="flex items-center gap-4 mb-8">
-        <Button variant="ghost" size="icon" asChild className="rounded-full">
-          <Link href="/products"><ChevronLeft /></Link>
-        </Button>
-        <h1 className="text-3xl font-black text-slate-900 uppercase">Keranjang<span className="text-emerald-600 italic">Belanja</span></h1>
-      </div>
-
-      {items.length === 0 ? (
-        <div className="text-center py-24 bg-emerald-50/30 rounded-3xl border-2 border-dashed border-emerald-100">
-          <ShoppingBag className="mx-auto h-16 w-16 text-emerald-200 mb-4" />
-          <h2 className="text-xl font-bold text-slate-700">Keranjang masih kosong</h2>
-          <p className="text-slate-500 mb-8 max-w-xs mx-auto">Ayo cari layanan percetakan yang kamu butuhkan sekarang!</p>
-          <Button asChild className="bg-emerald-600 px-10 h-12 rounded-full font-bold shadow-lg shadow-emerald-100">
-            <Link href="/products">Lihat Produk</Link>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50/20 to-amber-50/20 pb-20">
+      <div className="max-w-4xl mx-auto py-12 px-4">
+        <div className="flex items-center gap-4 mb-10 animate-slide-up">
+          <Button variant="ghost" size="icon" asChild className="rounded-full hover:bg-emerald-50">
+            <Link href="/products"><ChevronLeft className="h-5 w-5" /></Link>
           </Button>
+          <h1 className="text-4xl font-bold">
+            <span className="text-slate-900">Keranjang </span>
+            <span className="text-gradient">Belanja</span>
+          </h1>
         </div>
-      ) : (
-        <div className="grid gap-8">
-          <div className="space-y-4">
-            {items.map((item) => (
-              <Card key={item.id} className={`overflow-hidden border-emerald-100 shadow-sm transition-all ${!pendingFiles[item.id] ? 'bg-slate-50 opacity-80' : 'hover:shadow-md'}`}>
-                <CardContent className="p-6">
-                  <div className="flex flex-col sm:flex-row items-center gap-6">
-                    {/* Icon Box */}
-                    <div className="w-20 h-20 bg-emerald-600 rounded-2xl flex flex-col items-center justify-center text-white font-black shrink-0 shadow-inner">
-                      <p className="text-[10px] uppercase">Cetak</p>
-                      <p className="text-lg leading-none">{item.pages || 1}P</p>
-                    </div>
 
-                    <div className="flex-1 text-center sm:text-left space-y-1">
-                      <h3 className="text-xl font-black text-slate-900">{item.product_name}</h3>
-                      <p className="text-slate-500 font-bold text-sm italic">
-                        Rp {item.price.toLocaleString()} x {item.pages || 1} Hal x {item.quantity} Rangkap
-                      </p>
-                      
-                      {pendingFiles[item.id] ? (
-                        <div className="mt-2 inline-flex items-center gap-1.5 bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-tighter shadow-sm border border-emerald-200">
-                          <FileCheck size={12} /> Desain Siap: {pendingFiles[item.id].name}
-                        </div>
-                      ) : (
-                        <div className="mt-2 inline-flex items-center gap-1.5 bg-red-100 text-red-600 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-tighter border border-red-200 shadow-sm">
-                           <AlertCircle size={12} /> Desain Hilang (Upload Ulang!)
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="text-right flex flex-col items-center sm:items-end gap-2 shrink-0">
-                      <p className="text-2xl font-black text-emerald-600 font-mono">
-                        Rp {(item.price * (item.pages || 1) * item.quantity).toLocaleString()}
-                      </p>
-                      <Button 
-                        variant="ghost" 
-                        size="sm" 
-                        className="text-red-400 hover:text-red-600 hover:bg-red-50 gap-2 h-auto p-1 font-bold"
-                        onClick={() => removeItem(item.id)}
-                      >
-                        <Trash2 size={16} /> <span className="text-xs uppercase">Hapus</span>
-                      </Button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+        {items.length === 0 ? (
+          <div className="text-center py-24 glass rounded-3xl border-2 border-dashed border-emerald-200 animate-fade-in">
+            <div className="bg-gradient-to-br from-emerald-500 to-teal-600 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-emerald-200">
+              <ShoppingBag className="h-10 w-10 text-white" />
+            </div>
+            <h2 className="text-2xl font-bold text-slate-900 mb-2">Keranjang masih kosong</h2>
+            <p className="text-slate-600 mb-8 max-w-xs mx-auto font-medium">Ayo cari layanan percetakan yang kamu butuhkan sekarang!</p>
+            <Button asChild size="lg" className="px-10 h-12 rounded-full group">
+              <Link href="/products">
+                <Sparkles className="mr-2 h-5 w-5" />
+                Lihat Produk
+                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </Button>
           </div>
+        ) : (
+          <div className="grid gap-8">
+            <div className="space-y-4">
+              {items.map((item, index) => (
+                <Card 
+                  key={item.id} 
+                  className={`overflow-hidden border-none shadow-lg hover-lift animate-fade-in ${
+                    !pendingFiles[item.id] ? 'bg-slate-50/80 opacity-90' : ''
+                  }`}
+                  style={{ animationDelay: `${index * 50}ms` }}
+                >
+                  <CardContent className="p-6">
+                    <div className="flex flex-col sm:flex-row items-center gap-6">
+                      {/* Icon Box */}
+                      <div className="w-20 h-20 bg-gradient-to-br from-emerald-600 to-teal-600 rounded-2xl flex flex-col items-center justify-center text-white font-bold shrink-0 shadow-lg shadow-emerald-200">
+                        <p className="text-[10px]">Cetak</p>
+                        <p className="text-xl leading-none">{item.pages || 1}P</p>
+                      </div>
+
+                      <div className="flex-1 text-center sm:text-left space-y-2">
+                        <h3 className="text-xl font-bold text-slate-900">{item.product_name}</h3>
+                        <p className="text-slate-600 font-semibold text-sm">
+                          Rp {item.price.toLocaleString()} × {item.pages || 1} Hal × {item.quantity} Rangkap
+                        </p>
+                        
+                        {pendingFiles[item.id] ? (
+                          <div className="mt-2 inline-flex items-center gap-2 glass border border-emerald-500/30 text-emerald-700 px-4 py-2 rounded-full text-xs font-bold">
+                            <FileCheck size={14} /> 
+                            <span>Desain Siap: {pendingFiles[item.id].name}</span>
+                          </div>
+                        ) : (
+                          <div className="mt-2 inline-flex items-center gap-2 bg-red-50 border border-red-200 text-red-600 px-4 py-2 rounded-full text-xs font-bold shadow-sm">
+                            <AlertCircle size={14} /> 
+                            <span>Desain Hilang (Upload Ulang!)</span>
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="text-right flex flex-col items-center sm:items-end gap-3 shrink-0">
+                        <p className="text-2xl font-bold text-emerald-600">
+                          Rp {(item.price * (item.pages || 1) * item.quantity).toLocaleString()}
+                        </p>
+                        <Button 
+                          variant="ghost" 
+                          size="sm" 
+                          className="text-red-500 hover:text-red-700 hover:bg-red-50 gap-2 h-auto px-3 py-2 font-semibold rounded-lg"
+                          onClick={() => removeItem(item.id)}
+                        >
+                          <Trash2 size={16} /> 
+                          <span className="text-xs">Hapus</span>
+                        </Button>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
 
           {/* Subtotal Card */}
-          <Card className="bg-slate-900 text-white border-none rounded-3xl overflow-hidden shadow-2xl shadow-emerald-100">
+          <Card className="glass border-2 border-emerald-500/20 rounded-3xl overflow-hidden shadow-2xl animate-slide-up">
+            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-500" />
+            
             <CardContent className="p-8">
-              <div className="flex justify-between items-center mb-6 border-b border-slate-800 pb-6">
-                <span className="text-slate-400 font-bold text-lg uppercase tracking-widest">Subtotal Belanja</span>
-                <span className="text-4xl font-black text-emerald-400 font-mono">
+              <div className="flex justify-between items-center mb-6 pb-6 border-b border-slate-200">
+                <span className="text-lg font-bold text-slate-700">Subtotal Belanja</span>
+                <span className="text-4xl font-bold text-gradient">
                   Rp {subtotal.toLocaleString()}
                 </span>
               </div>
 
               {!isAllDesignReady && (
-                <div className="mb-6 p-4 bg-amber-500/10 border border-amber-500/30 rounded-2xl text-amber-300 text-sm text-center italic flex items-center justify-center gap-2">
-                  <AlertCircle size={18} /> Beberapa desain belum siap. Harap tambahkan ulang dari katalog!
+                <div className="mb-6 p-4 bg-amber-50 border-2 border-amber-200 rounded-xl text-amber-700 text-sm text-center font-semibold flex items-center justify-center gap-2 animate-pulse">
+                  <AlertCircle size={18} /> 
+                  <span>Beberapa desain belum siap. Harap tambahkan ulang dari katalog!</span>
                 </div>
               )}
 
               <Button 
                 disabled={!isAllDesignReady}
                 asChild={isAllDesignReady}
-                className={`w-full h-16 text-white text-xl font-black rounded-2xl gap-3 transition-all ${
-                  isAllDesignReady ? 'bg-emerald-500 hover:bg-emerald-600 shadow-lg shadow-emerald-500/20' : 'bg-slate-800'
+                size="lg"
+                className={`w-full h-14 text-lg font-bold rounded-2xl gap-3 transition-all group ${
+                  isAllDesignReady ? '' : 'bg-slate-300 text-slate-500 cursor-not-allowed'
                 }`}
               >
                 {isAllDesignReady ? (
-                  <Link href="/checkout">Lanjut ke Pembayaran <ArrowRight size={24} /></Link>
+                  <Link href="/checkout">
+                    <Sparkles className="h-5 w-5" />
+                    Lanjut ke Pembayaran 
+                    <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                  </Link>
                 ) : (
                   <span>Lengkapi Desain Dulu</span>
                 )}
@@ -198,6 +229,7 @@ export default function CartPage() {
           </Card>
         </div>
       )}
+      </div>
     </div>
   );
 }

@@ -151,15 +151,15 @@ export default function CheckoutPage() {
       <div className="bg-emerald-100 p-6 rounded-full animate-bounce">
         <CheckCircle2 className="w-20 h-20 text-emerald-600" />
       </div>
-      <h2 className="text-3xl font-black text-slate-900 uppercase italic">PESANAN TERKIRIM!</h2>
-      <p className="text-slate-500 font-bold uppercase text-xs tracking-widest">Order ID: {orderId.substring(0,8)}</p>
-      <Button onClick={() => router.push("/tracking")} className="bg-emerald-600 px-10 h-14 rounded-2xl text-lg font-black shadow-lg shadow-emerald-200">LACAK PESANAN</Button>
+      <h2 className="text-3xl font-bold text-slate-900">Pesanan Terkirim!</h2>
+      <p className="text-slate-500 font-bold text-xs">Order ID: {orderId.substring(0,8)}</p>
+      <Button onClick={() => router.push("/tracking")} className="bg-emerald-600 px-10 h-14 rounded-2xl text-lg font-bold shadow-lg shadow-emerald-200">Lacak Pesanan</Button>
     </div>
   );
 
   return (
     <div className="max-w-6xl mx-auto py-12 px-4">
-      <h1 className="text-4xl font-black text-slate-900 mb-10 flex items-center gap-3 italic uppercase">
+      <h1 className="text-4xl font-bold text-slate-900 mb-10 flex items-center gap-3">
         <Receipt className="text-emerald-600" /> Checkout & <span className="text-emerald-600">Pembayaran</span>
       </h1>
 
@@ -167,7 +167,7 @@ export default function CheckoutPage() {
         <div className="lg:col-span-2 space-y-6">
           <Card className="border-emerald-100 shadow-sm rounded-3xl overflow-hidden">
             <CardHeader className="bg-emerald-50 border-b border-emerald-100">
-              <CardTitle className="text-lg flex items-center gap-2 font-bold text-emerald-800 uppercase">
+              <CardTitle className="text-lg flex items-center gap-2 font-bold text-emerald-800">
                 <FileText size={20} /> Rincian Belanja
               </CardTitle>
             </CardHeader>
@@ -176,20 +176,20 @@ export default function CheckoutPage() {
                 {cartItems.map((item) => (
                   <div key={item.id} className="p-6 flex justify-between items-center">
                     <div>
-                      <p className="font-black text-slate-900 text-lg uppercase">{item.product_name}</p>
-                      <p className="text-sm text-slate-500 font-bold italic">
+                      <p className="font-bold text-slate-900 text-lg">{item.product_name}</p>
+                      <p className="text-sm text-slate-500 font-medium">
                         {item.pages} Hal x {item.quantity} Rangkap (Rp {item.price.toLocaleString()}/hal)
                       </p>
                     </div>
-                    <p className="font-black text-slate-900 text-xl font-mono">
+                    <p className="font-bold text-slate-900 text-xl">
                       Rp {(item.price * item.pages * item.quantity).toLocaleString()}
                     </p>
                   </div>
                 ))}
               </div>
               <div className="p-8 bg-slate-900 text-white flex justify-between items-center">
-                <span className="text-slate-400 font-bold uppercase tracking-widest">Total Bayar:</span>
-                <span className="text-4xl font-black text-emerald-400 font-mono italic">
+                <span className="text-slate-400 font-bold">Total Bayar:</span>
+                <span className="text-4xl font-bold text-emerald-400">
                   Rp {subtotal.toLocaleString()}
                 </span>
               </div>
@@ -200,11 +200,11 @@ export default function CheckoutPage() {
         <div className="space-y-6">
           <Card className="border-2 border-emerald-500 shadow-2xl rounded-[40px] overflow-hidden">
             <CardContent className="flex flex-col items-center gap-6 p-8">
-              <p className="text-emerald-600 font-black tracking-widest uppercase text-sm italic">Scan QRIS Untuk Bayar</p>
+              <p className="text-emerald-600 font-bold text-sm">Scan QRIS untuk Bayar</p>
               <div className="p-6 bg-white border-2 border-slate-100 rounded-3xl shadow-inner">
                 <QrCode size={180} className="text-slate-900" />
               </div>
-              <p className="text-[10px] text-center text-slate-400 font-bold uppercase">
+              <p className="text-[10px] text-center text-slate-400 font-bold">
                 A/N Percetakan Wijaya Utama<br />Gunakan E-Wallet atau M-Banking
               </p>
             </CardContent>
@@ -212,7 +212,7 @@ export default function CheckoutPage() {
 
           <div className="space-y-4">
             <div className="space-y-2">
-              <label className="text-xs font-black text-slate-500 uppercase flex items-center gap-2 px-2">
+              <label className="text-xs font-bold text-slate-500 flex items-center gap-2 px-2">
                 <ShieldCheck size={14} className="text-emerald-600" /> Upload Bukti Transfer:
               </label>
               <Input 

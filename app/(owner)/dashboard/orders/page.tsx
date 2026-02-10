@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
-import { ShoppingCart, Eye } from "lucide-react";
+import { ShoppingCart, Eye, Calendar } from "lucide-react";
 
 export default async function AdminOrders() {
   const supabase = await createClient();
@@ -65,7 +65,7 @@ export default async function AdminOrders() {
         <div className="bg-emerald-600 p-2 rounded-lg text-white">
           <ShoppingCart size={24} />
         </div>
-        <h1 className="text-3xl font-black text-slate-900 uppercase italic">Kelola<span className="text-emerald-600">Pesanan</span></h1>
+        <h1 className="text-3xl font-bold text-slate-900">Kelola <span className="text-emerald-600">Pesanan</span></h1>
       </div>
 
       <div className="border rounded-3xl bg-white overflow-hidden shadow-sm">
@@ -75,6 +75,7 @@ export default async function AdminOrders() {
               <TableHead className="font-bold">Order ID</TableHead>
               <TableHead className="font-bold">Pelanggan</TableHead>
               <TableHead className="font-bold">Total</TableHead>
+              <TableHead className="font-bold">Tanggal Masuk</TableHead>
               <TableHead className="font-bold">Pembayaran</TableHead>
               <TableHead className="font-bold">Status Produksi</TableHead>
               <TableHead className="font-bold">Aksi</TableHead>
@@ -84,26 +85,39 @@ export default async function AdminOrders() {
             {orders && orders.length > 0 ? (
               orders.map((order) => (
                 <TableRow key={order.id} className="hover:bg-slate-50/50">
-                  <TableCell className="font-mono text-xs font-bold uppercase">
+                  <TableCell className="font-mono text-xs font-bold text-slate-400">
                     {order.id.substring(0, 8)}
                   </TableCell>
                   <TableCell>
                     <p className="font-bold text-slate-700">{order.profiles?.username || 'Guest'}</p>
                   </TableCell>
-                  <TableCell className="font-bold text-emerald-600">
+                  <TableCell className="font-bold text-emerald-600 font-mono">
                     Rp {order.total_amount?.toLocaleString('id-ID')}
                   </TableCell>
+                  
+                  {/* Tanggal Masuk */}
+                  <TableCell className="text-slate-500 font-medium whitespace-nowrap">
+                    <div className="flex items-center gap-2">
+                      <Calendar size={14} className="text-slate-300" />
+                      {new Date(order.created_at).toLocaleDateString('id-ID', {
+                        day: '2-digit',
+                        month: 'short',
+                        year: 'numeric'
+                      })}
+                    </div>
+                  </TableCell>
+
                   <TableCell>
                     <Badge variant="outline" className={
-                      order.payment_status === 'confirmed' ? 'border-emerald-500 text-emerald-600' : 'border-amber-500 text-amber-600'
+                      order.payment_status === 'confirmed' ? 'border-emerald-500 text-emerald-600 bg-emerald-50' : 'border-amber-500 text-amber-600 bg-amber-50'
                     }>
-                      {order.payment_status === 'Menunggu Konfirmasi' ? 'Butuh Verifikasi' : order.payment_status}
+                      {order.payment_status === 'waiting_confirmation' ? 'Verifikasi' : order.payment_status}
                     </Badge>
                   </TableCell>
                   <TableCell>{getStatusBadge(order.order_status)}</TableCell>
                   <TableCell>
                     <Link href={`/dashboard/orders/${order.id}`}>
-                      <Button size="sm" variant="outline" className="gap-2 border-emerald-200 text-emerald-700 hover:bg-emerald-50">
+                      <Button size="sm" variant="outline" className="gap-2 border-emerald-200 text-emerald-700 hover:bg-emerald-50 rounded-xl">
                         <Eye size={14}/> Detail
                       </Button>
                     </Link>
@@ -112,7 +126,7 @@ export default async function AdminOrders() {
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={6} className="text-center py-20 text-slate-400 italic">Belum ada pesanan masuk...</TableCell>
+                <TableCell colSpan={7} className="text-center py-20 text-slate-400 italic">Belum ada pesanan masuk euy...</TableCell>
               </TableRow>
             )}
           </TableBody>

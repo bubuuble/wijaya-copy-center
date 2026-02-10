@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { Mail, Lock, ArrowRight, Loader2, Printer } from "lucide-react";
+import { Mail, Lock, ArrowRight, Loader2, Printer, Sparkles } from "lucide-react";
 
 export default function LoginPage() {
   const [identifier, setIdentifier] = useState(""); // Bisa Email atau Username
@@ -72,23 +72,42 @@ export default function LoginPage() {
 };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-emerald-50/50 px-4">
-      <Card className="w-full max-w-md shadow-2xl border-t-4 border-t-emerald-500 bg-white">
-        <CardHeader className="text-center">
-          <div className="mx-auto bg-emerald-100 w-14 h-14 rounded-full flex items-center justify-center mb-2"><Printer className="text-emerald-600" /></div>
-          <CardTitle className="text-2xl font-black italic">WIJAYA COPY</CardTitle>
-          <CardDescription>Login dengan Email atau Username</CardDescription>
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-50 via-emerald-50/30 to-teal-50/50 px-4 py-12 relative overflow-hidden">
+      {/* Decorative Background Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-emerald-400/20 rounded-full blur-3xl animate-float" />
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-teal-400/20 rounded-full blur-3xl" style={{ animationDelay: '1s' }} />
+      </div>
+
+      <Card className="relative w-full max-w-md glass border-emerald-200/50 animate-slide-up">
+        <CardHeader className="text-center space-y-4">
+          <div className="mx-auto bg-gradient-to-br from-emerald-600 to-teal-500 w-16 h-16 rounded-2xl flex items-center justify-center shadow-xl shadow-emerald-500/30 animate-float">
+            <Printer className="text-white" size={28} strokeWidth={2.5} />
+          </div>
+          <div>
+            <CardTitle className="text-3xl font-bold text-gradient">
+              Wijaya Copy Center
+            </CardTitle>
+            <CardDescription className="text-sm mt-2 flex items-center justify-center gap-1">
+              <Sparkles size={14} className="text-amber-500" />
+              Login dengan Email atau Username
+            </CardDescription>
+          </div>
         </CardHeader>
-        <CardContent>
-          <form onSubmit={handleLogin} className="space-y-4">
-            {errorMsg && <div className="p-3 text-sm text-red-600 bg-red-50 rounded-lg text-center">{errorMsg}</div>}
+        <CardContent className="pt-2">
+          <form onSubmit={handleLogin} className="space-y-5">
+            {errorMsg && (
+              <div className="p-4 text-sm font-sans font-semibold text-red-600 bg-red-50 border-2 border-red-200 rounded-xl text-center animate-slide-in-right">
+                {errorMsg}
+              </div>
+            )}
             <div className="space-y-2">
-              <Label>Email / Username</Label>
+              <Label className="font-sans font-semibold text-slate-700">Email / Username</Label>
               <div className="relative">
-                <Mail className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
                 <Input 
                   placeholder="Masukkan email atau username" 
-                  className="pl-10" 
+                  className="pl-12 h-12" 
                   value={identifier} 
                   onChange={(e) => setIdentifier(e.target.value)} 
                   required 
@@ -96,27 +115,41 @@ export default function LoginPage() {
               </div>
             </div>
             <div className="space-y-2">
-              <Label>Password</Label>
+              <Label className="font-sans font-semibold text-slate-700">Password</Label>
               <div className="relative">
-                <Lock className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
                 <Input 
                   type="password" 
                   placeholder="••••••••" 
-                  className="pl-10" 
+                  className="pl-12 h-12" 
                   value={password} 
                   onChange={(e) => setPassword(e.target.value)} 
                   required 
                 />
               </div>
             </div>
-            <Button className="w-full bg-emerald-600 hover:bg-emerald-700 h-11" disabled={isLoading}>
-              {isLoading ? <Loader2 className="animate-spin" /> : "Masuk Sekarang"}
-              {!isLoading && <ArrowRight className="ml-2 h-4 w-4" />}
+            <Button className="w-full h-12 text-base" disabled={isLoading}>
+              {isLoading ? (
+                <>
+                  <Loader2 className="animate-spin" size={20} />
+                  Memproses...
+                </>
+              ) : (
+                <>
+                  Masuk Sekarang
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </>
+              )}
             </Button>
           </form>
         </CardContent>
-        <CardFooter className="justify-center border-t bg-slate-50 py-4">
-          <p className="text-sm">Belum punya akun? <Link href="/register" className="font-bold text-emerald-600">Daftar</Link></p>
+        <CardFooter className="justify-center border-t border-emerald-100 bg-slate-50/50 py-5">
+          <p className="text-sm font-sans text-slate-600">
+            Belum punya akun? {' '}
+            <Link href="/register" className="font-bold text-gradient hover:underline">
+              Daftar Sekarang
+            </Link>
+          </p>
         </CardFooter>
       </Card>
     </div>

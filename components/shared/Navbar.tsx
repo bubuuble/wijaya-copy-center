@@ -1,6 +1,6 @@
 // components/shared/Navbar.tsx
 import Link from 'next/link';
-import { Search, Printer } from 'lucide-react';
+import { Search, Printer, Sparkles } from 'lucide-react';
 import { createClient } from '@/lib/supabase/server';
 import AuthSection from './AuthSection';
 import CartBadge from './CartBadge';
@@ -8,7 +8,6 @@ import CartBadge from './CartBadge';
 export default async function Navbar() {
   const supabase = await createClient();
   
-  // Mengambil user dengan { revalidate: 0 } atau fresh dari cookies
   const { data: { user } } = await supabase.auth.getUser();
 
   let profile = null;
@@ -22,33 +21,53 @@ export default async function Navbar() {
   }
 
   return (
-    <nav className="bg-white/90 backdrop-blur-md border-b border-emerald-100 sticky top-0 z-50">
+    <nav className="glass sticky top-0 z-50 border-b border-emerald-200/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16 items-center">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <div className="bg-emerald-600 p-1.5 rounded-lg">
-              <Printer className="text-white h-5 w-5" />
+        <div className="flex justify-between h-20 items-center">
+          {/* Logo with Animation */}
+          <Link href="/" className="group flex items-center gap-3 animate-slide-in-right">
+            <div className="bg-gradient-to-br from-emerald-600 to-teal-500 p-2 rounded-2xl shadow-lg group-hover:shadow-emerald-500/50 transition-all duration-300 group-hover:scale-110">
+              <Printer className="text-white h-6 w-6" strokeWidth={2.5} />
             </div>
-            <span className="text-xl font-black text-emerald-600 tracking-tighter">
-              WIJAYA<span className="text-slate-800">COPY</span>
-            </span>
+            <div>
+              <span className="text-2xl font-bold text-gradient block leading-none">
+                Wijaya Copy
+              </span>
+              <span className="text-[10px] font-bold text-slate-400 flex items-center gap-1">
+                <Sparkles size={8} className="text-amber-500" />
+                Percetakan Kilat
+              </span>
+            </div>
           </Link>
 
-          {/* Links */}
-          <div className="hidden md:flex space-x-8 text-slate-600 font-bold text-xs uppercase tracking-widest">
-            <Link href="/" className="hover:text-emerald-600 transition">Beranda</Link>
-            <Link href="/products" className="hover:text-emerald-600 transition">Produk</Link>
-            <Link href="/tracking" className="hover:text-emerald-600 transition">Lacak Pesanan</Link>
+          {/* Navigation Links */}
+          <div className="hidden md:flex space-x-1 text-slate-600 font-sans font-semibold text-sm">
+            <Link 
+              href="/" 
+              className="px-4 py-2 rounded-xl hover:bg-emerald-50 hover:text-emerald-700 transition-all duration-200"
+            >
+              Beranda
+            </Link>
+            <Link 
+              href="/products" 
+              className="px-4 py-2 rounded-xl hover:bg-emerald-50 hover:text-emerald-700 transition-all duration-200"
+            >
+              Produk
+            </Link>
+            <Link 
+              href="/tracking" 
+              className="px-4 py-2 rounded-xl hover:bg-emerald-50 hover:text-emerald-700 transition-all duration-200"
+            >
+              Lacak Pesanan
+            </Link>
           </div>
 
-          <div className="flex items-center space-x-4">
-            <button className="text-slate-400 hover:text-emerald-600 p-2"><Search size={20} /></button>
+          <div className="flex items-center space-x-3">
+            <button className="p-2.5 rounded-xl text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 transition-all duration-200">
+              <Search size={20} strokeWidth={2} />
+            </button>
             
-            {/* Badge Keranjang Dinamis */}
             <CartBadge />
-
-            {/* KONDISI DINAMIS: UserNav atau Tombol Login */}
             <AuthSection user={user} profile={profile} />
           </div>
         </div>
