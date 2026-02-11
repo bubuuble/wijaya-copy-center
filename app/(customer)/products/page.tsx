@@ -108,8 +108,8 @@ export default async function ProductsPage() {
                     className="object-cover group-hover:scale-110 transition-transform duration-500"
                   />
                 ) : (
-                  <div className="flex items-center justify-center h-full">
-                    <span className="text-3xl font-bold text-emerald-200/50">Wijaya</span>
+                  <div className="flex items-center justify-center h-full relative">
+                    <Image src="/logo/logo.png" alt="Wijaya Logo" fill className="object-contain p-8 opacity-20" />
                   </div>
                 )}
                 <Badge variant="gradient" className="absolute top-3 left-3 shadow-md">

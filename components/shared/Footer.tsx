@@ -1,12 +1,9 @@
 import Link from "next/link";
+import Image from "next/image";
 import { 
-  Printer, 
-  Mail, 
   Phone, 
   MapPin, 
-  Instagram, 
-  Facebook, 
-  Twitter,
+  Instagram,
   Sparkles,
   Heart
 } from "lucide-react";
@@ -26,8 +23,8 @@ export default function Footer() {
           {/* Brand & Description */}
           <div className="space-y-6 lg:col-span-2">
             <Link href="/" className="inline-flex items-center gap-3 group">
-              <div className="bg-gradient-to-br from-emerald-500 to-teal-400 p-2.5 rounded-2xl shadow-2xl shadow-emerald-500/30 group-hover:scale-110 transition-transform duration-300">
-                <Printer className="h-7 w-7 text-white" strokeWidth={2.5} />
+              <div className="relative w-12 h-12 rounded-2xl overflow-hidden shadow-2xl shadow-emerald-500/30 group-hover:scale-110 transition-transform duration-300">
+                <Image src="/logo/logo.png" alt="Wijaya Copy Logo" fill className="object-cover" />
               </div>
               <div>
                 <span className="text-3xl font-bold bg-gradient-to-r from-emerald-400 via-teal-300 to-emerald-400 bg-clip-text text-transparent block leading-none">
@@ -50,18 +47,6 @@ export default function Footer() {
               >
                 <Instagram size={20} strokeWidth={2} />
               </Link>
-              <Link 
-                href="#" 
-                className="p-3 bg-slate-800 hover:bg-gradient-to-br hover:from-emerald-500 hover:to-teal-400 border border-slate-700 hover:border-transparent rounded-2xl text-slate-400 hover:text-white transition-all duration-300 hover:scale-110 hover:shadow-xl hover:shadow-emerald-500/30"
-              >
-                <Facebook size={20} strokeWidth={2} />
-              </Link>
-              <Link 
-                href="#" 
-                className="p-3 bg-slate-800 hover:bg-gradient-to-br hover:from-emerald-500 hover:to-teal-400 border border-slate-700 hover:border-transparent rounded-2xl text-slate-400 hover:text-white transition-all duration-300 hover:scale-110 hover:shadow-xl hover:shadow-emerald-500/30"
-              >
-                <Twitter size={20} strokeWidth={2} />
-              </Link>
             </div>
           </div>
 
@@ -82,15 +67,11 @@ export default function Footer() {
             <ul className="space-y-4 font-sans">
               <li className="flex items-start gap-3 group">
                 <MapPin className="text-emerald-400 shrink-0 mt-1 group-hover:scale-110 transition-transform duration-200" size={18} strokeWidth={2} />
-                <span className="text-sm leading-relaxed">Jl. Percetakan Raya No. 123, Kota Bandung, Jawa Barat</span>
+                <span className="text-sm leading-relaxed">Jl. Keadilan Raya No.10, Bakti Jaya, Kec. Sukmajaya, Kota Depok, Jawa Barat 16418</span>
               </li>
               <li className="flex items-center gap-3 group hover:text-emerald-400 transition-colors cursor-pointer">
                 <Phone className="shrink-0 group-hover:scale-110 transition-transform duration-200" size={18} strokeWidth={2} />
-                <span className="text-sm">+62 812 3456 7890</span>
-              </li>
-              <li className="flex items-center gap-3 group hover:text-emerald-400 transition-colors cursor-pointer">
-                <Mail className="shrink-0 group-hover:scale-110 transition-transform duration-200" size={18} strokeWidth={2} />
-                <span className="text-sm">halo@wijayacopy.com</span>
+                <span className="text-sm">081280197281</span>
               </li>
             </ul>
           </div>
@@ -99,7 +80,7 @@ export default function Footer() {
         {/* Copyright */}
         <div className="pt-8 border-t border-slate-700/50 flex flex-col md:flex-row justify-between items-center gap-4 text-sm font-sans">
           <p className="text-slate-500 flex items-center gap-2">
-            © {new Date().getFullYear()} Wijaya Copy Center. Made with <Heart size={14} className="text-rose-500 fill-rose-500 animate-pulse" /> in Bandung
+            © {new Date().getFullYear()} Wijaya Copy Center. Made with <Heart size={14} className="text-rose-500 fill-rose-500 animate-pulse" /> in Depok
           </p>
           <div className="flex gap-6 text-slate-500">
             <Link href="#" className="hover:text-emerald-400 transition-colors duration-200">Kebijakan Privasi</Link>

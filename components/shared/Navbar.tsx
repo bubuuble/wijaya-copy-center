@@ -1,6 +1,7 @@
 // components/shared/Navbar.tsx
 import Link from 'next/link';
-import { Search, Printer, Sparkles } from 'lucide-react';
+import Image from 'next/image';
+import { Search, Sparkles } from 'lucide-react';
 import { createClient } from '@/lib/supabase/server';
 import AuthSection from './AuthSection';
 import CartBadge from './CartBadge';
@@ -26,8 +27,8 @@ export default async function Navbar() {
         <div className="flex justify-between h-20 items-center">
           {/* Logo with Animation */}
           <Link href="/" className="group flex items-center gap-3 animate-slide-in-right">
-            <div className="bg-gradient-to-br from-emerald-600 to-teal-500 p-2 rounded-2xl shadow-lg group-hover:shadow-emerald-500/50 transition-all duration-300 group-hover:scale-110">
-              <Printer className="text-white h-6 w-6" strokeWidth={2.5} />
+            <div className="relative w-10 h-10 rounded-2xl overflow-hidden shadow-lg group-hover:shadow-emerald-500/50 transition-all duration-300 group-hover:scale-110">
+              <Image src="/logo/logo.png" alt="Wijaya Copy Logo" fill className="object-cover" />
             </div>
             <div>
               <span className="text-2xl font-bold text-gradient block leading-none">
