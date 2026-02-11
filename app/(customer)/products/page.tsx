@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Search, Filter, ArrowRight, Sparkles } from "lucide-react";
+import { Search, Filter, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -53,7 +53,7 @@ export default async function ProductsPage() {
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 relative z-10">
           <div className="inline-flex items-center space-x-2 glass rounded-full px-4 py-2 mb-4 sm:mb-6 border border-emerald-500/20">
-            <Sparkles size={16} className="text-amber-500 animate-pulse" />
+        
             <span className="text-xs sm:text-sm font-semibold text-slate-700">Koleksi Lengkap</span>
           </div>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-3 sm:mb-4">
@@ -99,7 +99,7 @@ export default async function ProductsPage() {
               className="group overflow-hidden border-none shadow-lg hover-lift flex flex-col animate-fade-in" 
               style={{ animationDelay: `${index * 50}ms` }}
             >
-              <div className="relative h-48 w-full bg-gradient-to-br from-emerald-100 to-teal-50">
+              <div className="relative h-48 w-full bg-gradient-to-br from-blue-100 to-cyan-50">
                 {product.imageUrl ? (
                   <Image 
                     src={product.imageUrl} 
@@ -118,7 +118,7 @@ export default async function ProductsPage() {
               </div>
               
               <CardHeader className="flex-1">
-                <CardTitle className="text-lg group-hover:text-emerald-600 transition-colors">
+                <CardTitle className="text-lg group-hover:text-blue-600 transition-colors">
                   {product.name}
                 </CardTitle>
                 <p className="text-sm text-slate-600 line-clamp-2 mt-2 leading-relaxed">
@@ -127,7 +127,7 @@ export default async function ProductsPage() {
               </CardHeader>
 
               <CardContent className="pt-0">
-                <p className="text-xl font-bold text-emerald-600">
+                <p className="text-xl font-bold text-blue-600">
                   Rp {(product.price || 0).toLocaleString()}
                 </p>
               </CardContent>

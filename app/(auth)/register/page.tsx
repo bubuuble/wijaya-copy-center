@@ -2,12 +2,13 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { Mail, Lock, User as UserIcon, UserPlus, Loader2, CheckCircle, Eye, EyeOff, Sparkles } from "lucide-react";
+import { Mail, Lock, User as UserIcon, Loader2, CheckCircle, Eye, EyeOff } from "lucide-react";
 
 export default function RegisterPage() {
   const [username, setUsername] = useState("");
@@ -88,8 +89,8 @@ export default function RegisterPage() {
         <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-500" />
         
         <CardHeader className="text-center pt-8 pb-6">
-          <div className="mx-auto bg-gradient-to-br from-emerald-500 to-teal-600 w-16 h-16 rounded-2xl flex items-center justify-center mb-4 shadow-lg shadow-emerald-200 animate-float">
-            <UserPlus className="text-white h-8 w-8" />
+          <div className="mx-auto w-32 h-16 rounded-2xl flex items-center justify-center mb-4 animate-float relative">
+            <Image src="/logo/logo.png" alt="Wijaya Copy Logo" fill className="object-contain" />
           </div>
           <CardTitle className="text-3xl font-bold mb-2">
             <span className="text-gradient">Daftar Akun</span>
@@ -169,7 +170,6 @@ export default function RegisterPage() {
                 </>
               ) : (
                 <>
-                  <Sparkles className="mr-2 h-5 w-5" />
                   Daftar Sekarang
                 </>
               )}

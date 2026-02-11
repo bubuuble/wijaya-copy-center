@@ -38,7 +38,7 @@ export default function SalesChart({ dailyData, weeklyData }: SalesChartProps) {
             onClick={() => setView("7days")}
             className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-all ${
               view === "7days"
-                ? "bg-white text-emerald-600 shadow-sm"
+                ? "bg-white text-blue-600 shadow-sm"
                 : "text-slate-400 hover:text-slate-600"
             }`}
           >
@@ -48,7 +48,7 @@ export default function SalesChart({ dailyData, weeklyData }: SalesChartProps) {
             onClick={() => setView("1month")}
             className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-all ${
               view === "1month"
-                ? "bg-white text-emerald-600 shadow-sm"
+                ? "bg-white text-blue-600 shadow-sm"
                 : "text-slate-400 hover:text-slate-600"
             }`}
           >
@@ -61,8 +61,8 @@ export default function SalesChart({ dailyData, weeklyData }: SalesChartProps) {
           <AreaChart data={data} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
             <defs>
               <linearGradient id="colorSales" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#10b981" stopOpacity={0.3} />
-                <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
+                <stop offset="5%" stopColor="#18abfc" stopOpacity={0.3} />
+                <stop offset="95%" stopColor="#18abfc" stopOpacity={0} />
               </linearGradient>
             </defs>
             <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
@@ -95,7 +95,7 @@ export default function SalesChart({ dailyData, weeklyData }: SalesChartProps) {
             <Area
               type="monotone"
               dataKey="amount"
-              stroke="#10b981"
+              stroke="#18abfc"
               strokeWidth={3}
               fillOpacity={1}
               fill="url(#colorSales)"

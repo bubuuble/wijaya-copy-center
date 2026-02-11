@@ -1,8 +1,20 @@
+'use client';
+
 import Link from "next/link";
-import { LayoutDashboard, Package, ShoppingCart, DollarSign, ExternalLink } from "lucide-react";
+import { LayoutDashboard, Package, ShoppingCart, LogOut, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { createClient } from "@/lib/supabase/client";
+import { useRouter } from "next/navigation";
 
 export default function AdminSidebar() {
+  const router = useRouter();
+  const supabase = createClient();
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    router.push('/login');
+    router.refresh();
+  };
   const menu = [
     { name: "Dashboard", icon: <LayoutDashboard size={20}/>, href: "/dashboard" },
     { name: "Pesanan", icon: <ShoppingCart size={20}/>, href: "/dashboard/orders" },
@@ -26,14 +38,20 @@ export default function AdminSidebar() {
         
         {/* Tombol Khusus ke Sanity Studio untuk Kelola Produk */}
         <a href="http://localhost:3000/studio" target="_blank">
-          <Button variant="ghost" className="w-full justify-start gap-3 text-emerald-600 hover:bg-emerald-50">
+          <Button variant="ghost" className="w-full justify-start gap-3 text-blue-600 hover:bg-blue-50">
             <Package size={20}/> Kelola Produk (Sanity) <ExternalLink size={14}/>
           </Button>
         </a>
       </nav>
 
       <div className="pt-6 border-t text-sm">
-        <Button variant="outline" className="w-full">Keluar</Button>
+        <Button 
+          variant="outline" 
+          className="w-full justify-start gap-3 hover:bg-red-50 hover:text-red-600 hover:border-red-300"
+          onClick={handleLogout}
+        >
+          <LogOut size={20} /> Keluar
+        </Button>
       </div>
     </div>
   );

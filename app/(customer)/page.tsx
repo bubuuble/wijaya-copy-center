@@ -2,7 +2,7 @@ import { client } from "@/sanity/lib/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, Printer, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -33,12 +33,12 @@ export default async function Home() {
   const products = await getProducts();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50/30 to-amber-50/30">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-cyan-50/30">
       {/* HERO SECTION */}
       <section className="relative py-12 sm:py-16 lg:py-20 overflow-hidden">
         {/* Decorative Background Elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-emerald-400/20 to-teal-400/20 rounded-full blur-3xl animate-float" />
+          <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-blue-400/20 to-cyan-400/20 rounded-full blur-3xl animate-float" />
           <div className="absolute top-60 -left-40 w-80 h-80 bg-gradient-to-br from-amber-400/20 to-orange-400/20 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
           <div className="absolute bottom-20 right-1/3 w-64 h-64 bg-gradient-to-br from-purple-400/10 to-pink-400/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '4s' }} />
         </div>
@@ -46,7 +46,7 @@ export default async function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-8 sm:gap-12 items-center relative z-10">
           <div className="space-y-4 sm:space-y-6 animate-slide-up text-center md:text-left">
             <Badge variant="gradient" className="inline-flex items-center space-x-2 text-xs sm:text-sm">
-              <Sparkles size={14} className="sm:w-4 sm:h-4 animate-pulse" />
+            
               <span className="hidden sm:inline">Baru: Cetak Brosur Kilat 1 Jam Jadi!</span>
               <span className="sm:hidden">Cetak Kilat 1 Jam!</span>
             </Badge>
@@ -56,7 +56,7 @@ export default async function Home() {
             </h1>
             <p className="text-sm sm:text-base lg:text-lg text-slate-600 max-w-md mx-auto md:mx-0 font-medium">
               Produk percetakan digital profesional untuk bisnis dan kebutuhan harian Anda. 
-              <span className="text-emerald-600 font-semibold"> Kualitas tajam</span>, harga bersahabat.
+              <span className="text-blue-600 font-semibold"> Kualitas tajam</span>, harga bersahabat.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center md:justify-start">
               <Button size="lg" className="rounded-full px-6 sm:px-8 h-11 sm:h-12 group">
@@ -70,8 +70,8 @@ export default async function Home() {
           </div>
           <div className="relative animate-fade-in" style={{ animationDelay: '200ms' }}>
             <div className="relative aspect-video glass rounded-3xl shadow-2xl border border-white/60 overflow-hidden p-2">
-              <div className="absolute inset-0 bg-gradient-to-br from-emerald-100 via-white to-amber-100 flex items-center justify-center rounded-2xl m-2">
-                <Printer size={60} className="sm:w-20 sm:h-20 text-emerald-600/30" />
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-100 via-white to-cyan-100 flex items-center justify-center rounded-2xl m-2">
+                <Image src="/logo/logo.png" alt="Wijaya Copy" width={200} height={80} className="object-contain opacity-30" />
               </div>
             </div>
             {/* Decorative accent */}
@@ -87,7 +87,7 @@ export default async function Home() {
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-2">Produk Unggulan</h2>
             <p className="text-sm sm:text-base lg:text-lg text-slate-600 font-medium">Pilih kategori Produk yang Anda butuhkan</p>
           </div>
-          <Button variant="link" className="text-emerald-600 font-semibold group">
+          <Button variant="link" className="text-blue-600 font-semibold group">
             Semua Produk 
             <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
           </Button>
@@ -100,7 +100,7 @@ export default async function Home() {
               className="group hover-lift border-none shadow-lg overflow-hidden animate-fade-in" 
               style={{ animationDelay: `${index * 100}ms` }}
             >
-              <div className="h-56 bg-gradient-to-br from-emerald-100 to-teal-50 relative overflow-hidden">
+              <div className="h-56 bg-gradient-to-br from-blue-100 to-cyan-50 relative overflow-hidden">
                 {product.imageUrl ? (
                   <Image 
                     src={product.imageUrl} 
@@ -119,8 +119,8 @@ export default async function Home() {
               </div>
               <CardHeader className="space-y-3">
                 <div className="flex justify-between items-start gap-3">
-                  <CardTitle className="text-xl group-hover:text-emerald-600 transition-colors">{product.name}</CardTitle>
-                  <p className="font-bold text-emerald-600 text-lg whitespace-nowrap">
+                  <CardTitle className="text-xl group-hover:text-blue-600 transition-colors">{product.name}</CardTitle>
+                  <p className="font-bold text-blue-600 text-lg whitespace-nowrap">
                     Rp {(product.price || 0).toLocaleString()}
                   </p>
                 </div>

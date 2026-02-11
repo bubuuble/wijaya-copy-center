@@ -103,7 +103,7 @@ const handleUpdateProgress = async (newStatus: string) => {
   }
 };
 
-  if (loading) return <div className="min-h-screen flex items-center justify-center"><Loader2 className="animate-spin text-emerald-600" /></div>;
+  if (loading) return <div className="min-h-screen flex items-center justify-center"><Loader2 className="animate-spin text-blue-600" /></div>;
   if (!order) return <div className="p-20 text-center">Data tidak ditemukan.</div>;
 
   return (
@@ -114,9 +114,9 @@ const handleUpdateProgress = async (newStatus: string) => {
           <p className="text-slate-500 font-medium">Dikelola oleh Wijaya Admin</p>
         </div>
         <div className="text-right space-y-2">
-          <Badge className="bg-slate-900 text-emerald-400 px-4 py-1">Payment: {order.payment_status}</Badge>
+          <Badge className="bg-slate-900 text-blue-400 px-4 py-1">Payment: {order.payment_status}</Badge>
           <br />
-          <Badge className="bg-emerald-600 text-white px-4 py-1 text-lg">Proses: {order.order_status}</Badge>
+          <Badge className="bg-blue-600 text-white px-4 py-1 text-lg">Proses: {order.order_status}</Badge>
         </div>
       </div>
 

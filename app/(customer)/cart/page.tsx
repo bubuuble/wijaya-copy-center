@@ -13,7 +13,7 @@ import {
   ArrowRight,
   ChevronLeft,
   AlertCircle,
-  Sparkles
+  
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -94,7 +94,7 @@ export default function CartPage() {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
         <div className="relative">
-          <Loader2 className="animate-spin text-emerald-600 w-12 h-12" />
+          <Loader2 className="animate-spin text-blue-600 w-12 h-12" />
           <div className="absolute inset-0 bg-emerald-400/20 rounded-full blur-xl animate-pulse" />
         </div>
         <p className="text-slate-600 font-semibold">Memuat keranjang...</p>
@@ -124,7 +124,7 @@ export default function CartPage() {
             <p className="text-sm sm:text-base text-slate-600 mb-6 sm:mb-8 max-w-xs mx-auto font-medium px-4">Ayo cari layanan percetakan yang kamu butuhkan sekarang!</p>
             <Button asChild size="lg" className="px-8 sm:px-10 h-11 sm:h-12 rounded-full group">
               <Link href="/products">
-                <Sparkles className="mr-2 h-5 w-5" />
+            
                 Lihat Produk
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Link>
@@ -219,7 +219,7 @@ export default function CartPage() {
               >
                 {isAllDesignReady ? (
                   <Link href="/checkout">
-                    <Sparkles className="h-5 w-5" />
+                   
                     Lanjut ke Pembayaran 
                     <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                   </Link>

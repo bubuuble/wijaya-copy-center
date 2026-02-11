@@ -43,9 +43,9 @@ export default function UserNav({ user, profile }: UserNavProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="outline-none">
-        <Avatar className="h-9 w-9 border-2 border-emerald-100 hover:border-emerald-500 transition-all cursor-pointer">
+        <Avatar className="h-9 w-9 border-2 border-blue-100 hover:border-blue-500 transition-all cursor-pointer">
           <AvatarImage src="" />
-          <AvatarFallback className="bg-emerald-600 text-white font-bold text-xs">
+          <AvatarFallback className="bg-blue-600 text-white font-bold text-xs">
             {initial}
           </AvatarFallback>
         </Avatar>
@@ -53,7 +53,7 @@ export default function UserNav({ user, profile }: UserNavProps) {
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-bold leading-none text-emerald-600">
+            <p className="text-sm font-bold leading-none text-blue-600">
               {profile?.username || "Pelanggan"}
             </p>
             <p className="text-xs leading-none text-muted-foreground">

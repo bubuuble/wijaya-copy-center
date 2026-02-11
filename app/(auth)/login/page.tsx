@@ -3,12 +3,13 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { Mail, Lock, ArrowRight, Loader2, Printer, Sparkles } from "lucide-react";
+import { Mail, Lock, ArrowRight, Loader2 } from "lucide-react";
 
 export default function LoginPage() {
   const [identifier, setIdentifier] = useState(""); // Bisa Email atau Username
@@ -81,15 +82,14 @@ export default function LoginPage() {
 
       <Card className="relative w-full max-w-md glass border-emerald-200/50 animate-slide-up">
         <CardHeader className="text-center space-y-4">
-          <div className="mx-auto bg-gradient-to-br from-emerald-600 to-teal-500 w-16 h-16 rounded-2xl flex items-center justify-center shadow-xl shadow-emerald-500/30 animate-float">
-            <Printer className="text-white" size={28} strokeWidth={2.5} />
+          <div className="mx-auto w-32 h-16 rounded-2xl flex items-center justify-center animate-float relative">
+            <Image src="/logo/logo.png" alt="Wijaya Copy Logo" fill className="object-contain" />
           </div>
           <div>
             <CardTitle className="text-3xl font-bold text-gradient">
               Wijaya Copy Center
             </CardTitle>
             <CardDescription className="text-sm mt-2 flex items-center justify-center gap-1">
-              <Sparkles size={14} className="text-amber-500" />
               Login dengan Email atau Username
             </CardDescription>
           </div>

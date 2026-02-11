@@ -137,7 +137,7 @@ export default function CheckoutPage() {
   // --- RENDER UI (LOGIC STATUS SAMA SEPERTI SEBELUMNYA) ---
   if (status === "processing") return (
     <div className="flex flex-col items-center justify-center min-h-[70vh] gap-4 sm:gap-6 p-4 sm:p-6 text-center font-sans">
-      <Loader2 className="animate-spin w-12 h-12 sm:w-16 sm:h-16 text-emerald-600" />
+      <Loader2 className="animate-spin w-12 h-12 sm:w-16 sm:h-16 text-blue-600" />
       <div className="space-y-2">
         <h2 className="text-xl sm:text-2xl font-black px-4">{uploadText}</h2>
         <p className="text-sm sm:text-base text-slate-500 italic">Mohon tidak menutup halaman...</p>
@@ -148,31 +148,31 @@ export default function CheckoutPage() {
 
   if (status === "success") return (
     <div className="flex flex-col items-center justify-center min-h-[70vh] text-center p-4 sm:p-6 gap-4 sm:gap-6">
-      <div className="bg-emerald-100 p-4 sm:p-6 rounded-full animate-bounce">
-        <CheckCircle2 className="w-16 h-16 sm:w-20 sm:h-20 text-emerald-600" />
+      <div className="bg-blue-100 p-4 sm:p-6 rounded-full animate-bounce">
+        <CheckCircle2 className="w-16 h-16 sm:w-20 sm:h-20 text-blue-600" />
       </div>
       <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">Pesanan Terkirim!</h2>
       <p className="text-slate-500 font-bold text-xs">Order ID: {orderId.substring(0,8)}</p>
-      <Button onClick={() => router.push("/tracking")} className="bg-emerald-600 px-8 sm:px-10 h-12 sm:h-14 rounded-2xl text-base sm:text-lg font-bold shadow-lg shadow-emerald-200">Lacak Pesanan</Button>
+      <Button onClick={() => router.push("/tracking")} className="bg-blue-600 px-8 sm:px-10 h-12 sm:h-14 rounded-2xl text-base sm:text-lg font-bold shadow-lg shadow-blue-200">Lacak Pesanan</Button>
     </div>
   );
 
   return (
     <div className="max-w-6xl mx-auto py-8 sm:py-12 px-4 sm:px-6">
       <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-6 sm:mb-10 flex items-center gap-2 sm:gap-3">
-        <Receipt className="text-emerald-600 w-6 h-6 sm:w-8 sm:h-8" /> Checkout & <span className="text-emerald-600">Pembayaran</span>
+        <Receipt className="text-blue-600 w-6 h-6 sm:w-8 sm:h-8" /> Checkout & <span className="text-blue-600">Pembayaran</span>
       </h1>
 
       <div className="grid lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
         <div className="lg:col-span-2 space-y-6">
-          <Card className="border-emerald-100 shadow-sm rounded-3xl overflow-hidden">
-            <CardHeader className="bg-emerald-50 border-b border-emerald-100 p-4 sm:p-6">
-              <CardTitle className="text-base sm:text-lg flex items-center gap-2 font-bold text-emerald-800">
+          <Card className="border-blue-100 shadow-sm rounded-3xl overflow-hidden">
+            <CardHeader className="bg-blue-50 border-b border-blue-100 p-4 sm:p-6">
+              <CardTitle className="text-base sm:text-lg flex items-center gap-2 font-bold text-blue-800">
                 <FileText size={18} className="sm:w-5 sm:h-5" /> Rincian Belanja
               </CardTitle>
             </CardHeader>
             <CardContent className="p-0">
-              <div className="divide-y divide-emerald-50">
+              <div className="divide-y divide-blue-50">
                 {cartItems.map((item) => (
                   <div key={item.id} className="p-4 sm:p-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0">
                     <div>
@@ -189,7 +189,7 @@ export default function CheckoutPage() {
               </div>
               <div className="p-4 sm:p-6 lg:p-8 bg-slate-900 text-white flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-0">
                 <span className="text-slate-400 font-bold text-sm sm:text-base">Total Bayar:</span>
-                <span className="text-2xl sm:text-3xl lg:text-4xl font-bold text-emerald-400">
+                <span className="text-2xl sm:text-3xl lg:text-4xl font-bold text-blue-400">
                   Rp {subtotal.toLocaleString()}
                 </span>
               </div>
@@ -198,9 +198,9 @@ export default function CheckoutPage() {
         </div>
 
         <div className="space-y-4 sm:space-y-6">
-          <Card className="border-2 border-emerald-500 shadow-2xl rounded-[40px] overflow-hidden">
+          <Card className="border-2 border-blue-500 shadow-2xl rounded-[40px] overflow-hidden">
             <CardContent className="flex flex-col items-center gap-4 sm:gap-6 p-6 sm:p-8">
-              <p className="text-emerald-600 font-bold text-xs sm:text-sm">Scan QRIS untuk Bayar</p>
+              <p className="text-blue-600 font-bold text-xs sm:text-sm">Scan QRIS untuk Bayar</p>
               <div className="p-4 sm:p-6 bg-white border-2 border-slate-100 rounded-3xl shadow-inner">
                 <QrCode size={150} className="sm:w-[180px] sm:h-[180px] text-slate-900" />
               </div>
@@ -213,16 +213,16 @@ export default function CheckoutPage() {
           <div className="space-y-4">
             <div className="space-y-2">
               <label className="text-xs font-bold text-slate-500 flex items-center gap-2 px-2">
-                <ShieldCheck size={14} className="text-emerald-600" /> Upload Bukti Transfer:
-              </label>
+                <ShieldCheck size={14} className="text-blue-600" /> Upload Bukti Transfer:
+              </Label>
               <Input 
                 type="file" 
-                className="bg-white h-12 sm:h-14 pt-3 sm:pt-4 border-2 rounded-2xl cursor-pointer hover:border-emerald-300 transition-all font-bold text-sm" 
+                className="bg-white h-12 sm:h-14 pt-3 sm:pt-4 border-2 rounded-2xl cursor-pointer hover:border-blue-300 transition-all font-bold text-sm"
                 onChange={(e) => setProofFile(e.target.files?.[0] || null)} 
               />
             </div>
             <Button 
-              className="w-full h-12 sm:h-14 lg:h-16 bg-emerald-600 hover:bg-emerald-700 text-base sm:text-lg lg:text-xl font-black rounded-2xl shadow-xl shadow-emerald-100 transition-all active:scale-95" 
+              className="w-full h-12 sm:h-14 lg:h-16 bg-blue-600 hover:bg-blue-700 text-base sm:text-lg lg:text-xl font-black rounded-2xl shadow-xl shadow-blue-100 transition-all active:scale-95" 
               onClick={handleFinalProcess}
             >
               KONFIRMASI BAYAR

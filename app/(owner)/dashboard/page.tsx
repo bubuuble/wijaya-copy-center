@@ -97,7 +97,7 @@ export default async function AdminDashboard() {
     { 
       label: "Total Pendapatan", 
       value: `Rp ${totalRevenue.toLocaleString('id-ID')}`, 
-      icon: <DollarSign className="text-emerald-600"/>,
+      icon: <DollarSign className="text-blue-600"/>,
       desc: "Dari pembayaran terverifikasi"
     },
     { 
@@ -129,9 +129,9 @@ export default async function AdminDashboard() {
           </h1>
           <p className="text-xs sm:text-sm text-slate-500 mt-2">Kelola bisnis percetakan Anda dengan mudah</p>
         </div>
-        <div className="glass px-4 py-2 sm:px-5 sm:py-3 rounded-2xl border border-emerald-200/50">
+        <div className="glass px-4 py-2 sm:px-5 sm:py-3 rounded-2xl border border-blue-200/50">
           <p className="text-xs text-slate-500 font-semibold">Live Update</p>
-          <p className="text-xs sm:text-sm text-emerald-600 font-sans font-bold">{new Date().toLocaleTimeString('id-ID')} WIB</p>
+          <p className="text-xs sm:text-sm text-blue-600 font-sans font-bold">{new Date().toLocaleTimeString('id-ID')} WIB</p>
         </div>
       </div>
       
@@ -140,14 +140,14 @@ export default async function AdminDashboard() {
         {stats.map((stat, index) => (
           <Card 
             key={stat.label} 
-            className="glass border-emerald-200/30 rounded-3xl overflow-hidden group hover-lift animate-fade-in"
+            className="glass border-blue-200/30 rounded-3xl overflow-hidden group hover-lift animate-fade-in"
             style={{ animationDelay: `${index * 100}ms` }}
           >
             <CardHeader className="flex flex-row items-center justify-between pb-3">
               <CardTitle className="text-xs font-semibold text-slate-500">
                 {stat.label}
               </CardTitle>
-              <div className="p-3 bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl group-hover:scale-110 transition-transform duration-300">
+              <div className="p-3 bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl group-hover:scale-110 transition-transform duration-300">
                 {stat.icon}
               </div>
             </CardHeader>
@@ -161,11 +161,11 @@ export default async function AdminDashboard() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
         {/* GRAFIK PENJUALAN */}
-        <Card className="lg:col-span-2 glass border-emerald-200/30 rounded-3xl p-4 sm:p-6 lg:p-8 hover-lift">
+        <Card className="lg:col-span-2 glass border-blue-200/30 rounded-3xl p-4 sm:p-6 lg:p-8 hover-lift">
           <div className="flex flex-col sm:flex-row justify-between items-start gap-4 sm:gap-6 mb-6">
             <div>
               <CardTitle className="text-xl sm:text-2xl font-display font-bold text-slate-900 flex items-center gap-2 sm:gap-3">
-                <div className="p-2 bg-gradient-to-br from-emerald-500 to-teal-400 rounded-xl">
+                <div className="p-2 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-xl">
                   <TrendingUp className="text-white" size={18} strokeWidth={2.5} />
                 </div>
                 Statistik Pendapatan
@@ -183,27 +183,27 @@ export default async function AdminDashboard() {
         </Card>
 
         {/* Tips Card */}
-        <Card className="rounded-3xl border-none bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-500 p-6 sm:p-8 text-white flex flex-col justify-between shadow-2xl shadow-emerald-500/30 hover-lift overflow-hidden relative">
+        <Card className="rounded-3xl border-none bg-gradient-to-br from-blue-600 via-blue-500 to-cyan-500 p-6 sm:p-8 text-white flex flex-col justify-between shadow-2xl shadow-blue-500/30 hover-lift overflow-hidden relative">
           {/* Decorative Elements */}
           <div className="absolute -top-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-2xl" />
           <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-amber-400/20 rounded-full blur-2xl" />
           
           <div className="relative space-y-4">
             <h3 className="text-xl sm:text-2xl font-display font-bold">Tips Admin</h3>
-            <p className="text-emerald-50 font-sans text-sm leading-relaxed">
+            <p className="text-blue-50 font-sans text-sm leading-relaxed">
               Pastikan selalu cek bukti transfer di menu <b className="text-white">Pesanan</b> sebelum memproses cetakan. 
               Klik &quot;Terima&quot; agar status pengerjaan otomatis berubah jadi <b className="text-white">Diterima</b>.
             </p>
           </div>
           
-          <div className="relative bg-white/95 backdrop-blur-sm border border-emerald-200 p-5 rounded-2xl mt-6 shadow-lg">
+          <div className="relative bg-white/95 backdrop-blur-sm border border-blue-200 p-5 rounded-2xl mt-6 shadow-lg">
             <p className="text-xs font-bold text-slate-600">Status Server</p>
             <div className="flex items-center gap-3 mt-2">
               <div className="relative">
-                <div className="w-3 h-3 bg-emerald-600 rounded-full" />
-                <div className="absolute inset-0 w-3 h-3 bg-emerald-600 rounded-full animate-ping" />
+                <div className="w-3 h-3 bg-blue-600 rounded-full" />
+                <div className="absolute inset-0 w-3 h-3 bg-blue-600 rounded-full animate-ping" />
               </div>
-              <span className="text-sm font-bold text-emerald-700">Database Online</span>
+              <span className="text-sm font-bold text-blue-700">Database Online</span>
             </div>
           </div>
         </Card>

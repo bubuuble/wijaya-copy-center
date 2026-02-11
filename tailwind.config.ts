@@ -13,11 +13,11 @@ const config: Config = {
   	extend: {
   		colors: {
   			primary: {
-  				'50': '#ecfdf5',
-  				'100': '#d1fae5',
-  				'500': '#10b981',
-  				'600': '#059669',
-  				'700': '#047857',
+  				'50': '#e6f7ff',
+  				'100': '#b3e4ff',
+  				'500': '#18abfc',
+  				'600': '#1497e0',
+  				'700': '#1082c4',
   				DEFAULT: 'hsl(var(--primary))',
   				foreground: 'hsl(var(--primary-foreground))'
   			},
