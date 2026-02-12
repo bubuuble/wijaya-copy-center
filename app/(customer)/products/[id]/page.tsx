@@ -77,12 +77,12 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
   const isPrint = product?.category?.toLowerCase().includes("print");
   const totalPrice = product ? (product.price * pages * qty) : 0;
 
-  if (fetching) return <div className="min-h-[60vh] flex items-center justify-center"><Loader2 className="animate-spin text-emerald-600" /></div>;
+  if (fetching) return <div className="min-h-[60vh] flex items-center justify-center"><Loader2 className="animate-spin text-blue-600" /></div>;
   if (!product) return <div className="p-20 text-center">Produk tidak ada.</div>;
 
   return (
     <div className="max-w-6xl mx-auto py-12 px-4 space-y-8">
-      <Link href="/products" className="flex items-center text-emerald-600 gap-2 font-bold hover:underline"><ArrowLeft size={18}/> Kembali</Link>
+      <Link href="/products" className="flex items-center text-blue-600 gap-2 font-bold hover:underline"><ArrowLeft size={18}/> Kembali</Link>
       
       <div className="grid md:grid-cols-2 gap-12">
         <div className="aspect-square bg-slate-50 rounded-3xl border overflow-hidden relative">
@@ -90,10 +90,10 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
         </div>
 
         <div className="space-y-6">
-          <Badge className="bg-emerald-100 text-emerald-700">{product.category}</Badge>
+          <Badge className="bg-blue-100 text-blue-700">{product.category}</Badge>
           <h1 className="text-4xl font-black text-slate-900">{product.name}</h1>
-          <p className="text-2xl font-bold text-emerald-600">Rp {product.price.toLocaleString()} <span className="text-sm text-slate-400 font-normal">/ halaman</span></p>
-          <p className="text-slate-600 italic border-l-4 border-emerald-500 pl-4">&quot;{product.description}&quot;</p>
+          <p className="text-2xl font-bold text-blue-600">Rp {product.price.toLocaleString()} <span className="text-sm text-slate-400 font-normal">/ halaman</span></p>
+          <p className="text-slate-600 italic border-l-4 border-blue-500 pl-4">&quot;{product.description}&quot;</p>
           
           <div className="pt-6 border-t grid gap-6">
             <div className="grid grid-cols-2 gap-4">
@@ -129,9 +129,9 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
               </div>
             </div>
 
-            <div className="p-4 bg-emerald-50 rounded-2xl border-2 border-emerald-100 flex justify-between items-center">
-              <span className="text-emerald-700 font-bold">Total Harga:</span>
-              <span className="text-2xl font-black text-emerald-600 font-mono text-right">Rp {totalPrice.toLocaleString()}</span>
+            <div className="p-4 bg-blue-50 rounded-2xl border-2 border-blue-100 flex justify-between items-center">
+              <span className="text-blue-700 font-bold">Total Harga:</span>
+              <span className="text-2xl font-black text-blue-600 font-mono text-right">Rp {totalPrice.toLocaleString()}</span>
             </div>
 
             <div className="space-y-2">
@@ -139,7 +139,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
               <Input type="file" className="h-12 border-2" onChange={(e) => setFile(e.target.files?.[0] || null)} />
             </div>
 
-            <Button className="w-full h-14 bg-emerald-600 hover:bg-emerald-700 text-lg font-bold rounded-2xl" onClick={handleAddToCart} disabled={loading}>
+            <Button className="w-full h-14 bg-blue-600 hover:bg-blue-700 text-lg font-bold rounded-2xl" onClick={handleAddToCart} disabled={loading}>
               {loading ? <Loader2 className="animate-spin mr-2"/> : <ShoppingCart className="mr-2"/>} 
               {file ? "Masukkan Keranjang" : "Upload Desain Dulu"}
             </Button>

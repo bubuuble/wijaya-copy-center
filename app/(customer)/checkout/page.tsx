@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { 
-  QrCode, Loader2, CheckCircle2, Receipt, FileText, ShieldCheck
+  QrCode, Loader2, CheckCircle2, Receipt, FileText, ShieldCheck, Truck, Store
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 
@@ -28,6 +28,7 @@ export default function CheckoutPage() {
   const [progress, setProgress] = useState(0);
   const [uploadText, setUploadText] = useState("");
   const [orderId, setOrderId] = useState("");
+  const [shippingMethod, setShippingMethod] = useState<"Ship" | "Pick Up">("Pick Up");
 
   const supabase = createClient();
   const router = useRouter();
@@ -80,6 +81,7 @@ export default function CheckoutPage() {
         total_amount: subtotal,
         payment_status: "waiting_confirmation",
         payment_proof_url: proofUrl,
+        shipping_method: shippingMethod,
       }]).select().single();
 
       if (orderErr) throw orderErr;
@@ -124,6 +126,24 @@ export default function CheckoutPage() {
       // STEP D: CLEANUP
       await supabase.from("cart_items").delete().eq("user_id", user.id);
       clearPendingFiles();
+
+      // TERIAK KE ADMIN: "Eh, ada pesanan baru nih!"
+      const channel = supabase.channel('order_notifications');
+      await channel.subscribe(async (status) => {
+        if (status === 'SUBSCRIBED') {
+          await channel.send({
+            type: 'broadcast',
+            event: 'new_order',
+            payload: { 
+              amount: subtotal,
+              customer: user.email 
+            },
+          });
+          // Setelah teriak, tutup channelnya
+          supabase.removeChannel(channel);
+        }
+      });
+
       setStatus("success");
       router.refresh();
 
@@ -198,6 +218,41 @@ export default function CheckoutPage() {
         </div>
 
         <div className="space-y-4 sm:space-y-6">
+          {/* Pilihan Metode Pengambilan */}
+          <div className="space-y-3">
+            <label className="text-sm font-bold text-slate-700">Metode Pengambilan:</label>
+            <div className="grid grid-cols-2 gap-3">
+              <button
+                onClick={() => setShippingMethod("Pick Up")}
+                className={`flex flex-col items-center justify-center p-4 rounded-2xl border-2 transition-all ${
+                  shippingMethod === "Pick Up" 
+                  ? "border-blue-600 bg-blue-50 text-blue-600 shadow-md" 
+                  : "border-slate-100 bg-white text-slate-400 hover:border-slate-200"
+                }`}
+              >
+                <Store size={24} className="mb-1" />
+                <span className="text-xs font-bold uppercase">Ambil Sendiri</span>
+              </button>
+              <button
+                onClick={() => setShippingMethod("Ship")}
+                className={`flex flex-col items-center justify-center p-4 rounded-2xl border-2 transition-all ${
+                  shippingMethod === "Ship" 
+                  ? "border-blue-600 bg-blue-50 text-blue-600 shadow-md" 
+                  : "border-slate-100 bg-white text-slate-400 hover:border-slate-200"
+                }`}
+              >
+                <Truck size={24} className="mb-1" />
+                <span className="text-xs font-bold uppercase">Kirim Alamat</span>
+              </button>
+            </div>
+            {shippingMethod === "Ship" && (
+              <p className="text-[10px] text-amber-600 font-bold italic px-2">
+                *Pesanan akan dikirim ke alamat yang tertera di Profil Anda.
+              </p>
+            )}
+          </div>
+
+          {/* QR Code Payment */}
           <Card className="border-2 border-blue-500 shadow-2xl rounded-[40px] overflow-hidden">
             <CardContent className="flex flex-col items-center gap-4 sm:gap-6 p-6 sm:p-8">
               <p className="text-blue-600 font-bold text-xs sm:text-sm">Scan QRIS untuk Bayar</p>
@@ -207,6 +262,12 @@ export default function CheckoutPage() {
               <p className="text-[10px] text-center text-slate-400 font-bold">
                 A/N Percetakan Wijaya Utama<br />Gunakan E-Wallet atau M-Banking
               </p>
+              <div className="w-full pt-2 border-t border-slate-100">
+                <p className="text-[10px] text-center text-red-600 font-bold">
+                  ⚠️ Harap bayar sesuai nominal.<br />
+                  Kelebihan pembayaran tidak akan dikembalikan.
+                </p>
+              </div>
             </CardContent>
           </Card>
 
@@ -214,7 +275,7 @@ export default function CheckoutPage() {
             <div className="space-y-2">
               <label className="text-xs font-bold text-slate-500 flex items-center gap-2 px-2">
                 <ShieldCheck size={14} className="text-blue-600" /> Upload Bukti Transfer:
-              </Label>
+              </label>
               <Input 
                 type="file" 
                 className="bg-white h-12 sm:h-14 pt-3 sm:pt-4 border-2 rounded-2xl cursor-pointer hover:border-blue-300 transition-all font-bold text-sm"

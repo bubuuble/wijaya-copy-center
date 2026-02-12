@@ -53,7 +53,7 @@ export default function TrackingPage() {
     const styles: Record<string, string> = {
       'Pesanan Diterima': 'bg-blue-100 text-blue-700',
       'Pesanan Dibuat': 'bg-orange-100 text-orange-700',
-      'Pesanan Selesai': 'bg-emerald-100 text-emerald-700',
+      'Pesanan Selesai': 'bg-blue-100 text-blue-700',
       'Proses Pengiriman': 'bg-purple-100 text-purple-700',
     };
 
@@ -64,26 +64,26 @@ export default function TrackingPage() {
     );
   };
 
-  if (loading) return <div className="min-h-[60vh] flex items-center justify-center"><Loader2 className="animate-spin text-emerald-600 w-10 h-10 sm:w-12 sm:h-12" /></div>;
+  if (loading) return <div className="min-h-[60vh] flex items-center justify-center"><Loader2 className="animate-spin text-blue-600 w-10 h-10 sm:w-12 sm:h-12" /></div>;
 
   return (
     <div className="max-w-4xl mx-auto py-8 sm:py-12 px-4 sm:px-6">
-      <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-6 sm:mb-8">Riwayat <span className="text-emerald-600">Pesanan</span></h1>
+      <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-6 sm:mb-8">Riwayat <span className="text-blue-600">Pesanan</span></h1>
 
       {orders.length === 0 ? (
         <Card className="p-8 sm:p-12 text-center border-dashed">
           <ShoppingBag className="mx-auto h-10 w-10 sm:h-12 sm:w-12 text-slate-200 mb-4" />
           <p className="text-slate-500 text-sm sm:text-base">Belum ada pesanan.</p>
-          <Button asChild className="mt-4 bg-emerald-600 rounded-full"><Link href="/products">Mulai Belanja</Link></Button>
+          <Button asChild className="mt-4 bg-blue-600 rounded-full"><Link href="/products">Mulai Belanja</Link></Button>
         </Card>
       ) : (
         <div className="space-y-4">
           {orders.map((order) => (
             <Link key={order.id} href={`/tracking/${order.id}`}>
-              <Card className="hover:border-emerald-500 transition-all cursor-pointer group mb-4">
+              <Card className="hover:border-blue-500 transition-all cursor-pointer group mb-4">
                 <CardContent className="p-4 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-0">
                   <div className="flex items-center gap-3 sm:gap-4 w-full sm:w-auto">
-                    <div className="bg-emerald-50 p-2 sm:p-3 rounded-2xl group-hover:bg-emerald-600 group-hover:text-white transition-colors shrink-0">
+                    <div className="bg-blue-50 p-2 sm:p-3 rounded-2xl group-hover:bg-blue-600 group-hover:text-white transition-colors shrink-0">
                       <Clock size={20} className="sm:w-6 sm:h-6" />
                     </div>
                     <div className="flex-1 min-w-0">
@@ -94,7 +94,7 @@ export default function TrackingPage() {
                   </div>
                   <div className="flex items-center gap-3 sm:gap-4 w-full sm:w-auto justify-between sm:justify-end">
                     {getStatusBadge(order)}
-                    <ChevronRight className="text-slate-300 group-hover:text-emerald-500 shrink-0" />
+                    <ChevronRight className="text-slate-300 group-hover:text-blue-500 shrink-0" />
                   </div>
                 </CardContent>
               </Card>

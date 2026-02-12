@@ -1,7 +1,7 @@
 'use client';
 
 import Link from "next/link";
-import { LayoutDashboard, Package, ShoppingCart, LogOut, ExternalLink } from "lucide-react";
+import { LayoutDashboard, Package, ShoppingCart, LogOut, ExternalLink, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
@@ -18,12 +18,13 @@ export default function AdminSidebar() {
   const menu = [
     { name: "Dashboard", icon: <LayoutDashboard size={20}/>, href: "/dashboard" },
     { name: "Pesanan", icon: <ShoppingCart size={20}/>, href: "/dashboard/orders" },
+    { name: "Chat", icon: <MessageCircle size={20}/>, href: "/dashboard/chat" },
   ];
 
   return (
     <div className="w-64 border-r h-screen sticky top-0 bg-slate-50 p-6 flex flex-col">
       <div className="mb-10">
-        <h1 className="text-xl font-bold text-primary">Wijaya Admin</h1>
+        <h1 className="text-xl font-bold text-blue-600">Wijaya Admin</h1>
         <p className="text-xs text-muted-foreground">Owner Dashboard</p>
       </div>
 

@@ -85,15 +85,15 @@ export default function ProfilePage() {
   return (
     <div className="max-w-4xl mx-auto py-8 sm:py-12 px-4 sm:px-6 space-y-6 sm:space-y-8">
       <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900">
-        Profil <span className="text-emerald-600">Saya</span>
+        Profil <span className="text-blue-600">Saya</span>
       </h1>
 
       <div className="grid md:grid-cols-3 gap-6 sm:gap-8">
         {/* INFO AKUN */}
-        <Card className="md:col-span-1 h-fit shadow-lg border-emerald-100">
-          <CardHeader className="bg-emerald-50/50 border-b p-4 sm:p-6">
+        <Card className="md:col-span-1 h-fit shadow-lg border-blue-100">
+          <CardHeader className="bg-blue-50/50 border-b p-4 sm:p-6">
             <CardTitle className="text-base sm:text-lg flex items-center gap-2">
-              <User size={16} className="sm:w-[18px] sm:h-[18px] text-emerald-600" /> Info Akun
+              <User size={16} className="sm:w-[18px] sm:h-[18px] text-blue-600" /> Info Akun
             </CardTitle>
           </CardHeader>
           <CardContent className="p-4 sm:p-6 space-y-4 sm:space-y-6">
@@ -106,17 +106,17 @@ export default function ProfilePage() {
               <p className="font-bold text-slate-700 text-xs sm:text-sm truncate">{profile.email}</p>
             </div>
             <Separator className="my-4" />
-            <Button variant="outline" className="w-full gap-2 text-emerald-600 border-emerald-100 hover:bg-emerald-50 font-bold">
+            <Button variant="outline" className="w-full gap-2 text-blue-600 border-blue-100 hover:bg-blue-50 font-bold">
               <Key size={16}/> Reset Password
             </Button>
           </CardContent>
         </Card>
 
         {/* ALAMAT & KONTAK */}
-        <Card className="md:col-span-2 shadow-2xl shadow-emerald-50 border-emerald-100 overflow-hidden">
+        <Card className="md:col-span-2 shadow-2xl shadow-blue-50 border-blue-100 overflow-hidden">
           <CardHeader className="border-b bg-slate-900 text-white p-4 sm:p-6">
             <CardTitle className="text-base sm:text-lg flex items-center gap-2 font-bold">
-              <MapPin size={18} className="sm:w-[22px] sm:h-[22px] text-emerald-400" /> Alamat & Kontak Pengiriman
+              <MapPin size={18} className="sm:w-[22px] sm:h-[22px] text-cyan-400" /> Alamat & Kontak Pengiriman
             </CardTitle>
           </CardHeader>
           <CardContent className="p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8 bg-white">
@@ -125,13 +125,13 @@ export default function ProfilePage() {
               {/* FIELD NOMOR TELEPON */}
               <div className="space-y-2">
                 <Label className="font-bold text-slate-700 flex items-center gap-2">
-                  <Phone size={16} className="text-emerald-600" /> Nomor WhatsApp / Telepon
+                  <Phone size={16} className="text-blue-600" /> Nomor WhatsApp / Telepon
                 </Label>
                 <Input 
                   value={profile.phone_number} 
                   onChange={(e) => setProfile({...profile, phone_number: e.target.value})} 
                   placeholder="Contoh: 081234567890" 
-                  className="h-12 border-2 focus-visible:ring-emerald-500 font-medium"
+                  className="h-12 border-2 focus-visible:ring-blue-500 font-medium"
                 />
               </div>
 
@@ -179,7 +179,7 @@ export default function ProfilePage() {
             <Button 
               onClick={handleUpdate} 
               disabled={loading} 
-              className="w-full bg-emerald-600 hover:bg-emerald-700 h-12 sm:h-14 lg:h-16 gap-2 text-base sm:text-lg lg:text-xl font-black shadow-lg shadow-emerald-200 transition-all rounded-2xl"
+              className="w-full bg-blue-600 hover:bg-blue-700 h-12 sm:h-14 lg:h-16 gap-2 text-base sm:text-lg lg:text-xl font-black shadow-lg shadow-blue-200 transition-all rounded-2xl"
             >
               {loading ? <Loader2 className="animate-spin" size={20}/> : <Save size={20}/>}
               {loading ? "Menyimpan Data..." : "Simpan Perubahan"}

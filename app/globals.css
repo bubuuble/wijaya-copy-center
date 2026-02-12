@@ -11,7 +11,7 @@
     --card-foreground: 220 15% 15%;
     --popover: 0 0% 100%;
     --popover-foreground: 220 15% 15%;
-    --primary: 158 64% 52%; /* Vibrant Emerald - Print Shop Brand */
+    --primary: 201 97% 54%; /* Blue - Print Shop Brand */
     --primary-foreground: 0 0% 100%;
     --secondary: 30 80% 55%; /* Warm Amber Accent */
     --secondary-foreground: 220 15% 15%;
@@ -23,16 +23,16 @@
     --destructive-foreground: 0 0% 100%;
     --border: 220 15% 88%;
     --input: 220 15% 92%;
-    --ring: 158 64% 52%;
+    --ring: 201 97% 54%;
     --radius: 1rem;
-    --chart-1: 158 64% 52%;
+    --chart-1: 201 97% 54%;
     --chart-2: 30 80% 55%;
     --chart-3: 270 60% 60%;
     --chart-4: 200 80% 50%;
     --chart-5: 350 70% 55%;
     
     /* Typography Variables */
-    --font-display: 'Playfair Display', serif;
+    --font-display: 'Plus Jakarta Sans', sans-serif;
     --font-sans: 'Plus Jakarta Sans', sans-serif;
   }
   .dark {
@@ -42,7 +42,7 @@
     --card-foreground: 0 0% 98%;
     --popover: 220 18% 12%;
     --popover-foreground: 0 0% 98%;
-    --primary: 158 64% 52%;
+    --primary: 201 97% 54%;
     --primary-foreground: 220 20% 10%;
     --secondary: 30 80% 55%;
     --secondary-foreground: 0 0% 100%;
@@ -54,8 +54,8 @@
     --destructive-foreground: 0 0% 100%;
     --border: 220 15% 20%;
     --input: 220 15% 20%;
-    --ring: 158 64% 52%;
-    --chart-1: 158 64% 52%;
+    --ring: 201 97% 54%;
+    --chart-1: 201 97% 54%;
     --chart-2: 30 80% 55%;
     --chart-3: 270 60% 60%;
     --chart-4: 200 80% 50%;
@@ -159,7 +159,7 @@
   
   /* Gradient Text */
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 via-teal-500 to-emerald-600;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-cyan-500 to-blue-600;
   }
   
   /* Glass Morphism */

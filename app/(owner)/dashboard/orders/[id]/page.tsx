@@ -1,10 +1,12 @@
+// File: app/(owner)/dashboard/orders/[id]/page.tsx
+
 "use client";
 import { useEffect, useState, use } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Check, Download, Loader2, Phone, MapPin, PackageCheck, FileImage, Receipt, ExternalLink } from "lucide-react"; // Hapus Printer yang tidak terpakai
+import { Check, Download, Loader2, Phone, MapPin, PackageCheck, FileImage, Receipt, ExternalLink, Truck, Store } from "lucide-react";
 
 // 1. Tambahkan pages dan price ke Interface OrderItem
 interface OrderItem {
@@ -34,6 +36,7 @@ interface Order {
   order_status: string;
   profiles: Profile;
   order_number?: number;
+  shipping_method: string;
 }
 
 export default function OrderAdminDetail({ params }: { params: Promise<{ id: string }> }) {
@@ -122,9 +125,9 @@ const handleUpdateProgress = async (newStatus: string) => {
 
       <div className="grid lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-6">
-          <Card className="shadow-lg border-emerald-100 rounded-3xl overflow-hidden">
-            <CardHeader className="bg-emerald-50/50 border-b">
-              <CardTitle className="flex items-center gap-2 text-emerald-700">Rincian Order Produksi</CardTitle>
+          <Card className="shadow-lg border-blue-100 rounded-3xl overflow-hidden">
+            <CardHeader className="bg-blue-50/50 border-b">
+              <CardTitle className="flex items-center gap-2 text-blue-700">Rincian Order Produksi</CardTitle>
             </CardHeader>
             <CardContent className="p-0">
               <div className="divide-y">
@@ -132,13 +135,13 @@ const handleUpdateProgress = async (newStatus: string) => {
                   <div key={i} className="p-6 flex justify-between items-center bg-white hover:bg-slate-50 transition-colors">
                     <div>
                       <p className="text-xl font-black text-slate-900">{item.product_name}</p>
-                      <p className="text-emerald-700 font-black text-sm">
+                      <p className="text-blue-700 font-black text-sm">
                         {item.pages} Hal • {item.quantity} Rangkap • Total: {item.pages * item.quantity} Lembar
                       </p>
                       <p className="text-xs text-slate-400 font-bold">Harga Jual: Rp {(item.price * item.pages * item.quantity).toLocaleString()}</p>
                     </div>
                     {item.design_url && (
-                        <Button asChild variant="outline" className="border-2 font-bold h-10 rounded-xl gap-2 text-emerald-700">
+                        <Button asChild variant="outline" className="border-2 font-bold h-10 rounded-xl gap-2 text-blue-700">
                            <a href={item.design_url} target="_blank" rel="noopener noreferrer"><Download size={16}/> File Cetak</a>
                         </Button>
                     )}
@@ -154,16 +157,21 @@ const handleUpdateProgress = async (newStatus: string) => {
               <div className="space-y-3">
                 <p><b>Email:</b> {order.profiles?.email}</p>
                 <p><b>Username:</b> {order.profiles?.username}</p>
-                <p className="flex items-center gap-2 text-emerald-700">
+                <p className="flex items-center gap-2 text-blue-700">
                   <Phone size={16}/> <b>WhatsApp:</b> 
                   <a href={`https://wa.me/${order.profiles?.phone_number}`} target="_blank" rel="noopener noreferrer" className="underline font-bold">{order.profiles?.phone_number || '-'}</a>
                 </p>
               </div>
               <div className="p-4 bg-slate-50 rounded-2xl border border-dashed border-slate-300">
-                <p className="font-bold mb-1">Alamat Pengiriman:</p>
-                <p className="text-slate-600 italic">
-                  {order.profiles?.street}, {order.profiles?.village}, {order.profiles?.district}, {order.profiles?.city}, {order.profiles?.province}
+                <p className="font-bold mb-1 flex items-center gap-2">
+                  {order.shipping_method === 'Ship' ? <Truck size={16} className="text-blue-600"/> : <Store size={16} className="text-blue-600"/>}
+                  Metode: {order.shipping_method === 'Ship' ? 'Kirim ke Alamat' : 'Ambil di Toko'}
                 </p>
+                {order.shipping_method === 'Ship' && (
+                  <p className="text-slate-600 italic text-xs">
+                    {order.profiles?.street}, {order.profiles?.village}, {order.profiles?.district}, {order.profiles?.city}, {order.profiles?.province}
+                  </p>
+                )}
               </div>
             </CardContent>
           </Card>
@@ -207,7 +215,7 @@ const handleUpdateProgress = async (newStatus: string) => {
                     
                     {order.payment_status === 'waiting_confirmation' && (
                     <div className="grid grid-cols-2 gap-3 pt-4 border-t border-amber-100">
-                        <Button disabled={updating} className="bg-emerald-600 hover:bg-emerald-700 font-bold" onClick={() => handleUpdatePayment('confirmed')}>
+                        <Button disabled={updating} className="bg-blue-600 hover:bg-blue-700 font-bold" onClick={() => handleUpdatePayment('confirmed')}>
                             {updating ? <Loader2 className="animate-spin"/> : <Check className="mr-2"/>} Terima
                         </Button>
                         <Button disabled={updating} variant="destructive" className="font-bold" onClick={() => handleUpdatePayment('rejected')}>Tolak</Button>
@@ -217,8 +225,8 @@ const handleUpdateProgress = async (newStatus: string) => {
             </Card>
 
           {order.payment_status === 'confirmed' && (
-            <Card className="border-emerald-500 bg-emerald-50/20 rounded-3xl overflow-hidden shadow-xl">
-              <CardHeader className="bg-emerald-600 text-white">
+            <Card className="border-blue-500 bg-blue-50/20 rounded-3xl overflow-hidden shadow-xl">
+              <CardHeader className="bg-blue-600 text-white">
                 <CardTitle className="text-sm font-bold flex items-center gap-2">
                    <PackageCheck size={18}/> Update Progres Kerja
                 </CardTitle>
@@ -233,7 +241,7 @@ const handleUpdateProgress = async (newStatus: string) => {
                   <Button 
                     key={step.value}
                     variant={order.order_status === step.value ? "default" : "outline"}
-                    className={`w-full justify-start h-11 rounded-xl ${order.order_status === step.value ? 'bg-emerald-600' : 'hover:bg-emerald-50 text-slate-600'}`}
+                    className={`w-full justify-start h-11 rounded-xl ${order.order_status === step.value ? 'bg-blue-600' : 'hover:bg-blue-50 text-slate-600'}`}
                     onClick={() => handleUpdateProgress(step.value)}
                     disabled={updating}
                   >

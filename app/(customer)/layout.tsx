@@ -1,6 +1,7 @@
 import Footer from "@/components/shared/Footer";
 import Navbar from "@/components/shared/Navbar";
 import { CartProvider } from "@/context/CartContext";
+import CustomerChatWidget from "@/components/customer/CustomerChatWidget";
 
 export default function CustomerLayout({
   children,
@@ -13,6 +14,7 @@ export default function CustomerLayout({
         <Navbar /> 
         <main className="flex-grow">{children}</main>
         <Footer />
+        <CustomerChatWidget />
       </div>
     </CartProvider>
   );

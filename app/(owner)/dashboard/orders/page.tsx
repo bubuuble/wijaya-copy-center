@@ -60,16 +60,16 @@ export default async function AdminOrders() {
   return (
     <div className="p-4 md:p-6 lg:p-8 space-y-6">
       <div className="flex items-center gap-3">
-        <div className="bg-emerald-600 p-2 rounded-lg text-white">
+        <div className="bg-blue-600 p-2 rounded-lg text-white">
           <ShoppingCart size={20} className="sm:w-6 sm:h-6" />
         </div>
-        <h1 className="text-2xl sm:text-3xl font-bold text-slate-900">Kelola <span className="text-emerald-600">Pesanan</span></h1>
+        <h1 className="text-2xl sm:text-3xl font-bold text-slate-900">Kelola <span className="text-blue-600">Pesanan</span></h1>
       </div>
 
       <div className="border rounded-3xl bg-white overflow-x-auto shadow-sm">
         <Table>
           <TableHeader className="bg-slate-50">
-            <TableRow>
+            <TableRow>  
               <TableHead className="font-bold">Order ID</TableHead>
               <TableHead className="font-bold">Pelanggan</TableHead>
               <TableHead className="font-bold">Total</TableHead>
@@ -89,7 +89,7 @@ export default async function AdminOrders() {
                   <TableCell>
                     <p className="font-bold text-slate-700">{order.profiles?.username || 'Guest'}</p>
                   </TableCell>
-                  <TableCell className="font-bold text-emerald-600 font-mono">
+                  <TableCell className="font-bold text-blue-600 font-mono">
                     Rp {order.total_amount?.toLocaleString('id-ID')}
                   </TableCell>
                   
@@ -107,7 +107,7 @@ export default async function AdminOrders() {
 
                   <TableCell>
                     <Badge variant="outline" className={
-                      order.payment_status === 'confirmed' ? 'border-emerald-500 text-emerald-600 bg-emerald-50' : 'border-amber-500 text-amber-600 bg-amber-50'
+                      order.payment_status === 'confirmed' ? 'border-blue-500 text-blue-600 bg-blue-50' : 'border-amber-500 text-amber-600 bg-amber-50'
                     }>
                       {order.payment_status === 'waiting_confirmation' ? 'Verifikasi' : order.payment_status}
                     </Badge>
@@ -115,7 +115,7 @@ export default async function AdminOrders() {
                   <TableCell>{getStatusBadge(order.order_status)}</TableCell>
                   <TableCell>
                     <Link href={`/dashboard/orders/${order.id}`}>
-                      <Button size="sm" variant="outline" className="gap-2 border-emerald-200 text-emerald-700 hover:bg-emerald-50 rounded-xl">
+                      <Button size="sm" variant="outline" className="gap-2 border-blue-200 text-blue-700 hover:bg-blue-50 rounded-xl">
                         <Eye size={14}/> Detail
                       </Button>
                     </Link>

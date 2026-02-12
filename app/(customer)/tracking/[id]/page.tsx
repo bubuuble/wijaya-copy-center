@@ -53,11 +53,11 @@ export default function OrderTrackingDetail({ params }: { params: Promise<{ id: 
     return order?.order_status || "Pesanan Diterima"; // Tampilkan Diterima, Dibuat, Selesai, dll
   };
 
-  if (loading) return <div className="min-h-screen flex items-center justify-center"><Loader2 className="animate-spin text-emerald-600" /></div>;
+  if (loading) return <div className="min-h-screen flex items-center justify-center"><Loader2 className="animate-spin text-blue-600" /></div>;
 
   return (
     <div className="max-w-3xl mx-auto py-12 px-4 space-y-8">
-      <Link href="/tracking" className="flex items-center gap-2 text-emerald-600 font-bold hover:underline">
+      <Link href="/tracking" className="flex items-center gap-2 text-blue-600 font-bold hover:underline">
         <ChevronLeft size={20}/> Kembali ke Riwayat
       </Link>
 
@@ -66,7 +66,7 @@ export default function OrderTrackingDetail({ params }: { params: Promise<{ id: 
           <h1 className="text-3xl font-bold text-slate-900">Status Pesanan</h1>
           <p className="text-slate-500 font-mono text-sm">ID: {order?.id.substring(0,13)}...</p>
         </div>
-        <Badge className="bg-emerald-600 text-white h-10 px-6 text-lg rounded-xl shadow-lg shadow-emerald-100 animate-pulse">
+        <Badge className="bg-blue-600 text-white h-10 px-6 text-lg rounded-xl shadow-lg shadow-blue-100 animate-pulse">
           {getDisplayStatus()}
         </Badge>
       </div>
@@ -86,15 +86,15 @@ export default function OrderTrackingDetail({ params }: { params: Promise<{ id: 
                     {item.pages || 1} Halaman x {item.quantity} Rangkap
                   </p>
                 </div>
-                <p className="font-bold text-emerald-600 text-xl">
+                <p className="font-bold text-blue-600 text-xl">
                   Rp {(item.price * (item.pages || 1) * item.quantity).toLocaleString()}
                 </p>
               </div>
             ))}
           </div>
-          <div className="p-8 bg-emerald-50 flex justify-between items-center border-t-2 border-emerald-100">
-            <span className="font-bold text-emerald-800 flex items-center gap-2 text-lg">Total Bayar</span>
-            <span className="text-3xl font-bold text-emerald-900">Rp {order?.total_amount.toLocaleString()}</span>
+          <div className="p-8 bg-blue-50 flex justify-between items-center border-t-2 border-blue-100">
+            <span className="font-bold text-blue-800 flex items-center gap-2 text-lg">Total Bayar</span>
+            <span className="text-3xl font-bold text-blue-900">Rp {order?.total_amount.toLocaleString()}</span>
           </div>
         </CardContent>
       </Card>

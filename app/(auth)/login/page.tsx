@@ -73,14 +73,14 @@ export default function LoginPage() {
 };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-50 via-emerald-50/30 to-teal-50/50 px-4 py-12 relative overflow-hidden">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-50 via-blue-50/30 to-teal-50/50 px-4 py-12 relative overflow-hidden">
       {/* Decorative Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-emerald-400/20 rounded-full blur-3xl animate-float" />
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl animate-float" />
         <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-teal-400/20 rounded-full blur-3xl" style={{ animationDelay: '1s' }} />
       </div>
 
-      <Card className="relative w-full max-w-md glass border-emerald-200/50 animate-slide-up">
+      <Card className="relative w-full max-w-md glass border-blue-200/50 animate-slide-up">
         <CardHeader className="text-center space-y-4">
           <div className="mx-auto w-32 h-16 rounded-2xl flex items-center justify-center animate-float relative">
             <Image src="/logo/logo.png" alt="Wijaya Copy Logo" fill className="object-contain" />
@@ -143,7 +143,7 @@ export default function LoginPage() {
             </Button>
           </form>
         </CardContent>
-        <CardFooter className="justify-center border-t border-emerald-100 bg-slate-50/50 py-5">
+        <CardFooter className="justify-center border-t border-blue-100 bg-slate-50/50 py-5">
           <p className="text-sm font-sans text-slate-600">
             Belum punya akun? {' '}
             <Link href="/register" className="font-bold text-gradient hover:underline">

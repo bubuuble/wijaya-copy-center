@@ -5,6 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DollarSign, ShoppingBag, Users, Clock, TrendingUp } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import SalesChart from "@/components/owner/SalesChart";
+import RealtimeNotifier from "@/components/owner/RealtimeNotifier";
+import NotificationMenu from "@/components/owner/NotificationMenu";
 
 export default async function AdminDashboard() {
   const supabase = await createClient();
@@ -122,6 +124,7 @@ export default async function AdminDashboard() {
 
   return (
     <div className="p-4 md:p-6 lg:p-8 space-y-6 md:space-y-8 lg:space-y-10 animate-fade-in">
+      <RealtimeNotifier />
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 animate-slide-up">
         <div>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900">
@@ -129,9 +132,12 @@ export default async function AdminDashboard() {
           </h1>
           <p className="text-xs sm:text-sm text-slate-500 mt-2">Kelola bisnis percetakan Anda dengan mudah</p>
         </div>
-        <div className="glass px-4 py-2 sm:px-5 sm:py-3 rounded-2xl border border-blue-200/50">
-          <p className="text-xs text-slate-500 font-semibold">Live Update</p>
-          <p className="text-xs sm:text-sm text-blue-600 font-sans font-bold">{new Date().toLocaleTimeString('id-ID')} WIB</p>
+        <div className="flex items-center gap-4">
+          <NotificationMenu />
+          <div className="glass px-4 py-2 sm:px-5 sm:py-3 rounded-2xl border border-blue-200/50 hidden sm:block">
+            <p className="text-xs text-slate-500 font-semibold">Live Update</p>
+            <p className="text-xs sm:text-sm text-blue-600 font-sans font-bold">{new Date().toLocaleTimeString('id-ID')} WIB</p>
+          </div>
         </div>
       </div>
       

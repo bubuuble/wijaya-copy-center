@@ -23,10 +23,10 @@ export default function CartBadge() {
   }, [supabase]);
 
   return (
-    <Link href="/cart" className="text-slate-500 hover:text-emerald-600 relative p-2">
+    <Link href="/cart" className="text-slate-500 hover:text-blue-600 relative p-2">
       <ShoppingCart size={22} />
       {count > 0 && (
-        <span className="absolute top-0 right-0 bg-emerald-600 text-white text-[10px] font-black rounded-full h-5 w-5 flex items-center justify-center border-2 border-white">
+        <span className="absolute top-0 right-0 bg-blue-600 text-white text-[10px] font-black rounded-full h-5 w-5 flex items-center justify-center border-2 border-white">
           {count}
         </span>
       )}

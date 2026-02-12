@@ -95,7 +95,7 @@ export default function CartPage() {
       <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
         <div className="relative">
           <Loader2 className="animate-spin text-blue-600 w-12 h-12" />
-          <div className="absolute inset-0 bg-emerald-400/20 rounded-full blur-xl animate-pulse" />
+          <div className="absolute inset-0 bg-blue-400/20 rounded-full blur-xl animate-pulse" />
         </div>
         <p className="text-slate-600 font-semibold">Memuat keranjang...</p>
       </div>
@@ -103,10 +103,10 @@ export default function CartPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50/20 to-amber-50/20 pb-20">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/20 to-amber-50/20 pb-20">
       <div className="max-w-4xl mx-auto py-8 sm:py-12 px-4 sm:px-6">
         <div className="flex items-center gap-3 sm:gap-4 mb-8 sm:mb-10 animate-slide-up">
-          <Button variant="ghost" size="icon" asChild className="rounded-full hover:bg-emerald-50 shrink-0">
+          <Button variant="ghost" size="icon" asChild className="rounded-full hover:bg-blue-50 shrink-0">
             <Link href="/products"><ChevronLeft className="h-5 w-5" /></Link>
           </Button>
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold">
@@ -116,8 +116,8 @@ export default function CartPage() {
         </div>
 
         {items.length === 0 ? (
-          <div className="text-center py-16 sm:py-24 glass rounded-3xl border-2 border-dashed border-emerald-200 animate-fade-in">
-            <div className="bg-gradient-to-br from-emerald-500 to-teal-600 w-16 h-16 sm:w-20 sm:h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6 shadow-lg shadow-emerald-200">
+          <div className="text-center py-16 sm:py-24 glass rounded-3xl border-2 border-dashed border-blue-200 animate-fade-in">
+            <div className="bg-gradient-to-br from-blue-500 to-cyan-600 w-16 h-16 sm:w-20 sm:h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6 shadow-lg shadow-blue-200">
               <ShoppingBag className="h-8 w-8 sm:h-10 sm:w-10 text-white" />
             </div>
             <h2 className="text-xl sm:text-2xl font-bold text-slate-900 mb-2">Keranjang masih kosong</h2>
@@ -144,7 +144,7 @@ export default function CartPage() {
                   <CardContent className="p-6">
                     <div className="flex flex-col sm:flex-row items-center gap-6">
                       {/* Icon Box */}
-                      <div className="w-20 h-20 bg-gradient-to-br from-emerald-600 to-teal-600 rounded-2xl flex flex-col items-center justify-center text-white font-bold shrink-0 shadow-lg shadow-emerald-200">
+                      <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-2xl flex flex-col items-center justify-center text-white font-bold shrink-0 shadow-lg shadow-blue-200">
                         <p className="text-[10px]">Cetak</p>
                         <p className="text-xl leading-none">{item.pages || 1}P</p>
                       </div>
@@ -156,7 +156,7 @@ export default function CartPage() {
                         </p>
                         
                         {pendingFiles[item.id] ? (
-                          <div className="mt-2 inline-flex items-center gap-2 glass border border-emerald-500/30 text-emerald-700 px-3 sm:px-4 py-2 rounded-full text-xs font-bold">
+                          <div className="mt-2 inline-flex items-center gap-2 glass border border-blue-500/30 text-blue-700 px-3 sm:px-4 py-2 rounded-full text-xs font-bold">
                             <FileCheck size={14} /> 
                             <span className="hidden sm:inline">Desain Siap: {pendingFiles[item.id].name}</span>
                             <span className="sm:hidden">Desain Siap</span>
@@ -171,7 +171,7 @@ export default function CartPage() {
                       </div>
 
                       <div className="text-center sm:text-right flex flex-col items-center sm:items-end gap-2 sm:gap-3 shrink-0">
-                        <p className="text-xl sm:text-2xl font-bold text-emerald-600">
+                        <p className="text-xl sm:text-2xl font-bold text-blue-600">
                           Rp {(item.price * (item.pages || 1) * item.quantity).toLocaleString()}
                         </p>
                         <Button 
@@ -191,8 +191,8 @@ export default function CartPage() {
             </div>
 
           {/* Subtotal Card */}
-          <Card className="glass border-2 border-emerald-500/20 rounded-3xl overflow-hidden shadow-2xl animate-slide-up">
-            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-500" />
+          <Card className="glass border-2 border-blue-500/20 rounded-3xl overflow-hidden shadow-2xl animate-slide-up">
+            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-cyan-500 to-blue-500" />
             
             <CardContent className="p-4 sm:p-6 lg:p-8">
               <div className="flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-0 mb-4 sm:mb-6 pb-4 sm:pb-6 border-b border-slate-200">

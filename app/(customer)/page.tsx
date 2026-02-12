@@ -47,12 +47,12 @@ export default async function Home() {
           <div className="space-y-4 sm:space-y-6 animate-slide-up text-center md:text-left">
             <Badge variant="gradient" className="inline-flex items-center space-x-2 text-xs sm:text-sm">
             
-              <span className="hidden sm:inline">Baru: Cetak Brosur Kilat 1 Jam Jadi!</span>
+              <span className="hidden sm:inline">Cetak Kilat 1 Jam Jadi!</span>
               <span className="sm:hidden">Cetak Kilat 1 Jam!</span>
             </Badge>
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
               <span className="text-slate-900">Cetak Apapun</span><br />
-              <span className="text-gradient">Tanpa Ribet.</span>
+              <span className="text-blue-600">Tanpa Ribet.</span>
             </h1>
             <p className="text-sm sm:text-base lg:text-lg text-slate-600 max-w-md mx-auto md:mx-0 font-medium">
               Produk percetakan digital profesional untuk bisnis dan kebutuhan harian Anda. 
