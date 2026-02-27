@@ -38,7 +38,7 @@ export default function AdminSidebar() {
         ))}
         
         {/* Tombol Khusus ke Sanity Studio untuk Kelola Produk */}
-        <a href="http://localhost:3000/studio" target="_blank">
+        <a href="/studio" target="_blank">
           <Button variant="ghost" className="w-full justify-start gap-3 text-blue-600 hover:bg-blue-50">
             <Package size={20}/> Kelola Produk (Sanity) <ExternalLink size={14}/>
           </Button>

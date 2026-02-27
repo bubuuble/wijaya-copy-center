@@ -27,24 +27,22 @@ export default async function AdminOrders() {
   }
     
   const getStatusBadge = (status: string) => {
-    // 1. Definisikan gaya warna berdasarkan data asli di Database
     const styles: Record<string, string> = {
-      'pending': 'bg-slate-100 text-slate-600 border-slate-200',
-      'Diterima': 'bg-blue-100 text-blue-700 border-blue-200',
-      'Dibuat': 'bg-amber-100 text-amber-800 border-amber-200',
-      'Selesai': 'bg-blue-100 text-blue-700 border-blue-200',
-      'Dikirim': 'bg-cyan-100 text-cyan-700 border-cyan-200',
+      'pending':    'bg-slate-100 text-slate-600 border-slate-200',
+      'Diterima':   'bg-blue-100 text-blue-700 border-blue-200',
+      'Dibuat':     'bg-yellow-100 text-yellow-700 border-yellow-200',
+      'Selesai':    'bg-green-100 text-green-700 border-green-200',
+      'Dikirim':    'bg-cyan-100 text-cyan-700 border-cyan-200',
       'Dibatalkan': 'bg-red-100 text-red-700 border-red-200',
     };
 
-    // 2. Logika untuk mengubah label tampilan (Display Name)
     const displayLabels: Record<string, string> = {
-      'pending': 'Pesanan Pending',
-      'Diterima': 'Pesanan Diterima',
-      'Dibuat': 'Pesanan Dibuat',
-      'Selesai': 'Pesanan Selesai',
-      'Dikirim': 'Proses Pengiriman',
-      'Dibatalkan': 'Pesanan Dibatalkan',
+      'pending':    'Pesanan Pending',
+      'Diterima':   'Pesanan Diterima',
+      'Dibuat':     'Sedang Diproses',
+      'Selesai':    'Pesanan Selesai',
+      'Dikirim':    'Proses Pengiriman',
+      'Dibatalkan': 'Pesanan Ditolak',
     };
 
     return (
@@ -84,7 +82,7 @@ export default async function AdminOrders() {
               orders.map((order) => (
                 <TableRow key={order.id} className="hover:bg-slate-50/50">
                   <TableCell className="font-mono text-xs font-bold text-slate-400">
-                    {order.id.substring(0, 8)}
+                    #{order.order_number || order.id.substring(0, 8)}
                   </TableCell>
                   <TableCell>
                     <p className="font-bold text-slate-700">{order.profiles?.username || 'Guest'}</p>

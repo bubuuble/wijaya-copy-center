@@ -23,6 +23,8 @@ interface Order {
   payment_status: string;
   order_status: string;
   created_at: string;
+  order_number?: string;
+  estimated_time?: string;
 }
 
 export default function OrderTrackingDetail({ params }: { params: Promise<{ id: string }> }) {
@@ -49,8 +51,8 @@ export default function OrderTrackingDetail({ params }: { params: Promise<{ id: 
   // Fungsi untuk menampilkan status progres pengerjaan
   const getDisplayStatus = () => {
     if (order?.payment_status === 'waiting_confirmation') return "Menunggu Verifikasi Pembayaran";
-    if (order?.payment_status === 'rejected') return "Pembayaran Ditolak";
-    return order?.order_status || "Pesanan Diterima"; // Tampilkan Diterima, Dibuat, Selesai, dll
+    if (order?.payment_status === 'rejected') return "Pesanan Ditolak";
+    return order?.order_status || "Pesanan Diterima";
   };
 
   if (loading) return <div className="min-h-screen flex items-center justify-center"><Loader2 className="animate-spin text-blue-600" /></div>;
@@ -64,7 +66,7 @@ export default function OrderTrackingDetail({ params }: { params: Promise<{ id: 
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
         <div>
           <h1 className="text-3xl font-bold text-slate-900">Status Pesanan</h1>
-          <p className="text-slate-500 font-mono text-sm">ID: {order?.id.substring(0,13)}...</p>
+          <p className="text-slate-500 font-mono text-sm">ID: #{order?.order_number || order?.id.substring(0,13)}</p>
         </div>
         <Badge className="bg-blue-600 text-white h-10 px-6 text-lg rounded-xl shadow-lg shadow-blue-100 animate-pulse">
           {getDisplayStatus()}
@@ -104,6 +106,18 @@ export default function OrderTrackingDetail({ params }: { params: Promise<{ id: 
           &quot;Admin akan mengupdate status secara berkala. Jika dalam 24 jam status tidak berubah, hubungi kami via WhatsApp.&quot;
         </p>
       </div>
+
+      {order?.estimated_time && (
+        <div className="bg-blue-50 p-4 rounded-2xl border border-blue-100 flex items-center gap-3">
+          <div className="bg-blue-100 p-2 rounded-xl shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-blue-600"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div>
+            <p className="text-xs font-bold text-blue-500 uppercase tracking-wide">Estimasi Waktu Pengerjaan</p>
+            <p className="text-blue-900 font-bold text-sm">{order.estimated_time}</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -28,6 +28,7 @@ export default function CheckoutPage() {
   const [progress, setProgress] = useState(0);
   const [uploadText, setUploadText] = useState("");
   const [orderId, setOrderId] = useState("");
+  const [orderNumber, setOrderNumber] = useState<string | null>(null);
   const [shippingMethod, setShippingMethod] = useState<"Ship" | "Pick Up">("Pick Up");
 
   const supabase = createClient();
@@ -86,6 +87,7 @@ export default function CheckoutPage() {
 
       if (orderErr) throw orderErr;
       setOrderId(order.id);
+      if (order.order_number) setOrderNumber(String(order.order_number));
 
       // STEP C: Looping Upload Desain & Simpan Item
       for (let i = 0; i < cartItems.length; i++) {
@@ -172,7 +174,7 @@ export default function CheckoutPage() {
         <CheckCircle2 className="w-16 h-16 sm:w-20 sm:h-20 text-blue-600" />
       </div>
       <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">Pesanan Terkirim!</h2>
-      <p className="text-slate-500 font-bold text-xs">Order ID: {orderId.substring(0,8)}</p>
+      <p className="text-slate-500 font-bold text-xs">Order ID: #{orderNumber || orderId.substring(0,8)}</p>
       <Button onClick={() => router.push("/tracking")} className="bg-blue-600 px-8 sm:px-10 h-12 sm:h-14 rounded-2xl text-base sm:text-lg font-bold shadow-lg shadow-blue-200">Lacak Pesanan</Button>
     </div>
   );

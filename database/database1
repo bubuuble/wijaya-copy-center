@@ -1,46 +1,193 @@
--- 1. Tabel Profil (Hubungan ke Auth Supabase)
-create table profiles (
-  id uuid references auth.users on delete cascade primary key,
-  full_name text,
-  role text check (role in ('owner', 'customer')) default 'customer',
-  address text,
-  phone_number text,
-  created_at timestamp with time zone default timezone('utc'::text, now())
-  -- Tambahkan kolom username ke tabel profiles jika belum ada
-  alter table profiles add column if not exists username text unique;
+create table public.cart_items (
+  id uuid not null default gen_random_uuid (),
+  user_id uuid not null,
+  product_id text not null,
+  product_name text null,
+  price bigint null,
+  quantity integer null default 1,
+  created_at timestamp with time zone null default now(),
+  pages integer null default 1,
+  constraint cart_items_pkey primary key (id),
+  constraint cart_items_user_id_fkey foreign KEY (user_id) references auth.users (id)
+) TABLESPACE pg_default;
 
--- Pastikan username diisi saat user mendaftar (via trigger atau manual)
--- Untuk keperluan prototipe ini, kita akan input manual lewat kode.
-);
+create table public.messages (
+  id uuid not null default gen_random_uuid (),
+  sender_id uuid null,
+  content text not null,
+  created_at timestamp with time zone null default now(),
+  receiver_id uuid null,
+  constraint messages_pkey primary key (id),
+  constraint messages_receiver_id_fkey foreign KEY (receiver_id) references profiles (id),
+  constraint messages_sender_id_fkey foreign KEY (sender_id) references profiles (id)
+) TABLESPACE pg_default;
 
--- 2. Tabel Produk
-create table products (
-  id uuid default gen_random_uuid() primary key,
-  name text not null,
-  category text, -- Brosur, Stamp, Print, dll
+create table public.order_items (
+  id uuid not null default gen_random_uuid (),
+  order_id uuid null,
+  product_name text not null,
   price bigint not null,
-  stock int default 0,
-  description text,
-  image_url text,
-  created_at timestamp with time zone default timezone('utc'::text, now())
-);
+  quantity integer not null,
+  design_url text null,
+  pages integer null default 1,
+  constraint order_items_pkey primary key (id),
+  constraint order_items_order_id_fkey foreign KEY (order_id) references orders (id) on delete CASCADE
+) TABLESPACE pg_default;
 
--- 3. Tabel Pesanan (Orders)
-create table orders (
-  id uuid default gen_random_uuid() primary key,
-  customer_id uuid references profiles(id),
-  total_price bigint not null,
-  status text check (status in ('pending', 'processing', 'done', 'cancelled')) default 'pending',
-  order_number serial, -- Untuk nomor unik yang disebut di PDF
-  created_at timestamp with time zone default timezone('utc'::text, now())
-);
+create table public.orders (
+  id uuid not null default gen_random_uuid (),
+  order_number serial not null,
+  user_id uuid not null,
+  total_amount bigint not null,
+  payment_status text null default 'pending'::text,
+  order_status text null default 'pending'::text,
+  payment_proof_url text null,
+  created_at timestamp with time zone null default now(),
+  shipping_method text null default 'Pick Up'::text,
+  constraint orders_pkey primary key (id),
+  constraint orders_user_id_fkey foreign KEY (user_id) references profiles (id) on delete CASCADE,
+  constraint orders_order_status_check check (
+    (
+      order_status = any (
+        array[
+          'pending'::text,
+          'Diterima'::text,
+          'Dibuat'::text,
+          'Selesai'::text,
+          'Dikirim'::text,
+          'Dibatalkan'::text
+        ]
+      )
+    )
+  ),
+  constraint orders_payment_status_check check (
+    (
+      payment_status = any (
+        array[
+          'pending'::text,
+          'waiting_confirmation'::text,
+          'confirmed'::text,
+          'rejected'::text
+        ]
+      )
+    )
+  ),
+  constraint orders_shipping_method_check check (
+    (
+      shipping_method = any (array['Ship'::text, 'Pick Up'::text])
+    )
+  )
+) TABLESPACE pg_default;
 
--- 4. Tabel Detail Pesanan (Order Items)
-create table order_items (
-  id uuid default gen_random_uuid() primary key,
-  order_id uuid references orders(id) on delete cascade,
-  product_id uuid references products(id),
-  quantity int not null,
-  subtotal bigint not null,
-  file_url text -- Untuk menyimpan link file cetakan yang diupload customer
-);
+create table public.profiles (
+  id uuid not null,
+  full_name text null,
+  role text null default 'customer'::text,
+  address text null,
+  phone_number text null,
+  created_at timestamp with time zone null default timezone ('utc'::text, now()),
+  username text null,
+  email text null,
+  street text null,
+  village text null,
+  district text null,
+  province text null,
+  city text null,
+  constraint profiles_pkey primary key (id),
+  constraint profiles_username_key unique (username),
+  constraint profiles_id_fkey foreign KEY (id) references auth.users (id) on delete CASCADE,
+  constraint profiles_role_check check (
+    (
+      role = any (array['owner'::text, 'customer'::text])
+    )
+  )
+) TABLESPACE pg_default;
+
+//policy
+//cart_items
+[
+  {
+    "policyname": "User bisa tambah ke keranjang sendiri",
+    "permissive": "PERMISSIVE",
+    "roles": "{authenticated}",
+    "command": "INSERT",
+    "using_expression": null,
+    "with_check": "(auth.uid() = user_id)"
+  },
+  {
+    "policyname": "User bisa lihat keranjang sendiri",
+    "permissive": "PERMISSIVE",
+    "roles": "{authenticated}",
+    "command": "SELECT",
+    "using_expression": "(auth.uid() = user_id)",
+    "with_check": null
+  },
+  {
+    "policyname": "User bisa menghapus keranjang sendiri",
+    "permissive": "PERMISSIVE",
+    "roles": "{authenticated}",
+    "command": "DELETE",
+    "using_expression": "(auth.uid() = user_id)",
+    "with_check": null
+  }
+]
+
+//messages
+[
+  {
+    "policyname": "Users can read messages for their orders",
+    "permissive": "PERMISSIVE",
+    "roles": "{authenticated}",
+    "command": "SELECT",
+    "using_expression": "true",
+    "with_check": null
+  },
+  {
+    "policyname": "Users can insert messages",
+    "permissive": "PERMISSIVE",
+    "roles": "{authenticated}",
+    "command": "INSERT",
+    "using_expression": null,
+    "with_check": "(auth.uid() = sender_id)"
+  }
+]
+
+//orders
+[
+  {
+    "policyname": "Admin bisa lihat semua pesanan",
+    "permissive": "PERMISSIVE",
+    "roles": "{authenticated}",
+    "command": "SELECT",
+    "using_expression": "true",
+    "with_check": null
+  }
+]
+
+//profiles
+[
+  {
+    "policyname": "Profil dapat dilihat siapa saja",
+    "permissive": "PERMISSIVE",
+    "roles": "{public}",
+    "command": "SELECT",
+    "using_expression": "true",
+    "with_check": null
+  },
+  {
+    "policyname": "Users can update their own profile",
+    "permissive": "PERMISSIVE",
+    "roles": "{authenticated}",
+    "command": "UPDATE",
+    "using_expression": "(auth.uid() = id)",
+    "with_check": "(auth.uid() = id)"
+  },
+  {
+    "policyname": "Admin bisa lihat semua profil",
+    "permissive": "PERMISSIVE",
+    "roles": "{authenticated}",
+    "command": "SELECT",
+    "using_expression": "true",
+    "with_check": null
+  }
+]

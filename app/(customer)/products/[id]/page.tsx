@@ -96,18 +96,18 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
           <p className="text-slate-600 italic border-l-4 border-blue-500 pl-4">&quot;{product.description}&quot;</p>
           
           <div className="pt-6 border-t grid gap-6">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="flex flex-col gap-4">
               {isPrint && (
                 <div className="space-y-2">
                   <Label className="font-bold flex items-center gap-2"><FileText size={16}/> Jumlah Halaman:</Label>
-                  <div className="flex items-center border-2 rounded-xl p-1 bg-white">
+                  <div className="flex items-center border-2 rounded-xl p-1 bg-white w-full">
                     <Button variant="ghost" size="icon" onClick={() => setPages(Math.max(1, pages-1))}><Minus size={16}/></Button>
                     <Input 
                       type="number" 
                       min="1" 
                       value={pages} 
                       onChange={(e) => setPages(Math.max(1, parseInt(e.target.value) || 1))}
-                      className="w-16 text-center font-bold text-lg border-0 focus-visible:ring-0 h-auto p-0"
+                      className="flex-1 text-center font-bold text-lg border-0 focus-visible:ring-0 h-auto p-0"
                     />
                     <Button variant="ghost" size="icon" onClick={() => setPages(pages+1)}><Plus size={16}/></Button>
                   </div>
@@ -115,14 +115,14 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
               )}
               <div className="space-y-2">
                 <Label className="font-bold flex items-center gap-2"><Printer size={16}/> Jumlah Cetak (Rangkap):</Label>
-                <div className="flex items-center border-2 rounded-xl p-1 bg-white">
+                <div className="flex items-center border-2 rounded-xl p-1 bg-white w-full">
                   <Button variant="ghost" size="icon" onClick={() => setQty(Math.max(1, qty-1))}><Minus size={16}/></Button>
                   <Input 
                     type="number" 
                     min="1" 
                     value={qty} 
                     onChange={(e) => setQty(Math.max(1, parseInt(e.target.value) || 1))}
-                    className="w-16 text-center font-bold text-lg border-0 focus-visible:ring-0 h-auto p-0"
+                    className="flex-1 text-center font-bold text-lg border-0 focus-visible:ring-0 h-auto p-0"
                   />
                   <Button variant="ghost" size="icon" onClick={() => setQty(qty+1)}><Plus size={16}/></Button>
                 </div>
@@ -135,13 +135,17 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
             </div>
 
             <div className="space-y-2">
-              <Label className="font-bold">Upload Desain:</Label>
-              <Input type="file" className="h-12 border-2" onChange={(e) => setFile(e.target.files?.[0] || null)} />
+              <Label className="font-bold text-red-600">Upload Desain:</Label>
+              <Input 
+                type="file" 
+                className="h-12 border-2 [&::file-selector-button]:border-r [&::file-selector-button]:border-slate-300 [&::file-selector-button]:pr-3 [&::file-selector-button]:mr-3" 
+                onChange={(e) => setFile(e.target.files?.[0] || null)} 
+              />
             </div>
 
             <Button className="w-full h-14 bg-blue-600 hover:bg-blue-700 text-lg font-bold rounded-2xl" onClick={handleAddToCart} disabled={loading}>
               {loading ? <Loader2 className="animate-spin mr-2"/> : <ShoppingCart className="mr-2"/>} 
-              {file ? "Masukkan Keranjang" : "Upload Desain Dulu"}
+              Masukkan ke Keranjang
             </Button>
           </div>
         </div>

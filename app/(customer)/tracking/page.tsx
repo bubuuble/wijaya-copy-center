@@ -14,6 +14,7 @@ interface Order {
   payment_status: string;
   order_status: string;
   created_at: string;
+  order_number?: string;
 }
 
 export default function TrackingPage() {
@@ -39,27 +40,33 @@ export default function TrackingPage() {
   }, [supabase]);
 
   const getStatusBadge = (order: Order) => {
-    // 1. Jika masih menunggu konfirmasi bayar
     if (order.payment_status === 'waiting_confirmation') {
       return <Badge className="bg-amber-100 text-amber-700">Verifikasi Pembayaran</Badge>;
     }
     
-    // 2. Jika pembayaran ditolak
     if (order.payment_status === 'rejected') {
-      return <Badge className="bg-red-100 text-red-700">Ditolak</Badge>;
+      return <Badge className="bg-red-100 text-red-700 font-bold">Pesanan Ditolak</Badge>;
     }
 
-    // 3. Jika sudah bayar, tampilkan progres produksi (Diterima, Dibuat, Selesai, Dikirim)
     const styles: Record<string, string> = {
-      'Pesanan Diterima': 'bg-blue-100 text-blue-700',
-      'Pesanan Dibuat': 'bg-orange-100 text-orange-700',
-      'Pesanan Selesai': 'bg-blue-100 text-blue-700',
-      'Proses Pengiriman': 'bg-purple-100 text-purple-700',
+      'Diterima': 'bg-blue-100 text-blue-700',
+      'Dibuat': 'bg-yellow-100 text-yellow-700',
+      'Selesai': 'bg-green-100 text-green-700',
+      'Dikirim': 'bg-purple-100 text-purple-700',
+      'Dibatalkan': 'bg-red-100 text-red-700',
+    };
+
+    const labels: Record<string, string> = {
+      'Diterima': 'Pesanan Diterima',
+      'Dibuat': 'Sedang Diproses',
+      'Selesai': 'Pesanan Selesai',
+      'Dikirim': 'Proses Pengiriman',
+      'Dibatalkan': 'Pesanan Ditolak',
     };
 
     return (
       <Badge className={`${styles[order.order_status] || 'bg-slate-100 text-slate-700'} font-bold`}>
-        {order.order_status || 'Diproses'}
+        {labels[order.order_status] || order.order_status || 'Diproses'}
       </Badge>
     );
   };
@@ -87,7 +94,7 @@ export default function TrackingPage() {
                       <Clock size={20} className="sm:w-6 sm:h-6" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-xs sm:text-sm text-slate-400 font-bold truncate">#{order.id.substring(0, 8)}</p>
+                      <p className="text-xs sm:text-sm text-slate-400 font-bold truncate">#{order.order_number || order.id.substring(0, 8)}</p>
                       <h3 className="font-bold text-base sm:text-lg text-slate-800 truncate">Total: Rp {order.total_amount.toLocaleString()}</h3>
                       <p className="text-xs text-slate-400">{new Date(order.created_at).toLocaleDateString()}</p>
                     </div>

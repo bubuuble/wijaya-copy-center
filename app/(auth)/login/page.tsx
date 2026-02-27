@@ -127,6 +127,11 @@ export default function LoginPage() {
                   required 
                 />
               </div>
+              <div className="text-right">
+                <Link href="/forgot-password" className="text-xs text-blue-600 font-semibold hover:underline">
+                  Lupa Password?
+                </Link>
+              </div>
             </div>
             <Button className="w-full h-12 text-base" disabled={isLoading}>
               {isLoading ? (
