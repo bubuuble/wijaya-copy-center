@@ -135,6 +135,7 @@ export default async function AdminDashboard() {
           </h1>
           <p className="text-xs sm:text-sm text-slate-500 mt-2">Kelola bisnis percetakan Anda dengan mudah</p>
         </div>
+        <NotificationMenu />
       </div>
       
       {/* Cards Stats */}

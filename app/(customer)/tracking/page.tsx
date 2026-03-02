@@ -50,7 +50,7 @@ export default function TrackingPage() {
 
     const styles: Record<string, string> = {
       'Diterima': 'bg-blue-100 text-blue-700',
-      'Dibuat': 'bg-yellow-100 text-yellow-700',
+      'Diproses': 'bg-yellow-100 text-yellow-700',
       'Selesai': 'bg-green-100 text-green-700',
       'Dikirim': 'bg-purple-100 text-purple-700',
       'Dibatalkan': 'bg-red-100 text-red-700',
@@ -58,7 +58,7 @@ export default function TrackingPage() {
 
     const labels: Record<string, string> = {
       'Diterima': 'Pesanan Diterima',
-      'Dibuat': 'Sedang Diproses',
+      'Diproses': 'Sedang Diproses',
       'Selesai': 'Pesanan Selesai',
       'Dikirim': 'Proses Pengiriman',
       'Dibatalkan': 'Pesanan Ditolak',
