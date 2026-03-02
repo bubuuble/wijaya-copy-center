@@ -199,7 +199,7 @@ export default function OrderAdminDetail({ params }: { params: Promise<{ id: str
               <div className="p-4 bg-slate-50 rounded-2xl border border-dashed border-slate-300">
                 <p className="font-bold mb-1 flex items-center gap-2">
                   {order.shipping_method === 'Ship' ? <Truck size={16} className="text-blue-600"/> : <Store size={16} className="text-blue-600"/>}
-                  Metode: {order.shipping_method === 'Ship' ? 'Kirim ke Alamat' : 'Ambil di Toko'}
+                  Metode: {order.shipping_method === 'Ship' ? 'Pick Up Gosend' : 'Ambil di Toko'}
                 </p>
                 {order.shipping_method === 'Ship' && (
                   <p className="text-slate-600 italic text-xs">
