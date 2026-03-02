@@ -2,12 +2,11 @@ export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { DollarSign, ShoppingBag, Users, Clock, TrendingUp } from "lucide-react";
+import { DollarSign, ShoppingBag, Users, Clock, TrendingUp, BarChart3 } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import SalesChart from "@/components/owner/SalesChart";
 import RealtimeNotifier from "@/components/owner/RealtimeNotifier";
 import NotificationMenu from "@/components/owner/NotificationMenu";
-import RekapKeuangan from "@/components/owner/RekapKeuangan";
 
 export default async function AdminDashboard() {
   const supabase = await createClient();
@@ -96,7 +95,30 @@ export default async function AdminDashboard() {
     .select('*', { count: 'exact', head: true })
     .in('order_status', ['Diterima', 'Dibuat']);
 
-  // 5. Rekap Keuangan — handled by client component <RekapKeuangan />
+  // 5. Rekap Keuangan
+  const now = new Date();
+  
+  // Minggu ini (7 hari terakhir)
+  const weekStart = new Date(now);
+  weekStart.setDate(weekStart.getDate() - 6);
+  weekStart.setHours(0, 0, 0, 0);
+
+  // Bulan ini
+  const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+
+  // Tahun ini
+  const yearStart = new Date(now.getFullYear(), 0, 1);
+
+  const { data: weekData } = await supabase
+    .from('orders').select('total_amount').eq('payment_status', 'confirmed').gte('created_at', weekStart.toISOString());
+  const { data: monthData } = await supabase
+    .from('orders').select('total_amount').eq('payment_status', 'confirmed').gte('created_at', monthStart.toISOString());
+  const { data: yearData } = await supabase
+    .from('orders').select('total_amount').eq('payment_status', 'confirmed').gte('created_at', yearStart.toISOString());
+
+  const weekRevenue  = weekData?.reduce((a, c) => a + c.total_amount, 0) || 0;
+  const monthRevenue = monthData?.reduce((a, c) => a + c.total_amount, 0) || 0;
+  const yearRevenue  = yearData?.reduce((a, c) => a + c.total_amount, 0) || 0;
 
   const stats = [
     { 
@@ -192,7 +214,48 @@ export default async function AdminDashboard() {
         </Card>
 
         {/* REKAP KEUANGAN */}
-        <RekapKeuangan />
+        <Card className="rounded-3xl border-none bg-gradient-to-br from-blue-600 via-blue-500 to-cyan-500 p-6 sm:p-8 text-white flex flex-col justify-between shadow-2xl shadow-blue-500/30 hover-lift overflow-hidden relative">
+          {/* Decorative Elements */}
+          <div className="absolute -top-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-2xl" />
+          <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-amber-400/20 rounded-full blur-2xl" />
+          
+          <div className="relative space-y-4">
+            <h3 className="text-xl sm:text-2xl font-display font-bold flex items-center gap-2">
+              <BarChart3 size={22}/> Rekap Keuangan
+            </h3>
+            <p className="text-blue-100 text-xs">Pendapatan dari pembayaran terverifikasi</p>
+          </div>
+
+          <div className="relative mt-6 space-y-3">
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 space-y-3">
+              <div className="flex justify-between items-center">
+                <span className="text-blue-100 text-xs font-semibold">Minggu Ini</span>
+                <span className="text-white font-bold text-sm">Rp {weekRevenue.toLocaleString('id-ID')}</span>
+              </div>
+              <div className="h-px bg-white/20" />
+              <div className="flex justify-between items-center">
+                <span className="text-blue-100 text-xs font-semibold">Bulan Ini</span>
+                <span className="text-white font-bold text-sm">Rp {monthRevenue.toLocaleString('id-ID')}</span>
+              </div>
+              <div className="h-px bg-white/20" />
+              <div className="flex justify-between items-center">
+                <span className="text-blue-100 text-xs font-semibold">Tahun Ini</span>
+                <span className="text-white font-bold">Rp {yearRevenue.toLocaleString('id-ID')}</span>
+              </div>
+            </div>
+
+            <div className="bg-white/95 backdrop-blur-sm border border-blue-200 p-4 rounded-2xl shadow-lg">
+              <p className="text-xs font-bold text-slate-600">Status Server</p>
+              <div className="flex items-center gap-3 mt-2">
+                <div className="relative">
+                  <div className="w-3 h-3 bg-blue-600 rounded-full" />
+                  <div className="absolute inset-0 w-3 h-3 bg-blue-600 rounded-full animate-ping" />
+                </div>
+                <span className="text-sm font-bold text-blue-700">Database Online</span>
+              </div>
+            </div>
+          </div>
+        </Card>
       </div>
     </div>
   );
