@@ -2,8 +2,7 @@ import { client } from "@/sanity/lib/client";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Search, Filter, ArrowRight } from "lucide-react";
+import { Filter, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -66,15 +65,8 @@ export default async function ProductsPage() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 sm:mt-10">
-        {/* Filter & Search Bar */}
+        {/* Filter Bar */}
         <div className="flex flex-col gap-3 sm:gap-4 mb-8 sm:mb-12 animate-slide-up">
-          <div className="relative flex-1">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
-            <Input 
-              placeholder="Cari Produk (Brosur, Stempel...)" 
-              className="pl-12 h-12 glass border-blue-500/20" 
-            />
-          </div>
           <div className="flex gap-2 overflow-x-auto pb-2 md:pb-0">
             <Button variant="gradient" className="whitespace-nowrap">
               Semua

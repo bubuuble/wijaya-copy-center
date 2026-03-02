@@ -233,7 +233,7 @@ export default function CheckoutPage() {
                 }`}
               >
                 <Store size={24} className="mb-1" />
-                <span className="text-xs font-bold uppercase">Ambil Sendiri</span>
+                <span className="text-xs font-bold uppercase">Ambil Di Toko</span>
               </button>
               <button
                 onClick={() => setShippingMethod("Ship")}
@@ -244,12 +244,12 @@ export default function CheckoutPage() {
                 }`}
               >
                 <Truck size={24} className="mb-1" />
-                <span className="text-xs font-bold uppercase">Kirim Alamat</span>
+                <span className="text-xs font-bold uppercase">Pick Up Gosend</span>
               </button>
             </div>
             {shippingMethod === "Ship" && (
               <p className="text-[10px] text-amber-600 font-bold italic px-2">
-                *Pesanan akan dikirim ke alamat yang tertera di Profil Anda.
+                *Titik jemput Gosend di alamat toko: Jl. Keadilan Raya No.10, Bakti Jaya, Kec. Sukmajaya, Kota Depok, Jawa Barat 16418
               </p>
             )}
           </div>

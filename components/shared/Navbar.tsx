@@ -1,7 +1,6 @@
 // components/shared/Navbar.tsx
 import Link from 'next/link';
 import Image from 'next/image';
-import { Search } from 'lucide-react';
 import { createClient } from '@/lib/supabase/server';
 import AuthSection from './AuthSection';
 import CartBadge from './CartBadge';
@@ -55,10 +54,6 @@ export default async function Navbar() {
           </div>
 
           <div className="flex items-center space-x-3">
-            <button className="p-2.5 rounded-xl text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-all duration-200">
-              <Search size={20} strokeWidth={2} />
-            </button>
-            
             <CartBadge />
             <AuthSection user={user} profile={profile} />
           </div>
