@@ -31,7 +31,7 @@ interface Order {
 }
 
 const STORE_ADDRESS = "Jl. Keadilan Raya No.10, Bakti Jaya, Kec. Sukmajaya, Kota Depok, Jawa Barat 16418";
-const STORE_GMAPS = "https://maps.google.com/?q=Jl.+Keadilan+Raya+No.10,+Bakti+Jaya,+Kec.+Sukmajaya,+Kota+Depok,+Jawa+Barat+16418";
+const STORE_GMAPS = "https://maps.app.goo.gl/Vmz2PWZGNUbHPwnYA";
 
 function getPaymentLabel(status: string) {
   switch (status) {
@@ -47,7 +47,7 @@ function getOrderStatusLabel(status: string) {
   switch (status) {
     case "pending": return { label: "Pending", color: "bg-slate-100 text-slate-600" };
     case "Diterima": return { label: "Diterima", color: "bg-blue-100 text-blue-700" };
-    case "Dibuat": return { label: "Sedang Dikerjakan", color: "bg-indigo-100 text-indigo-700" };
+    case "Diproses": return { label: "Sedang Dikerjakan", color: "bg-yellow-100 text-yellow-700" };
     case "Selesai": return { label: "Selesai", color: "bg-emerald-100 text-emerald-700" };
     case "Dikirim": return { label: "Dikirim / Siap Diambil", color: "bg-cyan-100 text-cyan-700" };
     case "Dibatalkan": return { label: "Dibatalkan", color: "bg-red-100 text-red-700" };

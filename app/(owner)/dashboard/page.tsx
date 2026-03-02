@@ -135,13 +135,6 @@ export default async function AdminDashboard() {
           </h1>
           <p className="text-xs sm:text-sm text-slate-500 mt-2">Kelola bisnis percetakan Anda dengan mudah</p>
         </div>
-        <div className="flex items-center gap-4">
-          <NotificationMenu />
-          <div className="glass px-4 py-2 sm:px-5 sm:py-3 rounded-2xl border border-blue-200/50 hidden sm:block">
-            <p className="text-xs text-slate-500 font-semibold">Live Update</p>
-            <p className="text-xs sm:text-sm text-blue-600 font-sans font-bold">{new Date().toLocaleTimeString('id-ID')} WIB</p>
-          </div>
-        </div>
       </div>
       
       {/* Cards Stats */}
