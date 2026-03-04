@@ -3,7 +3,6 @@
 import { useEffect, useState, use } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Loader2, ChevronLeft, Printer, Package, CreditCard, Truck, Store, MapPin, Clock, CalendarDays, Hash } from "lucide-react";
 import Link from "next/link";
 
@@ -98,9 +97,6 @@ export default function OrderTrackingDetail({ params }: { params: Promise<{ id: 
           <h1 className="text-3xl font-bold text-slate-900">Status Pesanan</h1>
           <p className="text-slate-500 font-mono text-sm">ID: #{order?.order_number || order?.id.substring(0,13)}</p>
         </div>
-        <Badge className="bg-blue-600 text-white h-10 px-6 text-lg rounded-xl shadow-lg shadow-blue-100 animate-pulse">
-          {getDisplayStatus()}
-        </Badge>
       </div>
 
       {/* Info Pesanan */}
