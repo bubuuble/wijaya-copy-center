@@ -139,44 +139,44 @@ export default async function AdminDashboard() {
       </div>
       
       {/* Cards Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
         {stats.map((stat, index) => (
           <Card 
             key={stat.label} 
             className="glass border-blue-200/30 rounded-3xl overflow-hidden group hover-lift animate-fade-in"
             style={{ animationDelay: `${index * 100}ms` }}
           >
-            <CardHeader className="flex flex-row items-center justify-between pb-3">
-              <CardTitle className="text-xs font-semibold text-slate-500">
+            <CardHeader className="flex flex-row items-center justify-between pb-2 sm:pb-3">
+              <CardTitle className="text-[11px] sm:text-xs font-semibold text-slate-500 leading-tight">
                 {stat.label}
               </CardTitle>
-              <div className="p-3 bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl group-hover:scale-110 transition-transform duration-300">
+              <div className="p-2 sm:p-3 bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl group-hover:scale-110 transition-transform duration-300">
                 {stat.icon}
               </div>
             </CardHeader>
-            <CardContent className="pt-2">
-              <div className="text-3xl font-bold text-slate-900">{stat.value}</div>
-              <p className="text-xs text-slate-400 font-medium mt-1">{stat.desc}</p>
+            <CardContent className="pt-1 sm:pt-2">
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-slate-900 truncate">{stat.value}</div>
+              <p className="text-[10px] sm:text-xs text-slate-400 font-medium mt-1">{stat.desc}</p>
             </CardContent>
           </Card>
         ))}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
         {/* GRAFIK PENJUALAN */}
-        <Card className="lg:col-span-2 glass border-blue-200/30 rounded-3xl p-4 sm:p-6 lg:p-8 hover-lift">
-          <div className="flex flex-col sm:flex-row justify-between items-start gap-4 sm:gap-6 mb-6">
-            <div>
-              <CardTitle className="text-xl sm:text-2xl font-display font-bold text-slate-900 flex items-center gap-2 sm:gap-3">
-                <div className="p-2 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-xl">
-                  <TrendingUp className="text-white" size={18} strokeWidth={2.5} />
+        <Card className="lg:col-span-2 glass border-blue-200/30 rounded-3xl p-4 sm:p-6 hover-lift overflow-hidden">
+          <div className="flex flex-col sm:flex-row justify-between items-start gap-3 sm:gap-6 mb-4 sm:mb-6">
+            <div className="min-w-0">
+              <CardTitle className="text-lg sm:text-2xl font-display font-bold text-slate-900 flex items-center gap-2 sm:gap-3">
+                <div className="p-2 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-xl shrink-0">
+                  <TrendingUp className="text-white" size={16} strokeWidth={2.5} />
                 </div>
                 Statistik Pendapatan
               </CardTitle>
-              <p className="text-xs sm:text-sm text-slate-500 font-sans mt-2">Analisis performa penjualan</p>
+              <p className="text-xs sm:text-sm text-slate-500 font-sans mt-1 sm:mt-2">Analisis performa penjualan</p>
             </div>
-            <div className="text-left sm:text-right">
-              <p className="text-2xl sm:text-3xl font-bold text-gradient">
+            <div className="text-left sm:text-right shrink-0">
+              <p className="text-xl sm:text-3xl font-bold text-gradient">
                 Rp {totalRevenue.toLocaleString('id-ID')}
               </p>
               <p className="text-xs text-slate-500 font-semibold mt-1">Total Gross</p>
