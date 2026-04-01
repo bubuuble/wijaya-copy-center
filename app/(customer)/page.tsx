@@ -70,9 +70,13 @@ export default async function Home() {
           </div>
           <div className="relative animate-fade-in" style={{ animationDelay: '200ms' }}>
             <div className="relative aspect-video glass rounded-3xl shadow-2xl border border-white/60 overflow-hidden p-2">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-100 via-white to-cyan-100 flex items-center justify-center rounded-2xl m-2">
-                <Image src="/logo/logo.png" alt="Wijaya Copy" width={200} height={80} className="object-contain opacity-30" />
-              </div>
+              <Image 
+                src="/hero pict.png" 
+                alt="Wijaya Copy Center" 
+                fill 
+                className="object-cover rounded-2xl" 
+                priority
+              />
             </div>
             {/* Decorative accent */}
             <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full opacity-20 blur-2xl" />

@@ -93,7 +93,13 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
           <Badge className="bg-blue-100 text-blue-700">{product.category}</Badge>
           <h1 className="text-4xl font-black text-slate-900">{product.name}</h1>
           <p className="text-2xl font-bold text-blue-600">Rp {product.price.toLocaleString()} <span className="text-sm text-slate-400 font-normal">/ halaman</span></p>
-          <p className="text-slate-600 italic border-l-4 border-blue-500 pl-4">&quot;{product.description}&quot;</p>
+          <div className="text-slate-600 text-lg border-l-4 border-blue-500 pl-4 py-2">
+            <ul className="list-disc pl-5 space-y-2">
+              {product.description.split('\n').filter(line => line.trim()).map((line, i) => (
+                <li key={i}>{line.trim()}</li>
+              ))}
+            </ul>
+          </div>
           
           <div className="pt-6 border-t grid gap-6">
             <div className="flex flex-col gap-4">

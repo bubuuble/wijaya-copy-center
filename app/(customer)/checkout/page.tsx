@@ -11,6 +11,7 @@ import {
   QrCode, Loader2, CheckCircle2, Receipt, FileText, ShieldCheck, Truck, Store
 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 interface CartItem {
   id: string;
@@ -258,8 +259,14 @@ export default function CheckoutPage() {
           <Card className="border-2 border-blue-500 shadow-2xl rounded-[40px] overflow-hidden">
             <CardContent className="flex flex-col items-center gap-4 sm:gap-6 p-6 sm:p-8">
               <p className="text-blue-600 font-bold text-xs sm:text-sm">Scan QRIS untuk Bayar</p>
-              <div className="p-4 sm:p-6 bg-white border-2 border-slate-100 rounded-3xl shadow-inner">
-                <QrCode size={150} className="sm:w-[180px] sm:h-[180px] text-slate-900" />
+              <div className="p-4 sm:p-6 bg-white border-2 border-slate-100 rounded-3xl shadow-inner relative w-full max-w-[230px]">
+                <Image 
+                  src="/qris.jpeg" 
+                  alt="QRIS Wijaya Copy Center" 
+                  width={180} 
+                  height={180} 
+                  className="w-full h-auto object-contain"
+                />
               </div>
               <p className="text-[10px] text-center text-slate-400 font-bold">
                 A/N Percetakan Wijaya Utama<br />Gunakan E-Wallet atau M-Banking
