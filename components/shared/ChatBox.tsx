@@ -154,7 +154,10 @@ export default function ChatBox({
   };
 
   const formatTime = (dateStr: string) =>
-    new Date(dateStr).toLocaleTimeString("id-ID", {
+    new Date(dateStr).toLocaleString("id-ID", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
       hour: "2-digit",
       minute: "2-digit",
     });
