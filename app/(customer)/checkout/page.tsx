@@ -269,7 +269,7 @@ export default function CheckoutPage() {
                 />
               </div>
               <p className="text-[10px] text-center text-slate-400 font-bold">
-                A/N Percetakan Wijaya Utama<br />Gunakan E-Wallet atau M-Banking
+                A/N FOTO COPY WIJAYA - BOOK STORE<br />Gunakan E-Wallet atau M-Banking
               </p>
               <div className="w-full pt-2 border-t border-slate-100">
                 <p className="text-[10px] text-center text-red-600 font-bold">
