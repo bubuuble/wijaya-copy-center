@@ -31,7 +31,7 @@ export default function CustomerChatWidget() {
 
       if (ownerProfile) {
         setOwnerId(ownerProfile.id);
-        setOwnerName(ownerProfile.username || "Admin");
+        setOwnerName("Admin / Owner"); // Tampilkan generic name karena banyak admin yang bisa membalas
       }
     }
     init();
@@ -81,6 +81,7 @@ export default function CustomerChatWidget() {
             currentUserId={userId}
             partnerId={ownerId}
             partnerName={ownerName}
+            customerId={userId}
             height={380}
           />
         </Card>

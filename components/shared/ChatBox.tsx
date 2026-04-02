@@ -18,12 +18,14 @@ interface Message {
 interface ChatBoxProps {
   /** ID user yang sedang login */
   currentUserId: string;
-  /** ID lawan bicara */
+  /** ID lawan bicara as a fallback */
   partnerId: string;
   /** Nama lawan bicara untuk label bubble */
   partnerName?: string;
   /** Tinggi area chat */
   height?: number;
+  /** ID customer (untuk filter semua pesan yang berkaitan dengan customer ini) */
+  customerId?: string;
 }
 
 export default function ChatBox({
@@ -31,6 +33,7 @@ export default function ChatBox({
   partnerId,
   partnerName = "User",
   height = 400,
+  customerId,
 }: ChatBoxProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMsg, setNewMsg] = useState("");
@@ -43,27 +46,34 @@ export default function ChatBox({
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, []);
 
-  // 1. Fetch pesan antara currentUser dan partner
+  // 1. Fetch pesan
   useEffect(() => {
     async function fetchMessages() {
       setLoading(true);
+      const targetQuery = customerId
+        ? `sender_id.eq.${customerId},receiver_id.eq.${customerId}`
+        : `and(sender_id.eq.${currentUserId},receiver_id.eq.${partnerId}),and(sender_id.eq.${partnerId},receiver_id.eq.${currentUserId})`;
+
       const { data } = await supabase
         .from("messages")
         .select("*")
-        .or(
-          `and(sender_id.eq.${currentUserId},receiver_id.eq.${partnerId}),and(sender_id.eq.${partnerId},receiver_id.eq.${currentUserId})`
-        )
+        .or(targetQuery)
         .order("created_at", { ascending: true });
 
       if (data) setMessages(data);
       setLoading(false);
     }
     fetchMessages();
-  }, [currentUserId, partnerId, supabase]);
+  }, [currentUserId, partnerId, customerId, supabase]);
 
   // 2. Subscribe Realtime
   useEffect(() => {
-    const channelName = `dm-${[currentUserId, partnerId].sort().join("-")}`;
+    // Gunakan customerId sebagai nama channel jika tersedia, jika tidak fallback ke kombinasi ID opsional.
+    // Hal ini karena sebuah room chat pada dasarnya merepresentasikan "semua pesan milik si customer"
+    const channelName = customerId 
+      ? `chat-customer-${customerId}`
+      : `dm-${[currentUserId, partnerId].sort().join("-")}`;
+      
     const channel = supabase
       .channel(channelName)
       .on(
@@ -75,9 +85,10 @@ export default function ChatBox({
         },
         (payload) => {
           const msg = payload.new as Message;
-          const isRelevant =
-            (msg.sender_id === currentUserId && msg.receiver_id === partnerId) ||
-            (msg.sender_id === partnerId && msg.receiver_id === currentUserId);
+          const isRelevant = customerId
+            ? (msg.sender_id === customerId || msg.receiver_id === customerId)
+            : ((msg.sender_id === currentUserId && msg.receiver_id === partnerId) ||
+               (msg.sender_id === partnerId && msg.receiver_id === currentUserId));
           if (!isRelevant) return;
 
           setMessages((prev) => {
@@ -98,7 +109,7 @@ export default function ChatBox({
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [currentUserId, partnerId, supabase]);
+  }, [currentUserId, partnerId, customerId, supabase]);
 
   // 3. Auto-scroll saat ada pesan baru
   useEffect(() => {
@@ -179,7 +190,16 @@ export default function ChatBox({
         ) : (
           <div className="space-y-3">
             {messages.map((msg) => {
-              const isMe = msg.sender_id === currentUserId;
+              // Jika ini mode chat customer-store (menggunakan customerId), 
+              // 'isMe' ditentukan berdasarkan: apakah kita customer atau owner?
+              // - Kalau kita customer, pesannya milik kita jika sender_id === customerId.
+              // - Kalau kita owner, pesannya milik kita jika sender_id !== customerId.
+              const isMe = customerId 
+                ? (currentUserId === customerId 
+                    ? msg.sender_id === customerId 
+                    : msg.sender_id !== customerId)
+                : msg.sender_id === currentUserId;
+
               return (
                 <div
                   key={msg.id}

@@ -147,6 +147,7 @@ export default function OwnerChatPage() {
                 currentUserId={ownerId}
                 partnerId={selectedUser.id}
                 partnerName={selectedUser.username}
+                customerId={selectedUser.id}
                 height={500}
               />
             </>
