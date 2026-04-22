@@ -98,7 +98,8 @@ export default function CheckoutPage() {
 
         if (designFile) {
           setUploadText(`Mengunggah desain: ${item.product_name}...`);
-          const designName = `design-${Date.now()}-${designFile.name.replace(/\s/g, '_')}`;
+          const safeName = designFile.name.replace(/[^a-zA-Z0-9.-]/g, '_');
+          const designName = `design-${Date.now()}-${safeName}`;
           
           const { error: upDesignErr } = await supabase.storage
             .from("designs")
