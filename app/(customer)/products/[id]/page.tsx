@@ -95,7 +95,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
           <p className="text-2xl font-bold text-blue-600">Rp {product.price.toLocaleString()} <span className="text-sm text-slate-400 font-normal">/ halaman</span></p>
           <div className="text-slate-600 text-lg border-l-4 border-blue-500 pl-4 py-2">
             <ul className="list-disc pl-5 space-y-2">
-              {product.description.split('\n').filter(line => line.trim()).map((line, i) => (
+              {product.description?.split('\n').filter(line => line.trim()).map((line, i) => (
                 <li key={i}>{line.trim()}</li>
               ))}
             </ul>

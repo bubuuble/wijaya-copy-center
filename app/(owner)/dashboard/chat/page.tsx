@@ -117,13 +117,6 @@ export default function OwnerChatPage() {
     init();
   }, [supabase]);
 
-  // Saat chat dipilih, perbarui read time
-  useEffect(() => {
-    if (selectedUser) {
-      updateReadTime(selectedUser.id);
-    }
-  }, [selectedUser, updateReadTime]);
-
   // Subscribe ke pesan baru agar langsung naik ke atas & muncul angka unread
   useEffect(() => {
     const channel = supabase.channel("owner-chat-all")
@@ -229,7 +222,10 @@ export default function OwnerChatPage() {
                 {filtered.map((user) => (
                   <button
                     key={user.id}
-                    onClick={() => setSelectedUser(user)}
+                    onClick={() => {
+                      setSelectedUser(user);
+                      updateReadTime(user.id);
+                    }}
                     className={`w-full text-left p-4 hover:bg-blue-50 transition-colors flex items-center gap-3 relative ${
                       selectedUser?.id === user.id
                         ? "bg-blue-50 border-l-4 border-blue-600"
