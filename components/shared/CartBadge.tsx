@@ -9,17 +9,50 @@ export default function CartBadge() {
   const supabase = createClient();
 
   useEffect(() => {
-    const fetchCount = async () => {
+    let active = true;
+    let channel: any = null;
+
+    const setupRealtimeCart = async () => {
       const { data: { user } } = await supabase.auth.getUser();
-      if (user) {
+      if (!user || !active) return;
+
+      const fetchCount = async () => {
         const { count: cartCount } = await supabase
           .from('cart_items')
           .select('*', { count: 'exact', head: true })
           .eq('user_id', user.id);
-        setCount(cartCount || 0);
+        if (active) setCount(cartCount || 0);
+      };
+
+      // Initial fetch
+      await fetchCount();
+
+      // Subscribe to real-time changes on cart_items table for the current user
+      channel = supabase
+        .channel(`cart_changes_${user.id}`)
+        .on(
+          'postgres_changes',
+          {
+            event: '*',
+            schema: 'public',
+            table: 'cart_items',
+            filter: `user_id=eq.${user.id}`
+          },
+          () => {
+            fetchCount();
+          }
+        )
+        .subscribe();
+    };
+
+    setupRealtimeCart();
+
+    return () => {
+      active = false;
+      if (channel) {
+        supabase.removeChannel(channel);
       }
     };
-    fetchCount();
   }, [supabase]);
 
   return (

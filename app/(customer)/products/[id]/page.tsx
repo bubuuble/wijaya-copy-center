@@ -141,11 +141,22 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
             </div>
 
             <div className="space-y-2">
-              <Label className="font-bold text-red-600">Upload Desain:</Label>
+              <Label className="font-bold text-red-600">
+                Upload Desain <span className="text-xs text-slate-500 font-normal normal-case ml-1.5">(Maks. 50MB)</span>:
+              </Label>
               <Input 
                 type="file" 
                 className="h-12 border-2 [&::file-selector-button]:border-r [&::file-selector-button]:border-slate-300 [&::file-selector-button]:pr-3 [&::file-selector-button]:mr-3" 
-                onChange={(e) => setFile(e.target.files?.[0] || null)} 
+                onChange={(e) => {
+                  const selectedFile = e.target.files?.[0] || null;
+                  if (selectedFile && selectedFile.size > 50 * 1024 * 1024) {
+                    alert("Ukuran file terlalu besar! Maksimal 50MB.");
+                    e.target.value = "";
+                    setFile(null);
+                    return;
+                  }
+                  setFile(selectedFile);
+                }} 
               />
             </div>
 

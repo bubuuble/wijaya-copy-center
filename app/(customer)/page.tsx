@@ -63,8 +63,8 @@ export default async function Home() {
                 Pesan Sekarang
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Button>
-              <Button size="lg" variant="outline" className="rounded-full border-2 px-6 sm:px-8 h-11 sm:h-12 hover:bg-slate-50">
-                Lihat Katalog
+              <Button asChild size="lg" variant="outline" className="rounded-full border-2 px-6 sm:px-8 h-11 sm:h-12 hover:bg-slate-50">
+                <Link href="/tracking">Lacak Pesanan</Link>
               </Button>
             </div>
           </div>

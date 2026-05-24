@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, useState, ReactNode, useMemo, useCallback } from "react";
 
 interface CartContextType {
   pendingFiles: { [key: string]: File };
@@ -13,22 +13,29 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export function CartProvider({ children }: { children: ReactNode }) {
   const [pendingFiles, setPendingFiles] = useState<{ [key: string]: File }>({});
 
-  const addFileToQueue = (cartId: string, file: File) => {
+  const addFileToQueue = useCallback((cartId: string, file: File) => {
     setPendingFiles((prev) => ({ ...prev, [cartId]: file }));
-  };
+  }, []);
 
-  const removeFileFromQueue = (cartId: string) => {
+  const removeFileFromQueue = useCallback((cartId: string) => {
     setPendingFiles((prev) => {
       const newState = { ...prev };
       delete newState[cartId];
       return newState;
     });
-  };
+  }, []);
 
-  const clearPendingFiles = () => setPendingFiles({});
+  const clearPendingFiles = useCallback(() => setPendingFiles({}), []);
+
+  const contextValue = useMemo(() => ({
+    pendingFiles,
+    addFileToQueue,
+    removeFileFromQueue,
+    clearPendingFiles
+  }), [pendingFiles, addFileToQueue, removeFileFromQueue, clearPendingFiles]);
 
   return (
-    <CartContext.Provider value={{ pendingFiles, addFileToQueue, removeFileFromQueue, clearPendingFiles }}>
+    <CartContext.Provider value={contextValue}>
       {children}
     </CartContext.Provider>
   );
