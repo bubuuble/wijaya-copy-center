@@ -68,7 +68,11 @@ export default async function Home() {
             </div>
           </div>
           <div className="relative animate-fade-in" style={{ animationDelay: '200ms' }}>
-            <p className="text-sm sm:text-base font-semibold text-slate-500 mb-4">Percetakan Terpercaya di Kota Depok</p>
+            <div className="flex items-center gap-2 mb-4">
+              <span className="h-px w-8 bg-gradient-to-r from-blue-500 to-cyan-400" />
+              <p className="text-xs sm:text-sm font-semibold uppercase tracking-wider bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">Percetakan Terpercaya di Kota Depok</p>
+              <span className="h-px w-8 bg-gradient-to-r from-cyan-400 to-blue-500" />
+            </div>
             <div className="relative aspect-video glass rounded-3xl shadow-2xl border border-white/60 overflow-hidden p-2">
               <Image 
                 src="/hero pict.png" 
