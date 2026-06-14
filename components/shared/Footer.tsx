@@ -27,7 +27,7 @@ export default function Footer() {
                 <Image src="/logo/logo.png" alt="Wijaya Copy Logo" fill className="object-contain" />
               </div>
             </Link>
-            <p className="text-slate-400 leading-relaxed max-w-md font-sans">
+            <p className="text-slate-400 leading-relaxed max-w-md font-sans text-justify">
               Wijaya Copy Center merupakan percetakan Depok dan pusat printing Depok yang menyediakan layanan digital printing, fotokopi, print dokumen, jilid, laminating, cetak banner, spanduk, brosur, stiker, kartu nama, dan berbagai kebutuhan percetakan lainnya. Selain itu, kami juga hadir sebagai toko ATK Depok yang menyediakan alat tulis kantor, perlengkapan sekolah, perlengkapan pramuka, serta kebutuhan administrasi dengan pelayanan cepat dan harga terjangkau.
             </p>
             <div className="flex gap-3">

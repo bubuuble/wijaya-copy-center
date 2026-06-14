@@ -68,7 +68,7 @@ export default async function Home() {
             </div>
           </div>
           <div className="relative animate-fade-in" style={{ animationDelay: '200ms' }}>
-            <p className="text-center md:text-right text-sm sm:text-base font-semibold text-slate-500 mb-4">Percetakan Terpercaya di Kota Depok</p>
+            <p className="text-sm sm:text-base font-semibold text-slate-500 mb-4">Percetakan Terpercaya di Kota Depok</p>
             <div className="relative aspect-video glass rounded-3xl shadow-2xl border border-white/60 overflow-hidden p-2">
               <Image 
                 src="/hero pict.png" 
