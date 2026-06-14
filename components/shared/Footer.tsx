@@ -28,8 +28,7 @@ export default function Footer() {
               </div>
             </Link>
             <p className="text-slate-400 leading-relaxed max-w-md font-sans">
-              Solusi percetakan digital terpercaya dengan teknologi terkini. 
-              Kami menghadirkan kualitas cetak premium dengan proses cepat dan harga kompetitif untuk semua kebutuhan Anda.
+              Wijaya Copy Center merupakan percetakan Depok dan pusat printing Depok yang menyediakan layanan digital printing, fotokopi, print dokumen, jilid, laminating, cetak banner, spanduk, brosur, stiker, kartu nama, dan berbagai kebutuhan percetakan lainnya. Selain itu, kami juga hadir sebagai toko ATK Depok yang menyediakan alat tulis kantor, perlengkapan sekolah, perlengkapan pramuka, serta kebutuhan administrasi dengan pelayanan cepat dan harga terjangkau.
             </p>
             <div className="flex gap-3">
               <Link 

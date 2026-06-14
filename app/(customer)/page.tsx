@@ -2,7 +2,7 @@ import { client } from "@/sanity/lib/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, MapPin } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -46,9 +46,8 @@ export default async function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-8 sm:gap-12 items-center relative z-10">
           <div className="space-y-4 sm:space-y-6 animate-slide-up text-center md:text-left">
             <Badge variant="gradient" className="inline-flex items-center space-x-2 text-xs sm:text-sm">
-            
-              <span className="hidden sm:inline">Cetak Kilat 1 Jam Jadi!</span>
-              <span className="sm:hidden">Cetak Kilat 1 Jam!</span>
+              <MapPin className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+              <span>Kota Depok</span>
             </Badge>
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
               <span className="text-slate-900">Cetak Apapun</span><br />
@@ -69,6 +68,7 @@ export default async function Home() {
             </div>
           </div>
           <div className="relative animate-fade-in" style={{ animationDelay: '200ms' }}>
+            <p className="text-center md:text-right text-sm sm:text-base font-semibold text-slate-500 mb-4">Percetakan Terpercaya di Kota Depok</p>
             <div className="relative aspect-video glass rounded-3xl shadow-2xl border border-white/60 overflow-hidden p-2">
               <Image 
                 src="/hero pict.png" 
