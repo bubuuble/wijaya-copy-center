@@ -33,14 +33,14 @@ export default async function Home() {
   const products = await getProducts();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-cyan-50/30">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50/30 to-cyan-50/30">
       {/* HERO SECTION */}
       <section className="relative py-12 sm:py-16 lg:py-20 overflow-hidden">
         {/* Decorative Background Elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-blue-400/20 to-cyan-400/20 rounded-full blur-3xl animate-float" />
-          <div className="absolute top-60 -left-40 w-80 h-80 bg-gradient-to-br from-amber-400/20 to-orange-400/20 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
-          <div className="absolute bottom-20 right-1/3 w-64 h-64 bg-gradient-to-br from-purple-400/10 to-pink-400/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '4s' }} />
+          <div className="absolute -top-40 -right-40 w-96 h-96 bg-linear-to-br from-blue-400/20 to-cyan-400/20 rounded-full blur-3xl animate-float" />
+          <div className="absolute top-60 -left-40 w-80 h-80 bg-linear-to-br from-amber-400/20 to-orange-400/20 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
+          <div className="absolute bottom-20 right-1/3 w-64 h-64 bg-linear-to-br from-purple-400/10 to-pink-400/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '4s' }} />
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-8 sm:gap-12 items-center relative z-10">
@@ -69,9 +69,9 @@ export default async function Home() {
           </div>
           <div className="relative animate-fade-in" style={{ animationDelay: '200ms' }}>
             <div className="flex items-center justify-center gap-2 mb-4">
-              <span className="h-px w-8 bg-gradient-to-r from-blue-500 to-cyan-400" />
-              <p className="text-xs sm:text-sm font-semibold uppercase tracking-wider bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">Percetakan Terpercaya di Kota Depok</p>
-              <span className="h-px w-8 bg-gradient-to-r from-cyan-400 to-blue-500" />
+              <span className="h-px w-8 bg-linear-to-r from-blue-500 to-cyan-400" />
+              <p className="text-xs sm:text-sm font-semibold uppercase tracking-wider bg-linear-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">Percetakan Terpercaya di Kota Depok</p>
+              <span className="h-px w-8 bg-linear-to-r from-cyan-400 to-blue-500" />
             </div>
             <div className="relative aspect-video glass rounded-3xl shadow-2xl border border-white/60 overflow-hidden p-2">
               <Image 
@@ -83,7 +83,7 @@ export default async function Home() {
               />
             </div>
             {/* Decorative accent */}
-            <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full opacity-20 blur-2xl" />
+            <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-linear-to-br from-amber-400 to-orange-500 rounded-full opacity-20 blur-2xl" />
           </div>
         </div>
       </section>
@@ -108,7 +108,7 @@ export default async function Home() {
               className="group hover-lift border-none shadow-lg overflow-hidden animate-fade-in" 
               style={{ animationDelay: `${index * 100}ms` }}
             >
-              <div className="h-56 bg-gradient-to-br from-blue-100 to-cyan-50 relative overflow-hidden">
+              <div className="h-56 bg-linear-to-br from-blue-100 to-cyan-50 relative overflow-hidden">
                 {product.imageUrl ? (
                   <Image 
                     src={product.imageUrl} 

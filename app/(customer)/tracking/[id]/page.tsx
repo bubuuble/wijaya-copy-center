@@ -101,7 +101,7 @@ export default function OrderTrackingDetail({ params }: { params: Promise<{ id: 
 
       {/* Info Pesanan */}
       <Card className="border-none shadow-xl bg-white rounded-3xl overflow-hidden">
-        <CardHeader className="bg-gradient-to-r from-slate-800 to-slate-900 text-white px-6 py-4">
+        <CardHeader className="bg-linear-to-r from-slate-800 to-slate-900 text-white px-6 py-4">
           <CardTitle className="flex items-center gap-2 text-base"><Package size={18}/> Informasi Pesanan</CardTitle>
         </CardHeader>
         <CardContent className="p-0">
@@ -163,7 +163,7 @@ export default function OrderTrackingDetail({ params }: { params: Promise<{ id: 
 
       {/* Lokasi Toko — muncul hanya jika Pick Up Gosend */}
       {isGosend && (
-        <Card className="border-2 border-cyan-200 bg-gradient-to-br from-cyan-50 to-blue-50 rounded-3xl overflow-hidden shadow-lg">
+        <Card className="border-2 border-cyan-200 bg-linear-to-br from-cyan-50 to-blue-50 rounded-3xl overflow-hidden shadow-lg">
           <CardContent className="p-5 flex items-start gap-4">
             <div className="p-3 bg-white rounded-2xl shadow-sm shrink-0">
               <MapPin size={22} className="text-cyan-600" />
@@ -199,7 +199,7 @@ export default function OrderTrackingDetail({ params }: { params: Promise<{ id: 
 
       {/* Rincian Cetakan */}
       <Card className="border-none shadow-2xl bg-white rounded-[32px] overflow-hidden">
-        <CardHeader className="bg-gradient-to-r from-slate-800 to-slate-900 text-white p-6">
+        <CardHeader className="bg-linear-to-r from-slate-800 to-slate-900 text-white p-6">
           <CardTitle className="flex items-center gap-2 text-lg"><Printer size={20}/> Rincian Cetakan</CardTitle>
         </CardHeader>
         <CardContent className="p-0">
@@ -228,7 +228,7 @@ export default function OrderTrackingDetail({ params }: { params: Promise<{ id: 
               );
             })}
           </div>
-          <div className="p-6 sm:p-8 bg-gradient-to-r from-blue-50 to-cyan-50 flex justify-between items-center border-t-2 border-blue-100">
+          <div className="p-6 sm:p-8 bg-linear-to-r from-blue-50 to-cyan-50 flex justify-between items-center border-t-2 border-blue-100">
             <span className="font-bold text-blue-800 text-lg">Total Bayar</span>
             <span className="text-2xl sm:text-3xl font-bold text-blue-900">Rp {order?.total_amount.toLocaleString("id-ID")}</span>
           </div>

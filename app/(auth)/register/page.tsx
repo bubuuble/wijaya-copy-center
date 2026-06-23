@@ -52,14 +52,14 @@ export default function RegisterPage() {
     return (
       <div className="relative flex min-h-screen items-center justify-center overflow-hidden px-4">
         {/* Gradient Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-teal-50/50 to-amber-50" />
+        <div className="absolute inset-0 bg-linear-to-br from-blue-50 via-teal-50/50 to-amber-50" />
         
         {/* Floating Orbs */}
-        <div className="absolute top-20 left-20 w-72 h-72 bg-gradient-to-br from-blue-400/30 to-teal-400/30 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-20 right-20 w-80 h-80 bg-gradient-to-br from-amber-400/20 to-orange-400/20 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
+        <div className="absolute top-20 left-20 w-72 h-72 bg-linear-to-br from-blue-400/30 to-teal-400/30 rounded-full blur-3xl animate-float" />
+        <div className="absolute bottom-20 right-20 w-80 h-80 bg-linear-to-br from-amber-400/20 to-orange-400/20 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
 
         <Card className="relative w-full max-w-md p-8 text-center glass border-2 border-blue-500/20 shadow-2xl animate-slide-up">
-          <div className="mx-auto bg-gradient-to-br from-blue-500 to-teal-600 w-20 h-20 rounded-full flex items-center justify-center mb-6 shadow-lg shadow-blue-200">
+          <div className="mx-auto bg-linear-to-br from-blue-500 to-teal-600 w-20 h-20 rounded-full flex items-center justify-center mb-6 shadow-lg shadow-blue-200">
             <CheckCircle className="text-white h-12 w-12" />
           </div>
           <h2 className="text-3xl font-bold text-slate-900 mb-3">Akun Berhasil Dibuat!</h2>
@@ -77,16 +77,16 @@ export default function RegisterPage() {
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden px-4">
       {/* Gradient Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-blue-50/40 to-teal-50/60" />
+      <div className="absolute inset-0 bg-linear-to-br from-slate-50 via-blue-50/40 to-teal-50/60" />
       
       {/* Floating Decorative Orbs */}
-      <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-blue-400/20 to-teal-400/20 rounded-full blur-3xl animate-float" />
-      <div className="absolute bottom-0 right-0 w-80 h-80 bg-gradient-to-br from-amber-400/20 to-orange-400/20 rounded-full blur-3xl animate-float" style={{ animationDelay: '3s' }} />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-gradient-to-br from-purple-400/10 to-pink-400/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '1.5s' }} />
+      <div className="absolute top-0 left-0 w-96 h-96 bg-linear-to-br from-blue-400/20 to-teal-400/20 rounded-full blur-3xl animate-float" />
+      <div className="absolute bottom-0 right-0 w-80 h-80 bg-linear-to-br from-amber-400/20 to-orange-400/20 rounded-full blur-3xl animate-float" style={{ animationDelay: '3s' }} />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-linear-to-br from-purple-400/10 to-pink-400/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '1.5s' }} />
 
       <Card className="relative w-full max-w-md glass border-2 border-blue-500/20 shadow-2xl overflow-hidden animate-slide-up">
         {/* Top Accent */}
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-teal-500 to-blue-500" />
+        <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-blue-500 via-teal-500 to-blue-500" />
         
         <CardHeader className="text-center pt-8 pb-6">
           <div className="mx-auto w-32 h-16 rounded-2xl flex items-center justify-center mb-4 animate-float relative">

@@ -41,13 +41,13 @@ export default async function ProductsPage() {
   ) as string[];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/20 to-amber-50/20 pb-20">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50/20 to-amber-50/20 pb-20">
       {/* Header Halaman */}
       <div className="relative overflow-hidden glass border-b border-white/40">
         {/* Decorative background */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-50">
-          <div className="absolute -top-20 -right-20 w-64 h-64 bg-gradient-to-br from-blue-400/30 to-cyan-400/30 rounded-full blur-3xl" />
-          <div className="absolute top-10 -left-20 w-48 h-48 bg-gradient-to-br from-amber-400/20 to-orange-400/20 rounded-full blur-3xl" />
+          <div className="absolute -top-20 -right-20 w-64 h-64 bg-linear-to-br from-blue-400/30 to-cyan-400/30 rounded-full blur-3xl" />
+          <div className="absolute top-10 -left-20 w-48 h-48 bg-linear-to-br from-amber-400/20 to-orange-400/20 rounded-full blur-3xl" />
         </div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 relative z-10">
@@ -91,7 +91,7 @@ export default async function ProductsPage() {
               className="group overflow-hidden border-none shadow-lg hover-lift flex flex-col animate-fade-in" 
               style={{ animationDelay: `${index * 50}ms` }}
             >
-              <div className="relative h-48 w-full bg-gradient-to-br from-blue-100 to-cyan-50">
+              <div className="relative h-48 w-full bg-linear-to-br from-blue-100 to-cyan-50">
                 {product.imageUrl ? (
                   <Image 
                     src={product.imageUrl} 
@@ -139,7 +139,7 @@ export default async function ProductsPage() {
         {/* State jika produk kosong */}
         {products.length === 0 && (
           <div className="text-center py-20 glass rounded-3xl border-2 border-dashed border-blue-200 animate-fade-in">
-            <div className="bg-gradient-to-br from-blue-500 to-cyan-600 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-blue-200">
+            <div className="bg-linear-to-br from-blue-500 to-cyan-600 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-blue-200">
               <Filter className="h-8 w-8 text-white" />
             </div>
             <h3 className="text-xl font-bold text-slate-900 mb-2">Belum ada Produk</h3>

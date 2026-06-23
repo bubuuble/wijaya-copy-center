@@ -150,7 +150,7 @@ export default async function AdminDashboard() {
               <CardTitle className="text-[11px] sm:text-xs font-semibold text-slate-500 leading-tight">
                 {stat.label}
               </CardTitle>
-              <div className="p-2 sm:p-3 bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl group-hover:scale-110 transition-transform duration-300">
+              <div className="p-2 sm:p-3 bg-linear-to-br from-blue-50 to-cyan-50 rounded-2xl group-hover:scale-110 transition-transform duration-300">
                 {stat.icon}
               </div>
             </CardHeader>
@@ -168,7 +168,7 @@ export default async function AdminDashboard() {
           <div className="flex flex-col sm:flex-row justify-between items-start gap-3 sm:gap-6 mb-4 sm:mb-6">
             <div className="min-w-0">
               <CardTitle className="text-lg sm:text-2xl font-display font-bold text-slate-900 flex items-center gap-2 sm:gap-3">
-                <div className="p-2 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-xl shrink-0">
+                <div className="p-2 bg-linear-to-br from-blue-500 to-cyan-400 rounded-xl shrink-0">
                   <TrendingUp className="text-white" size={16} strokeWidth={2.5} />
                 </div>
                 Statistik Pendapatan
