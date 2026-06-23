@@ -59,7 +59,7 @@ export default function CustomerChatWidget() {
         <Card className="fixed bottom-24 right-6 z-50 w-[360px] max-w-[calc(100vw-3rem)] rounded-2xl overflow-hidden shadow-2xl border-blue-200/50 animate-slide-up">
           {/* Header */}
           <div className="bg-slate-900 text-white p-4 flex items-center gap-3">
-            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-400 to-cyan-400 flex items-center justify-center text-white font-bold text-sm shrink-0">
+            <div className="w-9 h-9 rounded-full bg-linear-to-br from-blue-400 to-cyan-400 flex items-center justify-center text-white font-bold text-sm shrink-0">
               {ownerName.charAt(0).toUpperCase()}
             </div>
             <div className="flex-1 min-w-0">

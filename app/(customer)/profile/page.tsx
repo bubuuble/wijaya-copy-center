@@ -193,5 +193,5 @@ export default function ProfilePage() {
 
 // Komponen Separator sederhana (jika tidak ada dari shadcn)
 function Separator({className}: {className?: string}) {
-  return <div className={`h-[1px] bg-slate-100 w-full ${className}`} />
+  return <div className={`h-px bg-slate-100 w-full ${className}`} />
 }

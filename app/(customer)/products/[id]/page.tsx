@@ -146,7 +146,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
               </Label>
               <Input 
                 type="file" 
-                className="h-12 border-2 [&::file-selector-button]:border-r [&::file-selector-button]:border-slate-300 [&::file-selector-button]:pr-3 [&::file-selector-button]:mr-3" 
+                className="h-12 border-2 file:border-r [&::file-selector-button]:border-slate-300 [&::file-selector-button]:pr-3 [&::file-selector-button]:mr-3" 
                 onChange={(e) => {
                   const selectedFile = e.target.files?.[0] || null;
                   if (selectedFile && selectedFile.size > 50 * 1024 * 1024) {

@@ -186,7 +186,7 @@ export default function OwnerChatPage() {
   return (
     <div className="p-4 md:p-6 lg:p-8 h-[calc(100vh-2rem)] animate-fade-in">
       <div className="flex items-center gap-3 mb-6">
-        <div className="p-2 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-xl">
+        <div className="p-2 bg-linear-to-br from-blue-500 to-cyan-400 rounded-xl">
           <MessageCircle className="text-white" size={20} strokeWidth={2.5} />
         </div>
         <div>
@@ -232,7 +232,7 @@ export default function OwnerChatPage() {
                         : ""
                     }`}
                   >
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center text-white font-bold text-sm shrink-0">
+                    <div className="w-10 h-10 rounded-full bg-linear-to-br from-blue-500 to-cyan-400 flex items-center justify-center text-white font-bold text-sm shrink-0">
                       {user.username?.charAt(0).toUpperCase() || "?"}
                     </div>
                     <div className="min-w-0 flex-1">
@@ -274,7 +274,7 @@ export default function OwnerChatPage() {
             <>
               {/* Header Chat */}
               <div className="bg-slate-900 text-white p-4 flex items-center gap-3">
-                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-400 to-cyan-400 flex items-center justify-center text-white font-bold text-sm shrink-0">
+                <div className="w-9 h-9 rounded-full bg-linear-to-br from-blue-400 to-cyan-400 flex items-center justify-center text-white font-bold text-sm shrink-0">
                   {selectedUser.username?.charAt(0).toUpperCase() || "?"}
                 </div>
                 <div>

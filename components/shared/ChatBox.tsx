@@ -217,7 +217,7 @@ export default function ChatBox({
                         {partnerName}
                       </p>
                     )}
-                    <p className="text-sm leading-relaxed break-words">
+                    <p className="text-sm leading-relaxed wrap-break-word">
                       {msg.content}
                     </p>
                     <p

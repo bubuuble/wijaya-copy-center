@@ -106,7 +106,7 @@ export default function RekapKeuangan() {
       : presetLabels[preset];
 
   return (
-    <Card className="rounded-3xl border-none bg-gradient-to-br from-blue-600 via-blue-500 to-cyan-500 p-6 sm:p-8 text-white flex flex-col justify-between shadow-2xl shadow-blue-500/30 hover-lift overflow-hidden relative">
+    <Card className="rounded-3xl border-none bg-linear-to-br from-blue-600 via-blue-500 to-cyan-500 p-6 sm:p-8 text-white flex flex-col justify-between shadow-2xl shadow-blue-500/30 hover-lift overflow-hidden relative">
       {/* Decorative Elements */}
       <div className="absolute -top-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-2xl" />
       <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-amber-400/20 rounded-full blur-2xl" />

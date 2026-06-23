@@ -3,14 +3,36 @@ import Image from "next/image";
 import { 
   Phone, 
   MapPin, 
-  Instagram,
 
   Heart
 } from "lucide-react";
 
+// Local SVG component for Instagram icon (removed in lucide-react v1)
+function Instagram(props: React.ComponentProps<"svg"> & { size?: number }) {
+  const { size = 24, ...rest } = props;
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={props.strokeWidth ?? 2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...rest}
+    >
+      <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+    </svg>
+  );
+}
+
 export default function Footer() {
   return (
-    <footer className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-blue-950 text-slate-300 overflow-hidden">
+    <footer className="relative bg-linear-to-br from-slate-900 via-slate-800 to-blue-950 text-slate-300 overflow-hidden">
       {/* Decorative Background */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500 rounded-full blur-3xl" />
@@ -33,7 +55,7 @@ export default function Footer() {
             <div className="flex gap-3">
               <Link 
                 href="#" 
-                className="p-3 bg-slate-800 hover:bg-gradient-to-br hover:from-blue-500 hover:to-cyan-400 border border-slate-700 hover:border-transparent rounded-2xl text-slate-400 hover:text-white transition-all duration-300 hover:scale-110 hover:shadow-xl hover:shadow-blue-500/30"
+                className="p-3 bg-slate-800 hover:bg-linear-to-br hover:from-blue-500 hover:to-cyan-400 border border-slate-700 hover:border-transparent rounded-2xl text-slate-400 hover:text-white transition-all duration-300 hover:scale-110 hover:shadow-xl hover:shadow-blue-500/30"
               >
                 <Instagram size={20} strokeWidth={2} />
               </Link>
